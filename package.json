@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/DanielAraldi/clean-node-api/issues"
   },
-  "homepage": "https://github.com/DanielAraldi/clean-node-api#readme"
+  "homepage": "https://github.com/DanielAraldi/clean-node-api#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^3.0.0"
+  }
 }
