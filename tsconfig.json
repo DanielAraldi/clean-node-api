@@ -4,6 +4,6 @@
         "module": "CommonJS", // Type imports, no require
         "target": "ES2019", 
         "esModuleInterop": true, // Converts modules that do not use commonjs
-        "allowJs": true, // Add on dist config .js files 
+        "allowJs": true, // Add on dist .js files config 
     }
 }
