@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/DanielAraldi/clean-node-api#readme",
   "devDependencies": {
-    "git-commit-msg-linter": "^3.0.0"
+    "@types/node": "^14.14.25",
+    "git-commit-msg-linter": "^3.0.0",
+    "typescript": "^4.1.4"
   }
 }
