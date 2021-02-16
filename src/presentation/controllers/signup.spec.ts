@@ -11,7 +11,8 @@ describe('SignUp Controller', () => { // Controller name being tested
             }
         }
         const httpResponse = sut.handle(httpRequest)
-        // Must return status code 400 
-        expect(httpResponse.statusCode).toBe(400)
+        // Expect return status code 400 
+        expect(httpResponse.statusCode).toBe(400) // toBe: Checks whether the value data in the object is identical
+        expect(httpResponse.body).toEqual(new Error('Missing param: name')) // toEqual: Checks if the values ​​are equal 
     })
 })
