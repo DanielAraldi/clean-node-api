@@ -4,7 +4,7 @@
 
 - [x] Introdução
 - [x] Bônus
-- [ ] SignUp API - Presentation Layer
+- [x] SignUp API - Presentation Layer
 - [ ] Jest
 - [ ] Utils Layer
 - [ ] SignUp API - Data Layer
