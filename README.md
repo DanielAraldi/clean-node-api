@@ -1,11 +1,11 @@
-# Studing... 👨‍💻
+# Studying... 👨‍💻
 
 ## Lessons Taken 👨‍🏫
 
 - [x] Introdução
 - [x] Bônus
 - [x] SignUp API - Presentation Layer
-- [ ] Jest
+- [x] Jest
 - [ ] Utils Layer
 - [ ] SignUp API - Data Layer
 - [ ] SignUp API - Infra Layer
