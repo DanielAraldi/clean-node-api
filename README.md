@@ -7,7 +7,7 @@
 - [x] SignUp API - Presentation Layer
 - [x] Jest
 - [x] Utils Layer
-- [ ] SignUp API - Data Layer
+- [x] SignUp API - Data Layer
 - [ ] SignUp API - Infra Layer
 - [ ] SignUp API - Main Layer
 - [ ] Bônus
