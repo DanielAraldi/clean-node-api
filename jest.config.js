@@ -1,14 +1,15 @@
 module.exports = {
   // Performs test coverage
-  roots: ['<rootDir>/src'],
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'], // Where jest will be applied
-  coverageDirectory: 'coverage',
-  coverageProvider: 'v8',
-  testEnvironment: 'node',
+  roots: ["<rootDir>/src"],
+  collectCoverageFrom: ["<rootDir>/src/**/*.ts"], // Where jest will be applied
+  coverageDirectory: "coverage",
+  coverageProvider: "v8",
+  testEnvironment: "node",
+  preset: "@shelf/jest-mongodb",
   transform: {
     // add to any text that has .ts the ts-jest, converted for ts to js
-    '.+\\.ts$': 'ts-jest'
-  }
+    ".+\\.ts$": "ts-jest",
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
@@ -27,4 +28,4 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-}
+};
