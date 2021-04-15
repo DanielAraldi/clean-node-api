@@ -1,7 +1,7 @@
 module.exports = {
   // Performs test coverage
   roots: ["<rootDir>/src"],
-  collectCoverageFrom: ["<rootDir>/src/**/*.ts"], // Where jest will be applied
+  collectCoverageFrom: ["<rootDir>/src/**/*.ts", "!<rootDir>/src/main/**"], // Where jest will be applied
   coverageDirectory: "coverage",
   coverageProvider: "v8",
   testEnvironment: "node",
