@@ -10,7 +10,7 @@
 - [x] SignUp API - Data Layer
 - [x] SignUp API - Infra Layer
 - [x] SignUp API - Main Layer
-- [ ] Bônus
+- [x] Bônus
 - [ ] Login API - Presentation Layer
 - [ ] Login API - Data Layer
 - [ ] Bônus
