@@ -105,3 +105,6 @@ dist
 
 # Ignore coverage
 coverage
+
+# Ignore .husky
+.husky
