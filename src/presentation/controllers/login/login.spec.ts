@@ -10,7 +10,7 @@ import {
   ok,
   serverError,
   unauthorized,
-} from "../../helpers/http-helper";
+} from "../../helpers/http/http-helper";
 import { MissingParamError } from "../../errors";
 
 const makeAuthentication = (): Authentication => {
