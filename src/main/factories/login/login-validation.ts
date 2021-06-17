@@ -1,7 +1,9 @@
-import { ValidationComposite } from "../../../presentation/helpers/validators/validation-composite";
-import { Validation } from "../../../presentation/helpers/validators/validation";
-import { EmailValidation } from "../../../presentation/helpers/validators/email-validation";
-import { RequiredFieldValidation } from "../../../presentation/helpers/validators/required-field-validation";
+import {
+  ValidationComposite,
+  EmailValidation,
+  RequiredFieldValidation,
+} from "../../../presentation/helpers/validators";
+import { Validation } from "../../../presentation/protocols/validation";
 import { EmailValidatorAdapter } from "../../../utils/email-validator-adapter";
 
 export const makeLoginValidation = (): ValidationComposite => {
