@@ -13,7 +13,7 @@
 - [x] Bônus
 - [x] Login API - Presentation Layer
 - [x] Login API - Data Layer
-- [ ] Bônus
+- [x] Bônus
 - [ ] Login API - Infra Layer
 - [ ] Login API - Main Layer
 - [ ] Bônus
