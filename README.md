@@ -14,7 +14,7 @@
 - [x] Login API - Presentation Layer
 - [x] Login API - Data Layer
 - [x] Bônus
-- [ ] Login API - Infra Layer
+- [x] Login API - Infra Layer
 - [ ] Login API - Main Layer
 - [ ] Bônus
 - [ ] SignUp API - Ajustes
