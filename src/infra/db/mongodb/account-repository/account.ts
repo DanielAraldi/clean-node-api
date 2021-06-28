@@ -1,10 +1,10 @@
-import { LoadAccountByEmailRepository } from "../../../../data/protocols/db/load-account-by-email-repository";
-import { UpdateAccessTokenRepository } from "../../../../data/protocols/db/update-access-token-repository";
 import {
   AccountModel,
   AddAccountModel,
   AddAccountRepository,
+  LoadAccountByEmailRepository,
   MongoHelper,
+  UpdateAccessTokenRepository,
 } from "./account-protocols";
 
 export class AccountMongoRepository
