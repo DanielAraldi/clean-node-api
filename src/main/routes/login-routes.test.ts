@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "../config/app";
 import { MongoHelper } from "../../infra/db/mongodb/helpers/mongodb-helper";
 
-describe("SignUp Routes", () => {
+describe("Login Routes", () => {
   beforeAll(async () => {
     // Before all tests connect to mongodb
     await MongoHelper.connect(process.env.MONGO_URL);
@@ -18,14 +18,16 @@ describe("SignUp Routes", () => {
     await accountCollection.deleteMany({}); // Delete all register of the table
   });
 
-  test("Should return an account on success", async () =>
-    await request(app)
-      .post("/api/signup")
-      .send({
-        name: "Daniel",
-        email: "daniel@gmail.com",
-        password: "123",
-        passwordConfirmation: "123",
-      })
-      .expect(200));
+  describe("POST /signup Routes", () => {
+    test("Should return 200 on signup", async () =>
+      await request(app)
+        .post("/api/signup")
+        .send({
+          name: "Daniel",
+          email: "daniel@gmail.com",
+          password: "123",
+          passwordConfirmation: "123",
+        })
+        .expect(200));
+  });
 });
