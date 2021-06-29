@@ -1,10 +1,10 @@
-import { LoginController } from "./login";
+import { LoginController } from "./login-controller";
 import {
   Authentication,
   HttpRequest,
   HttpResponse,
   Validation,
-} from "./login-protocols";
+} from "./login-controller-protocols";
 import {
   badRequest,
   ok,

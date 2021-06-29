@@ -5,7 +5,7 @@ import {
   LoadAccountByEmailRepository,
   MongoHelper,
   UpdateAccessTokenRepository,
-} from "./account-protocols";
+} from "./account-mongo-repository-protocols";
 
 export class AccountMongoRepository
   implements

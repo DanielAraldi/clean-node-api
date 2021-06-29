@@ -1,4 +1,4 @@
-import { makeSignUpValidation } from "./signup-validation";
+import { makeSignUpValidation } from "./signup-validation-factory";
 import { Validation } from "../../../presentation/protocols/validation";
 import {
   RequiredFieldValidation,
