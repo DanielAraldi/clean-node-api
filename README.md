@@ -15,7 +15,7 @@
 - [x] Login API - Data Layer
 - [x] Bônus
 - [x] Login API - Infra Layer
-- [ ] Login API - Main Layer
+- [x] Login API - Main Layer
 - [ ] Bônus
 - [ ] SignUp API - Ajustes
 - [ ] AddSurvey API
