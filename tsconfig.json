@@ -4,6 +4,7 @@
         "module": "CommonJS", // Type imports, no require
         "target": "ES2019", 
         "esModuleInterop": true, // Converts modules that do not use commonjs
+        "skipLibCheck": true,
     },
     "include": ["src"],
     "exclude": ["**/*.spec.ts", "**/*.test.ts"],
