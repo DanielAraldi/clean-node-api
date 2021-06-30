@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json", // Extends all from tsconfig.json
+  "exclude": [], // Override exclude from tsconfig.json
+}
