@@ -1,5 +1,17 @@
+# Node.js
 node_modules
+
+# Build
 dist
+
+# Jest
 coverage
+
+# VSCode
 .vscode
+
+# Husky
 .husky
+
+# Docker
+data
