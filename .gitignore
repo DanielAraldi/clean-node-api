@@ -103,11 +103,14 @@ dist
 # TernJS port file
 .tern-port
 
-# Ignore coverage
+# Jest
 coverage
 
-# Ignore .husky
+# Husky
 .husky
 
 # VSCode
 .vscode
+
+# Docker
+data
