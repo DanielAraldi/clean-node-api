@@ -28,7 +28,7 @@ services:
     command: npm run start
     # WORKDIR path of project build
     volumes:
-      - ./dist:/usr/src/clean-node-api
+      - ./dist:/usr/src/clean-node-api/dist
     ports:
       - "3333:3333"
     # Link access api with mongo
