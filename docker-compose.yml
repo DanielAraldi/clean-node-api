@@ -25,12 +25,14 @@ services:
     # When build exists, to name the container use the image tag
     image: clean-node-api
     restart: always
-    command: npm run start
+    command: npm run debug
     # WORKDIR path of project build
     volumes:
       - ./dist:/usr/src/clean-node-api/dist
+      - ./package.json:/usr/src/clean-node-api/package.json
     ports:
       - "3333:3333"
+      - "9222:9222"
     # Link access api with mongo
     links:
       - mongo
