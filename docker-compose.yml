@@ -20,12 +20,13 @@ services:
   # Up clean-node-api
   api:
     container_name: api-container
-    # Informs Dockerfile way, that generates are image
-    build: .
-    # When build exists, to name the container use the image tag
-    image: clean-node-api
+    # Docker node version
+    image: node:14
+    # local dir from project
+    working_dir: /usr/src/clean-node-api
     restart: always
-    command: npm run debug
+    # Install only production dependencies and before run debug
+    command: bash -c "npm install --only=prod && npm run debug"
     # WORKDIR path of project build
     volumes:
       - ./dist:/usr/src/clean-node-api/dist
