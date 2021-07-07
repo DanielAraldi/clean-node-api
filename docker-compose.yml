@@ -25,11 +25,13 @@ services:
     # local dir from project
     working_dir: /usr/src/clean-node-api
     restart: always
-    # Install only production dependencies and before run debug
+    # Install only production dependencies and before run debug (on final)
     command: bash -c "npm install --only=prod && npm run debug"
     # WORKDIR path of project build
     volumes:
-      - ./dist:/usr/src/clean-node-api/dist
+      # The last "/" means that whatever is fixed, as in the
+      # container's dist
+      - ./dist/:/usr/src/clean-node-api/dist/
       - ./package.json:/usr/src/clean-node-api/package.json
     ports:
       - "3333:3333"

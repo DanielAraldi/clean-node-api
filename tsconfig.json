@@ -10,6 +10,7 @@
       this helps to find the location of the file to debug
     */
     "sourceMap": true,
+    "rootDir": "src",
   },
   "include": ["src"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
