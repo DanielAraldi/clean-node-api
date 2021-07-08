@@ -1,6 +1,6 @@
-# **Studying... 👨‍💻**
+# **Estudando... 👨‍💻**
 
-> ## Lessons Taken 👨‍🏫
+> ## Aulas Feitas 👨‍🏫
 
 - ✅ Introdução
 - ✅ Bônus
