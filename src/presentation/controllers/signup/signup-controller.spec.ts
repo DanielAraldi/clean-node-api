@@ -6,6 +6,7 @@ import {
   AddAccountModel,
   Authentication,
   AuthenticationModel,
+  HttpResponse,
   HttpRequest,
   Validation,
 } from "./signup-controller-protocols";
@@ -131,5 +132,16 @@ describe("SignUp Controller", () => {
       email: "any_email@mail.com",
       password: "any_password",
     });
+  });
+
+  test("Should returns 500 if Authentication throws", async () => {
+    const { sut, authenticationStub } = makeSut();
+    jest
+      .spyOn(authenticationStub, "auth")
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error()))
+      );
+    const httpResponse: HttpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(serverError(new Error()));
   });
 });
