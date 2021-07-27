@@ -114,3 +114,6 @@ coverage
 
 # Docker
 data
+
+# Not ignore files in
+!src/data
