@@ -16,8 +16,10 @@ export class AccountMongoRepository
   async add(accountData: AddAccountModel): Promise<AccountModel> {
     const accountCollection = await MongoHelper.getCollection("accounts");
     const result = await accountCollection.insertOne(accountData);
-    // result.ops[0] is return first result operator
-    return MongoHelper.map(result.ops[0]);
+    const account = await accountCollection.findOne({
+      _id: result.insertedId,
+    });
+    return MongoHelper.map(account);
   }
 
   async loadByEmail(email: string): Promise<AccountModel> {
