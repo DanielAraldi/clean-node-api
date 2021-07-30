@@ -64,7 +64,9 @@ describe("Account Mongo Repository", () => {
       email: "any_email@mail.com",
       password: "any_password",
     });
-    const fakeAccount = res.ops[0];
+    const fakeAccount = await accountCollection.findOne({
+      _id: res.insertedId,
+    });
     expect(fakeAccount.accessToken).toBeFalsy();
     await sut.updateAccessToken(fakeAccount._id, "any_token");
     const account = await accountCollection.findOne({ _id: fakeAccount._id });
