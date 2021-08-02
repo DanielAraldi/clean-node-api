@@ -17,7 +17,7 @@
 - ✅ Login API - Infra Layer
 - ✅ Login API - Main Layer
 - ✅ Bônus
-- ⛔️ SignUp API - Ajustes
+- ✅ SignUp API - Ajustes
 - ⛔️ AddSurvey API
 - ⛔️ Criando Middleware de Autenticação
 - ⛔️ Bônus
