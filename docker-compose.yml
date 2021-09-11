@@ -4,7 +4,7 @@ version: "3"
 services:
   # Container name that be creted
   mongo:
-    # Name container
+    # Container name
     container_name: mongo-container
     # This container will come from this image
     # mongodb version 4
