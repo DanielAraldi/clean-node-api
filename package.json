@@ -23,7 +23,7 @@
   },
   "keywords": [],
   "author": "Daniel Sansão Araldi",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/DanielAraldi/clean-node-api/issues"
   },
