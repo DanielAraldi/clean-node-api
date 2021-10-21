@@ -37,7 +37,7 @@
 		"promise/param-names": "off",
 		"comma-dangle": ["error", {
 			"objects": "always-multiline",
-			"arrays": "ignore",
+			"arrays": "only-multiline",
 			"imports": "always-multiline"
 		}],
 		"semi": ["error", "always"],
