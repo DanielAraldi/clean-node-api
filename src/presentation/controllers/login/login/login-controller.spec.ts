@@ -10,9 +10,9 @@ import {
   ok,
   serverError,
   unauthorized,
-} from "../../helpers/http/http-helper";
-import { MissingParamError } from "../../errors";
-import { AuthenticationModel } from "../../../domain/usecases/authentication";
+} from "../../../helpers/http/http-helper";
+import { MissingParamError } from "../../../errors";
+import { AuthenticationModel } from "../../../../domain/usecases/authentication";
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
