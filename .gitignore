@@ -106,9 +106,6 @@ dist
 # Jest
 coverage
 
-# Husky
-.husky
-
 # VSCode
 .vscode
 
