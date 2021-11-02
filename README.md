@@ -3,30 +3,33 @@
 > ## Aulas Feitas 👨‍🏫
 
 - ✅ Introdução
-- ✅ Bônus
 - ✅ SignUp API - Presentation Layer
 - ✅ Jest
 - ✅ Utils Layer
 - ✅ SignUp API - Data Layer
 - ✅ SignUp API - Infra Layer
 - ✅ SignUp API - Main Layer
-- ✅ Bônus
+- ✅ Log de Erro
 - ✅ Login API - Presentation Layer
 - ✅ Login API - Data Layer
-- ✅ Bônus
+- ✅ Segurança - Hasgh/Encrypt/Encode
 - ✅ Login API - Infra Layer
 - ✅ Login API - Main Layer
-- ✅ Bônus
+- ✅ Docker
 - ✅ SignUp API - Ajustes
-- ⛔️ AddSurvey API
+- ✅ AddSurvey API
 - ⛔️ Criando Middleware de Autenticação
-- ⛔️ Bônus
+- ⛔️ CI/CD
 - ⛔️ LoadSurveys API
-- ⛔️ Bônus
+- ⛔️ Paths no Typescript
 - ⛔️ SaveSurveyResult API
 - ⛔️ Refactor
-- ⛔️ Bônus - Swagger
+- ⛔️ Swagger
 - ⛔️ LoadSurveyResult API
+- ⛔️ Refactor
+- ⛔️ Melhorando a Arquitetura
+- ⛔️ GraphQL
+- ⛔️ Atualizando Libs
 
 # **Clean Node API**
 
