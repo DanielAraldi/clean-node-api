@@ -21,7 +21,7 @@ services:
   api:
     container_name: api-container
     # Docker node version
-    image: node:16
+    image: node:14
     # local dir from project
     working_dir: /usr/src/clean-node-api
     restart: always
