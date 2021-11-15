@@ -8,18 +8,16 @@ let accountCollection: Collection;
 
 describe("Login Routes", () => {
   beforeAll(async () => {
-    // Before all tests connect to mongodb
     await MongoHelper.connect(process.env.MONGO_URL);
   });
 
   afterAll(async () => {
-    // After all tests disconnect to mongodb
     await MongoHelper.disconnect();
   });
 
   beforeEach(async () => {
     accountCollection = await MongoHelper.getCollection("accounts");
-    await accountCollection.deleteMany({}); // Delete all register of the table
+    await accountCollection.deleteMany({});
   });
 
   describe("POST /signup", () => {
