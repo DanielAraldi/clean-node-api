@@ -12,7 +12,7 @@
 - ✅ Log de Erro
 - ✅ Login API - Presentation Layer
 - ✅ Login API - Data Layer
-- ✅ Segurança - Hasgh/Encrypt/Encode
+- ✅ Segurança - Hash/Encrypt/Encode
 - ✅ Login API - Infra Layer
 - ✅ Login API - Main Layer
 - ✅ Docker
