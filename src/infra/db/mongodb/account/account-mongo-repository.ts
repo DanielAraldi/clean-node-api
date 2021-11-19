@@ -32,8 +32,9 @@ export class AccountMongoRepository
 
   async updateAccessToken(id: string, token: string): Promise<void> {
     const accountCollection = await MongoHelper.getCollection("accounts");
+    const accountId = MongoHelper.toObjectId(id);
     await accountCollection.updateOne(
-      { _id: id },
+      { _id: accountId },
       { $set: { accessToken: token } }
     );
   }
