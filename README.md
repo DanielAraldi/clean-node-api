@@ -18,7 +18,7 @@
 - ✅ Docker
 - ✅ SignUp API - Ajustes
 - ✅ AddSurvey API
-- ⛔️ Criando Middleware de Autenticação
+- ✅ Criando Middleware de Autenticação
 - ⛔️ CI/CD
 - ⛔️ LoadSurveys API
 - ⛔️ Paths no Typescript
