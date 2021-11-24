@@ -1,8 +1,9 @@
 # project language
 language: node_js
 # nodejs version
-node_js: 14
+node_js: 
+  - 14
 # can receive multiple scripts
 script:
-  eslint 'src/**'
-	npm run test:coveralls
+  - eslint 'src/**'
+	- npm run test:coveralls
