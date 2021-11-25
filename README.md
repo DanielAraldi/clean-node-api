@@ -1,3 +1,6 @@
+[![Build Status](https://app.travis-ci.com/DanielAraldi/clean-node-api.svg?branch=main)](https://app.travis-ci.com/DanielAraldi/clean-node-api)
+[![Coverage Status](https://coveralls.io/repos/github/DanielAraldi/clean-node-api/badge.svg)](https://coveralls.io/github/DanielAraldi/clean-node-api)
+
 # **Estudando... 👨‍💻**
 
 > ## Aulas Feitas 👨‍🏫
@@ -19,7 +22,7 @@
 - ✅ SignUp API - Ajustes
 - ✅ AddSurvey API
 - ✅ Criando Middleware de Autenticação
-- ⛔️ CI/CD
+- ✅ CI/CD
 - ⛔️ LoadSurveys API
 - ⛔️ Paths no Typescript
 - ⛔️ SaveSurveyResult API
