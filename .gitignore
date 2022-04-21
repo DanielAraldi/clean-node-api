@@ -114,3 +114,6 @@ data
 
 # Not ignore files in
 !src/data
+
+# CI
+.coveralls.yml
