@@ -1,5 +1,5 @@
-[![Build Status](https://app.travis-ci.com/DanielAraldi/clean-node-api.svg?branch=main)](https://app.travis-ci.com/DanielAraldi/clean-node-api)
 [![Coverage Status](https://coveralls.io/repos/github/DanielAraldi/clean-node-api/badge.svg)](https://coveralls.io/github/DanielAraldi/clean-node-api)
+[![wakatime](https://wakatime.com/badge/user/920a7e43-2969-4212-82ff-1b375685ff58/project/aa2b6b4a-f3d6-4ae6-a2e3-8eeb25e31f91.svg)](https://wakatime.com/badge/user/920a7e43-2969-4212-82ff-1b375685ff58/project/aa2b6b4a-f3d6-4ae6-a2e3-8eeb25e31f91)
 
 # **Estudando... 👨‍💻**
 
