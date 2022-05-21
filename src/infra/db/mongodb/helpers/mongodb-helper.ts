@@ -21,12 +21,19 @@ export const MongoHelper = {
     return this.client.db().collection(name);
   },
 
-  map: (collection: any): any => {
+  assign: <T>(collection: any): T => {
     const { _id, ...collectionWithoutId } = collection;
     return Object.assign({}, collectionWithoutId, { id: _id });
   },
 
   toObjectId: (id: string): ObjectId => {
     return new ObjectId(id);
+  },
+
+  map: <T>(collections: any[]): T[] => {
+    return collections.map((collection) => {
+      const { _id, ...collectionWithoutId } = collection;
+      return Object.assign({}, collectionWithoutId, { id: _id });
+    });
   },
 };

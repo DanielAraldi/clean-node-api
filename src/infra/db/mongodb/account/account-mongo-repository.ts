@@ -21,13 +21,13 @@ export class AccountMongoRepository
     const account = await accountCollection.findOne({
       _id: result.insertedId,
     });
-    return MongoHelper.map(account);
+    return MongoHelper.assign<AccountModel>(account);
   }
 
   async loadByEmail(email: string): Promise<AccountModel> {
     const accountCollection = await MongoHelper.getCollection("accounts");
     const account = await accountCollection.findOne({ email: email });
-    return account && MongoHelper.map(account);
+    return account && MongoHelper.assign<AccountModel>(account);
   }
 
   async updateAccessToken(id: string, token: string): Promise<void> {
@@ -45,6 +45,6 @@ export class AccountMongoRepository
       accessToken: token,
       $or: [{ role }, { role: "admin" }],
     });
-    return account && MongoHelper.map(account);
+    return account && MongoHelper.assign<AccountModel>(account);
   }
 }
