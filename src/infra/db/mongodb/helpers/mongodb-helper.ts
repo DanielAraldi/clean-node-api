@@ -16,7 +16,7 @@ export const MongoHelper = {
 
   async getCollection(name: string): Promise<Collection> {
     if (!this.client) {
-      await this.connect(this.uri);
+      await MongoHelper.connect(this.uri);
     }
     return this.client.db().collection(name);
   },
@@ -26,14 +26,8 @@ export const MongoHelper = {
     return Object.assign({}, collectionWithoutId, { id: _id });
   },
 
-  toObjectId: (id: string): ObjectId => {
-    return new ObjectId(id);
-  },
+  toObjectId: (id: string): ObjectId => new ObjectId(id),
 
-  map: <T>(collections: any[]): T[] => {
-    return collections.map((collection) => {
-      const { _id, ...collectionWithoutId } = collection;
-      return Object.assign({}, collectionWithoutId, { id: _id });
-    });
-  },
+  map: <T>(collections: any[]): T[] =>
+    collections.map((collection) => MongoHelper.assign<T>(collection)),
 };
