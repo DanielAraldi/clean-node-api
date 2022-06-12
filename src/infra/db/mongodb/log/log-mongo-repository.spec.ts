@@ -8,18 +8,16 @@ describe("Log Mongo Repository", () => {
   let errorCollection: Collection;
 
   beforeAll(async () => {
-    // Before all tests connect to mongodb
-    await MongoHelper.connect(process.env.MONGO_URL);
+    await MongoHelper.connect(process.env.MONGO_URL || "");
   });
 
   afterAll(async () => {
-    // After all tests disconnect to mongodb
     await MongoHelper.disconnect();
   });
 
   beforeEach(async () => {
     errorCollection = await MongoHelper.getCollection("errors");
-    await errorCollection.deleteMany({}); // Delete all register of the table
+    await errorCollection.deleteMany({});
   });
 
   test("Should create an error log on success", async () => {

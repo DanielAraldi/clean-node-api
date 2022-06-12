@@ -6,7 +6,7 @@ let accountCollection: Collection;
 
 describe("Account Mongo Repository", () => {
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL);
+    await MongoHelper.connect(process.env.MONGO_URL || "");
   });
 
   afterAll(async () => {
@@ -70,13 +70,16 @@ describe("Account Mongo Repository", () => {
       const fakeAccount = await accountCollection.findOne({
         _id: res.insertedId,
       });
-      expect(fakeAccount.accessToken).toBeFalsy();
-      await sut.updateAccessToken(fakeAccount._id.toString(), "any_token");
+      expect(fakeAccount?.accessToken).toBeFalsy();
+      await sut.updateAccessToken(
+        fakeAccount?._id?.toString() || "",
+        "any_token"
+      );
       const account = await accountCollection.findOne({
-        _id: fakeAccount._id,
+        _id: fakeAccount?._id,
       });
       expect(account).toBeTruthy();
-      expect(account.accessToken).toBe("any_token");
+      expect(account?.accessToken).toBe("any_token");
     });
   });
 
