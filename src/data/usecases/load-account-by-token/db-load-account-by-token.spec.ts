@@ -14,8 +14,8 @@ const makeFakeAccount = (): AccountModel => ({
 
 const makeDecrypter = (): Decrypter => {
   class DecrypterStub implements Decrypter {
-    async decrypt(token: string): Promise<string> {
-      return new Promise((resolve) => resolve("any_value"));
+    decrypt(token: string): string {
+      return "any_value";
     }
   }
   return new DecrypterStub();
@@ -58,9 +58,7 @@ describe("DbLoadAccountByToken Usecase", () => {
 
   test("Should return null if Decrypter returns null", async () => {
     const { decrypterStub, sut } = makeSut();
-    jest
-      .spyOn(decrypterStub, "decrypt")
-      .mockReturnValueOnce(new Promise((resolve) => resolve(null)));
+    jest.spyOn(decrypterStub, "decrypt").mockReturnValueOnce(null);
     const account = await sut.load("any_token", "any_role");
     expect(account).toBeNull();
   });
@@ -92,11 +90,9 @@ describe("DbLoadAccountByToken Usecase", () => {
 
   test("Should throw if Decrypter throws", async () => {
     const { sut, decrypterStub } = makeSut();
-    jest
-      .spyOn(decrypterStub, "decrypt")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error()))
-      );
+    jest.spyOn(decrypterStub, "decrypt").mockImplementationOnce(() => {
+      throw new Error();
+    });
     const promise = sut.load("any_token", "any_role");
     await expect(promise).rejects.toThrow();
   });
