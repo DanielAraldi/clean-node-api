@@ -23,7 +23,7 @@
 - ✅ AddSurvey API
 - ✅ Criando Middleware de Autenticação
 - ✅ CI/CD
-- ⛔️ LoadSurveys API
+- ✅ LoadSurveys API
 - ⛔️ Paths no Typescript
 - ⛔️ SaveSurveyResult API
 - ⛔️ Refactor
