@@ -9,7 +9,7 @@ interface SutTypes {
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
-    validate(input: any): Error {
+    validate(input: any): Error | null {
       return null;
     }
   }
@@ -45,6 +45,6 @@ describe("Validation Composite", () => {
   test("Should not return if validation succeds", () => {
     const { sut } = makeSut();
     const error = sut.validate({ field: "any_value" });
-    expect(error).toBeFalsy();
+    expect(error).toBeNull();
   });
 });
