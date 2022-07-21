@@ -24,7 +24,7 @@ export class AccountMongoRepository
     return MongoHelper.assign<AccountModel>(account);
   }
 
-  async loadByEmail(email: string): Promise<AccountModel> {
+  async loadByEmail(email: string): Promise<AccountModel | null> {
     const accountCollection = await MongoHelper.getCollection("accounts");
     const account = await accountCollection.findOne({ email: email });
     return account && MongoHelper.assign<AccountModel>(account);
@@ -39,7 +39,10 @@ export class AccountMongoRepository
     );
   }
 
-  async loadByToken(token: string, role?: string): Promise<AccountModel> {
+  async loadByToken(
+    token: string,
+    role?: string
+  ): Promise<AccountModel | null> {
     const accountCollection = await MongoHelper.getCollection("accounts");
     const account = await accountCollection.findOne({
       accessToken: token,
