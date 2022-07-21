@@ -14,7 +14,7 @@ const makeFakeAccount = (): AccountModel => ({
 
 const makeDecrypter = (): Decrypter => {
   class DecrypterStub implements Decrypter {
-    decrypt(token: string): string {
+    decrypt(token: string): string | null {
       return "any_value";
     }
   }
@@ -25,7 +25,10 @@ const makeLoadAccountByTokenRepository = (): LoadAccountByTokenRepository => {
   class LoadAccountByTokenRepositoryStub
     implements LoadAccountByTokenRepository
   {
-    async loadByToken(token: string, role?: string): Promise<AccountModel> {
+    async loadByToken(
+      token: string,
+      role?: string
+    ): Promise<AccountModel | null> {
       return new Promise((resolve) => resolve(makeFakeAccount()));
     }
   }
