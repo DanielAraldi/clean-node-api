@@ -1,4 +1,5 @@
-export * from "../errors";
-export * from "../helpers/http/http-helper";
-export * from "../protocols";
-export { LoadAccountByToken } from "../../domain/usecases/load-account-by-token";
+export { LoadAccountByToken } from "@/domain/usecases/load-account-by-token";
+export { AccountModel } from "@/domain/models/account";
+export * from "@/presentation/errors";
+export * from "@/presentation/helpers/http/http-helper";
+export * from "@/presentation/protocols";

@@ -1,7 +1,7 @@
 {
   "extends": "standard-with-typescript",
   "parserOptions": {
-    "project": "./tsconfig.eslint.json"
+    "project": "./tsconfig.json"
   },
   "rules": {
 		"@typescript-eslint/explicit-function-return-type": "off",
@@ -44,9 +44,10 @@
 		"promise/param-names": "off",
 		"node/no-path-concat": "off",
 		"comma-dangle": ["error", {
-			"objects": "always-multiline",
 			"arrays": "only-multiline",
-			"imports": "always-multiline"
+			"objects": "always-multiline",
+			"imports": "always-multiline",
+			"exports": "always-multiline"
 		}],
 		"new-cap": ["error", {
 			"newIsCap": false,

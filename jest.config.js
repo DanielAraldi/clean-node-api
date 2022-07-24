@@ -16,6 +16,10 @@ module.exports = {
     // add to any text that has .ts the ts-jest, converted for ts to js
     ".+\\.ts$": "ts-jest",
   },
+  moduleNameMapper: {
+    // allows jest to recognize tests that start with import with alias of "@/"
+    "@/(.*)": "<rootDir>/src/$1",
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
