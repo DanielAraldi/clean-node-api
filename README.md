@@ -24,7 +24,7 @@
 - ✅ Criando Middleware de Autenticação
 - ✅ CI/CD
 - ✅ LoadSurveys API
-- ⛔️ Paths no Typescript
+- ✅ Paths no Typescript
 - ⛔️ SaveSurveyResult API
 - ⛔️ Refactor
 - ⛔️ Swagger
