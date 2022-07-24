@@ -27,6 +27,9 @@ services:
     restart: always
     # Install only production dependencies and before run debug (on final)
     command: bash -c "npm install --only=prod && npm run debug"
+    # Set environment MONGO_URL to mongodb docker
+    environment: 
+      - MONGO_URL=mongodb://mongo:27017/clean-node-api
     # WORKDIR path of project build
     volumes:
       # The last "/" means that whatever is fixed, as in the
