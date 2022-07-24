@@ -11,10 +11,10 @@ const makeEmailValidator = (): EmailValidator => {
   return new EmailValidatorStub();
 };
 
-interface SutTypes {
+type SutTypes = {
   sut: EmailValidation;
   emailValidatorStub: EmailValidator;
-}
+};
 
 const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidator();

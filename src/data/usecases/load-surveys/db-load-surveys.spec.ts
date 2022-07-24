@@ -30,10 +30,10 @@ const makeFakeSurveys = (): SurveyModel[] => [
   },
 ];
 
-interface SutTypes {
+type SutTypes = {
   sut: DbLoadSurveys;
   loadSurveysRespositoryStub: LoadSurveysRepository;
-}
+};
 
 const makeLoadSurveysRepository = (): LoadSurveysRepository => {
   class LoadSurveysRepositoryStub implements LoadSurveysRepository {

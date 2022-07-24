@@ -12,6 +12,7 @@
 		"@typescript-eslint/indent": "off",
 		"@typescript-eslint/brace-style": "off",
 		"@typescript-eslint/return-await": "off",
+		"@typescript-eslint/consistent-type-definitions": "off",
 		"@typescript-eslint/semi": ["error", "always"],
 		"@typescript-eslint/method-signature-style": ["error", "method"],
 		"@typescript-eslint/space-before-function-paren": ["error", {
