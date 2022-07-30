@@ -30,11 +30,6 @@ const makeFakeSurveys = (): SurveyModel[] => [
   },
 ];
 
-type SutTypes = {
-  sut: DbLoadSurveys;
-  loadSurveysRespositoryStub: LoadSurveysRepository;
-};
-
 const makeLoadSurveysRepository = (): LoadSurveysRepository => {
   class LoadSurveysRepositoryStub implements LoadSurveysRepository {
     async loadAll(): Promise<SurveyModel[]> {
@@ -42,6 +37,11 @@ const makeLoadSurveysRepository = (): LoadSurveysRepository => {
     }
   }
   return new LoadSurveysRepositoryStub();
+};
+
+type SutTypes = {
+  sut: DbLoadSurveys;
+  loadSurveysRespositoryStub: LoadSurveysRepository;
 };
 
 const makeSut = (): SutTypes => {
