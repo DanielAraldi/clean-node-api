@@ -13,11 +13,17 @@ export class SaveSurveyResultController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const survey = await this.loadSurveyById.loadById(
-        httpRequest.params?.surveyId
-      );
+      const surveyId = httpRequest.params?.surveyId;
+      const surveyAnswer = httpRequest.body?.answer;
 
-      if (!survey) {
+      const survey = await this.loadSurveyById.loadById(surveyId);
+
+      if (survey) {
+        const answers = survey.answers.map(({ answer }) => answer.trim());
+        if (!answers.includes(surveyAnswer?.trim())) {
+          return forbidden(new InvalidParamError("answer"));
+        }
+      } else {
         return forbidden(new InvalidParamError("surveyId"));
       }
       return null;
