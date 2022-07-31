@@ -6,10 +6,14 @@ import {
   InvalidParamError,
   forbidden,
   serverError,
+  SaveSurveyResult,
 } from "./save-survey-result-controller-protocols";
 
 export class SaveSurveyResultController implements Controller {
-  constructor(private readonly loadSurveyById: LoadSurveyById) {}
+  constructor(
+    private readonly loadSurveyById: LoadSurveyById,
+    private readonly saveSurveyResult: SaveSurveyResult
+  ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
@@ -26,6 +30,12 @@ export class SaveSurveyResultController implements Controller {
       } else {
         return forbidden(new InvalidParamError("surveyId"));
       }
+      await this.saveSurveyResult.save({
+        accountId: httpRequest.accountId,
+        answer: surveyAnswer,
+        surveyId,
+        date: new Date(),
+      });
       return null;
     } catch (error) {
       return serverError(error);
