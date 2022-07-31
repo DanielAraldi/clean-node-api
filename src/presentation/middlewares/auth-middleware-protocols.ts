@@ -1,4 +1,4 @@
-export { LoadAccountByToken } from "@/domain/usecases/load-account-by-token";
+export { LoadAccountByToken } from "@/domain/usecases/account/load-account-by-token";
 export { AccountModel } from "@/domain/models/account";
 export * from "@/presentation/errors";
 export * from "@/presentation/helpers/http/http-helper";
