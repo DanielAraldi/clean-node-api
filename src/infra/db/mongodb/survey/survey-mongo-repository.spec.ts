@@ -70,6 +70,7 @@ describe("Survey Mongo Repository", () => {
       const sut = makeSut();
       const surveys = await sut.loadAll();
       expect(surveys.length).toBe(2);
+      expect(surveys[0].id).toBeTruthy();
       expect(surveys[0].question).toBe("any_question");
       expect(surveys[1].question).toBe("other_question");
     });
@@ -97,6 +98,7 @@ describe("Survey Mongo Repository", () => {
       const surveyId = coolection.insertedId.toString();
       const survey = await sut.loadById(surveyId);
       expect(survey).toBeTruthy();
+      expect(survey.id).toBeTruthy();
     });
   });
 });

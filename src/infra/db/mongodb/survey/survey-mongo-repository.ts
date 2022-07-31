@@ -21,7 +21,7 @@ export class SurveyMongoRepository
   async loadAll(): Promise<SurveyModel[]> {
     const surveyCollection = await MongoHelper.getCollection("surveys");
     const surveys = await surveyCollection.find().toArray();
-    return surveys && MongoHelper.map<SurveyModel>(surveys);
+    return MongoHelper.map<SurveyModel>(surveys);
   }
 
   async loadById(id: string): Promise<SurveyModel> {
