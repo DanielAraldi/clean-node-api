@@ -25,7 +25,7 @@
 - ✅ CI/CD
 - ✅ LoadSurveys API
 - ✅ Paths no Typescript
-- ⛔️ SaveSurveyResult API
+- ✅ SaveSurveyResult API
 - ⛔️ Refactor
 - ⛔️ Swagger
 - ⛔️ LoadSurveyResult API
