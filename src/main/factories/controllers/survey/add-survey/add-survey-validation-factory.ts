@@ -6,8 +6,6 @@ import {
 
 export const makeAddSurveyValidation = (): ValidationComposite => {
   const validations: Validation[] = [];
-  for (const field of ["question", "answers"]) {
-    validations.push(new RequiredFieldValidation(field));
-  }
+  validations.push(new RequiredFieldValidation(["question", "answers"]));
   return new ValidationComposite(validations);
 };

@@ -9,9 +9,14 @@ import {
 
 export const makeSignUpValidation = (): ValidationComposite => {
   const validations: Validation[] = [];
-  for (const field of ["name", "email", "password", "passwordConfirmation"]) {
-    validations.push(new RequiredFieldValidation(field));
-  }
+  validations.push(
+    new RequiredFieldValidation([
+      "name",
+      "email",
+      "password",
+      "passwordConfirmation",
+    ])
+  );
   validations.push(
     new CompareFieldsValidation("password", "passwordConfirmation")
   );
