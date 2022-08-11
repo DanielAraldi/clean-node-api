@@ -3,7 +3,7 @@ import { Validation } from "@/presentation/protocols";
 import { MultipleValuesValidation } from "./multiple-values-validation";
 
 describe("Multiple Values Validation", () => {
-  test("Should return a MissingParamError if object fieldname validation fails", () => {
+  test("Should return a MissingParamError if objectFieldName validation fails", () => {
     class ValidationStub implements Validation {
       constructor(private readonly fieldNames: string[]) {}
       validate(input: any): Error | null {
@@ -19,5 +19,25 @@ describe("Multiple Values Validation", () => {
     ]);
     const error = sut.validate({ invalidField: [{ field: "any_value" }] });
     expect(error).toEqual(new MissingParamError("objectFieldName"));
+  });
+
+  test("Should return a MissingParamError if fieldNames validation fails", () => {
+    class ValidationStub implements Validation {
+      constructor(private readonly fieldNames: string[]) {}
+      validate(input: any): Error | null {
+        return null;
+      }
+    }
+    const validationStub = new ValidationStub(["field"]);
+    jest
+      .spyOn(validationStub, "validate")
+      .mockReturnValueOnce(new MissingParamError("field"));
+    const sut = new MultipleValuesValidation("objectFieldName", [
+      validationStub,
+    ]);
+    const error = sut.validate({
+      objectFieldName: [{ invalidField: "any_value" }],
+    });
+    expect(error).toEqual(new MissingParamError("field"));
   });
 });
