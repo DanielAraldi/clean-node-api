@@ -11,6 +11,15 @@ export class MultipleValuesValidation implements Validation {
     if (!input[this.objectFieldName]) {
       return new MissingParamError(this.objectFieldName);
     }
+
+    for (const validation of this.validations) {
+      for (const fieldName in input[this.objectFieldName]) {
+        const error = validation.validate(fieldName);
+        if (error) {
+          return error;
+        }
+      }
+    }
     return null;
   }
 }
