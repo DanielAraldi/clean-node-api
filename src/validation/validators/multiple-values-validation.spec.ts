@@ -42,4 +42,12 @@ describe("Multiple Values Validation", () => {
     });
     expect(error).toEqual(new MissingParamError("field"));
   });
+
+  test("Should not return if validation succeds", () => {
+    const { sut } = makeSut();
+    const error = sut.validate({
+      objectFieldName: [{ field: "any_value" }],
+    });
+    expect(error).toBeNull();
+  });
 });
