@@ -13,7 +13,7 @@ export class MultipleValuesValidation implements Validation {
     }
 
     for (const validation of this.validations) {
-      for (const fieldName in input[this.objectFieldName]) {
+      for (const fieldName of input[this.objectFieldName]) {
         const error = validation.validate(fieldName);
         if (error) {
           return error;
