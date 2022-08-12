@@ -1,5 +1,6 @@
 import { Validation } from "@/presentation/protocols/validation";
 import {
+  MultipleValuesValidation,
   RequiredFieldValidation,
   ValidationComposite,
 } from "@/validation/validators";
@@ -12,6 +13,11 @@ describe("AddSurveyValidation Factory", () => {
     makeAddSurveyValidation();
     const validations: Validation[] = [];
     validations.push(new RequiredFieldValidation(["question", "answers"]));
+    validations.push(
+      new MultipleValuesValidation("answers", [
+        new RequiredFieldValidation(["answer"]),
+      ])
+    );
     expect(ValidationComposite).toHaveBeenCalledWith(validations);
   });
 });
