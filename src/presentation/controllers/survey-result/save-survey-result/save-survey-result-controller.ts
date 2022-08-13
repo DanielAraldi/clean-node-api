@@ -9,6 +9,7 @@ import {
   SaveSurveyResult,
   ok,
   Validation,
+  badRequest,
 } from "./save-survey-result-controller-protocols";
 
 export class SaveSurveyResultController implements Controller {
@@ -20,7 +21,10 @@ export class SaveSurveyResultController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      this.validation.validate(httpRequest.body);
+      const error = this.validation.validate(httpRequest.body);
+      if (error) {
+        return badRequest(error);
+      }
 
       const surveyId = httpRequest.params?.surveyId;
       const surveyAnswer = httpRequest.body?.answer;
