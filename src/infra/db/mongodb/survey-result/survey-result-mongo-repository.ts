@@ -17,7 +17,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
       },
       {
         $set: {
-          answer: data.answer,
+          answerId: data.answerId,
           date: data.date,
         },
       },

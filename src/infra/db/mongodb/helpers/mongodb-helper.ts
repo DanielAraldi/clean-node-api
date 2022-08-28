@@ -26,7 +26,7 @@ export const MongoHelper = {
     return Object.assign({}, collectionWithoutId, { id: _id });
   },
 
-  toObjectId: (id: string): ObjectId => new ObjectId(id),
+  objectId: (id?: string): ObjectId => new ObjectId(id),
 
   map: <T>(collections: any[]): T[] =>
     collections.map((collection) => MongoHelper.assign<T>(collection)),

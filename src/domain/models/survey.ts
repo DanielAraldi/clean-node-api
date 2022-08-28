@@ -6,6 +6,11 @@ export type SurveyModel = {
 };
 
 export type SurveyAnswerModel = {
-  image?: string;
+  answerId: string;
   answer: string;
+  image?: string;
+};
+
+export type AddSurveyModel = Omit<SurveyModel, "id" | "answers"> & {
+  answers: Array<Omit<SurveyAnswerModel, "answerId">>;
 };
