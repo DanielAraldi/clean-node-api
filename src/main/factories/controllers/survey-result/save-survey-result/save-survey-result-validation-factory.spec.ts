@@ -11,7 +11,7 @@ describe("SaveSurveyResultValidation Factory", () => {
   test("Should call ValidationComposite with all validations", () => {
     makeSaveSurveyResultValidation();
     const validations: Validation[] = [];
-    validations.push(new RequiredFieldValidation(["answer"]));
+    validations.push(new RequiredFieldValidation(["answerId"]));
     expect(ValidationComposite).toHaveBeenCalledWith(validations);
   });
 });

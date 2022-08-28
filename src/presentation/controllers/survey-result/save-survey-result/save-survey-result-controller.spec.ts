@@ -17,7 +17,7 @@ import MockDate from "mockdate";
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
-    answer: "any_answer",
+    answerId: "any_answer_id",
   },
   params: {
     surveyId: "any_survey_id",
@@ -30,6 +30,7 @@ const makeFakeSurvey = (): SurveyModel => ({
   question: "any_question",
   answers: [
     {
+      answerId: "any_answer_id",
       image: "any_image",
       answer: "any_answer",
     },
@@ -41,7 +42,7 @@ const makeFakeSurveyResult = (): SurveyResultModel => ({
   id: "valid_id",
   surveyId: "valid_survey_id",
   accountId: "valid_account_id",
-  answer: "valid_answer",
+  answerId: "valid_answer_id",
   date: new Date(),
 });
 
@@ -129,13 +130,13 @@ describe("SaveSurveyResult Controller", () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle({
       body: {
-        answer: "wrong_answer",
+        answerId: "wrong_answer_id",
       },
       params: {
         surveyId: "any_survey_id",
       },
     });
-    expect(httpResponse).toEqual(forbidden(new InvalidParamError("answer")));
+    expect(httpResponse).toEqual(forbidden(new InvalidParamError("answerId")));
   });
 
   test("Should return 500 if LoadSurveyById throws", async () => {
@@ -157,7 +158,7 @@ describe("SaveSurveyResult Controller", () => {
       surveyId: "any_survey_id",
       accountId: "any_account_id",
       date: new Date(),
-      answer: "any_answer",
+      answerId: "any_answer_id",
     });
   });
 

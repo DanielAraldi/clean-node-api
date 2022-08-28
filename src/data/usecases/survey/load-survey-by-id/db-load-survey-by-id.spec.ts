@@ -5,11 +5,12 @@ import {
 } from "./db-load-survey-by-id-protocols";
 import MockDate from "mockdate";
 
-const makeFakeSurvey = (): SurveyModel => ({
+const makeFakeLoadedSurvey = (): SurveyModel => ({
   id: "any_id",
   question: "any_question",
   answers: [
     {
+      answerId: "any_answer_id",
       image: "any_image",
       answer: "any_answer",
     },
@@ -20,7 +21,7 @@ const makeFakeSurvey = (): SurveyModel => ({
 const makeLoadSurveyByIdRepository = (): LoadSurveyByIdRepository => {
   class LoadSurveyByIdRepositoryStub implements LoadSurveyByIdRepository {
     async loadById(id: string): Promise<SurveyModel | null> {
-      return new Promise((resolve) => resolve(makeFakeSurvey()));
+      return new Promise((resolve) => resolve(makeFakeLoadedSurvey()));
     }
   }
   return new LoadSurveyByIdRepositoryStub();
@@ -55,7 +56,7 @@ describe("DbLoadSurveyById Usecase", () => {
   test("Should return Survey on success", async () => {
     const { sut } = makeSut();
     const survey = await sut.loadById("any_id");
-    expect(survey).toEqual(makeFakeSurvey());
+    expect(survey).toEqual(makeFakeLoadedSurvey());
   });
 
   test("Should throw if LoadSurveyByIdRepository throws", async () => {

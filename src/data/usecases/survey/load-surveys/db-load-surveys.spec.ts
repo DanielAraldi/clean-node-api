@@ -5,12 +5,13 @@ import {
 import { DbLoadSurveys } from "./db-load-surveys";
 import MockDate from "mockdate";
 
-const makeFakeSurveys = (): SurveyModel[] => [
+const makeFakeLoadedSurveys = (): SurveyModel[] => [
   {
     id: "any_id",
     question: "any_question",
     answers: [
       {
+        answerId: "any_answer_id",
         image: "any_image",
         answer: "any_answer",
       },
@@ -22,6 +23,7 @@ const makeFakeSurveys = (): SurveyModel[] => [
     question: "other_question",
     answers: [
       {
+        answerId: "other_answer_id",
         image: "other_image",
         answer: "other_answer",
       },
@@ -33,7 +35,7 @@ const makeFakeSurveys = (): SurveyModel[] => [
 const makeLoadSurveysRepository = (): LoadSurveysRepository => {
   class LoadSurveysRepositoryStub implements LoadSurveysRepository {
     async loadAll(): Promise<SurveyModel[]> {
-      return new Promise((resolve) => resolve(makeFakeSurveys()));
+      return new Promise((resolve) => resolve(makeFakeLoadedSurveys()));
     }
   }
   return new LoadSurveysRepositoryStub();
@@ -68,7 +70,7 @@ describe("DbLoadSurveys Usecase", () => {
   test("Should return a list of survey on success", async () => {
     const { sut } = makeSut();
     const surveys = await sut.load();
-    expect(surveys).toEqual(makeFakeSurveys());
+    expect(surveys).toEqual(makeFakeLoadedSurveys());
   });
 
   test("Should throw if LoadSurveysRepository throws", async () => {
