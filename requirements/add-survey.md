@@ -4,7 +4,7 @@
 
 1. ✅ Recebe uma requisição do tipo **POST** na rota **/api/surveys**
 1. ✅ Valida se a requisição foi feita por um **admin**
-1. ✅ Valida dados obrigatórios **question** e **answers**
+1. ✅ Valida dados obrigatórios **question**, **answers** e **answer**
 1. ✅ Cria uma enquete com os dados fornecidos
 1. ✅ Retorna **204**
 
