@@ -1,23 +1,17 @@
 import { Validation } from "@/presentation/protocols/validation";
 import {
-  MultipleValuesValidation,
   RequiredFieldValidation,
   ValidationComposite,
 } from "@/validation/validators";
-import { makeAddSurveyValidation } from "./add-survey-validation-factory";
+import { makeSaveSurveyResultValidation } from "./save-survey-result-validation-factory";
 
 jest.mock("@/validation/validators/validation-composite");
 
-describe("AddSurveyValidation Factory", () => {
+describe("SaveSurveyResultValidation Factory", () => {
   test("Should call ValidationComposite with all validations", () => {
-    makeAddSurveyValidation();
+    makeSaveSurveyResultValidation();
     const validations: Validation[] = [];
-    validations.push(new RequiredFieldValidation(["question", "answers"]));
-    validations.push(
-      new MultipleValuesValidation("answers", [
-        new RequiredFieldValidation(["answer"]),
-      ])
-    );
+    validations.push(new RequiredFieldValidation(["answer"]));
     expect(ValidationComposite).toHaveBeenCalledWith(validations);
   });
 });

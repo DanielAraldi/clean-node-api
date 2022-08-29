@@ -8,16 +8,24 @@ import {
   serverError,
   SaveSurveyResult,
   ok,
+  Validation,
+  badRequest,
 } from "./save-survey-result-controller-protocols";
 
 export class SaveSurveyResultController implements Controller {
   constructor(
+    private readonly validation: Validation,
     private readonly loadSurveyById: LoadSurveyById,
     private readonly saveSurveyResult: SaveSurveyResult
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
+      const error = this.validation.validate(httpRequest.body);
+      if (error) {
+        return badRequest(error);
+      }
+
       const surveyId = httpRequest.params?.surveyId;
       const surveyAnswer = httpRequest.body?.answer;
 

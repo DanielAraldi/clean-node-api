@@ -2,12 +2,16 @@ import { Validation } from "@/presentation/protocols/validation";
 import {
   ValidationComposite,
   RequiredFieldValidation,
+  MultipleValuesValidation,
 } from "@/validation/validators";
 
 export const makeAddSurveyValidation = (): ValidationComposite => {
   const validations: Validation[] = [];
-  for (const field of ["question", "answers"]) {
-    validations.push(new RequiredFieldValidation(field));
-  }
+  validations.push(new RequiredFieldValidation(["question", "answers"]));
+  validations.push(
+    new MultipleValuesValidation("answers", [
+      new RequiredFieldValidation(["answer"]),
+    ])
+  );
   return new ValidationComposite(validations);
 };
