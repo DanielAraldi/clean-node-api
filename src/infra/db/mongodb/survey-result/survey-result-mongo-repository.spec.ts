@@ -27,10 +27,12 @@ const makeSurvey = async (): Promise<SurveyModel> => {
     question: "any_question",
     answers: [
       {
+        answerId: "any_answer_id",
         image: "any_image",
         answer: "any_answer",
       },
       {
+        answerId: "any_answer_id",
         answer: "other_answer",
       },
     ],
@@ -71,12 +73,12 @@ describe("Survey Mongo Repository", () => {
       const surveyResult = await sut.save({
         surveyId: survey.id,
         accountId: account.id,
-        answer: survey.answers[0].answer,
+        answerId: survey.answers[0].answerId,
         date: new Date(),
       });
       expect(surveyResult).toBeTruthy();
       expect(surveyResult.id).toBeTruthy();
-      expect(surveyResult.answer).toBe(survey.answers[0].answer);
+      expect(surveyResult.answerId).toBe(survey.answers[0].answerId);
     });
 
     test("Should update survey result if its not new", async () => {
@@ -86,18 +88,18 @@ describe("Survey Mongo Repository", () => {
       const insertedSurveyResult = await surveyResultCollection.insertOne({
         surveyId: survey.id,
         accountId: account.id,
-        answer: survey.answers[0].answer,
+        answerId: survey.answers[0].answerId,
         date: new Date(),
       });
       const surveyResult = await sut.save({
         surveyId: survey.id,
         accountId: account.id,
-        answer: survey.answers[1].answer,
+        answerId: survey.answers[1].answerId,
         date: new Date(),
       });
       expect(surveyResult).toBeTruthy();
       expect(surveyResult.id).toEqual(insertedSurveyResult.insertedId);
-      expect(surveyResult.answer).toBe(survey.answers[1].answer);
+      expect(surveyResult.answerId).toBe(survey.answers[1].answerId);
     });
   });
 });

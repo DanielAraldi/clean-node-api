@@ -27,13 +27,16 @@ export class SaveSurveyResultController implements Controller {
       }
 
       const surveyId = httpRequest.params?.surveyId;
-      const surveyAnswer = httpRequest.body?.answer;
+      const answerId = httpRequest.body?.answerId;
 
       const survey = await this.loadSurveyById.loadById(surveyId);
+
       if (survey) {
-        const answers = survey.answers.map(({ answer }) => answer.trim());
-        if (!answers.includes(surveyAnswer?.trim())) {
-          return forbidden(new InvalidParamError("answer"));
+        const findedAnswer = survey.answers.find(
+          (answer) => answer.answerId.toString() === answerId
+        );
+        if (!findedAnswer) {
+          return forbidden(new InvalidParamError("answerId"));
         }
       } else {
         return forbidden(new InvalidParamError("surveyId"));
@@ -41,7 +44,7 @@ export class SaveSurveyResultController implements Controller {
 
       const surveyResult = await this.saveSurveyResult.save({
         accountId: httpRequest.accountId,
-        answer: surveyAnswer,
+        answerId,
         surveyId,
         date: new Date(),
       });

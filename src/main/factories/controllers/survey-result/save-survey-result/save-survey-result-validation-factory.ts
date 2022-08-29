@@ -6,6 +6,6 @@ import {
 
 export const makeSaveSurveyResultValidation = (): Validation => {
   const validations: Validation[] = [];
-  validations.push(new RequiredFieldValidation(["answer"]));
+  validations.push(new RequiredFieldValidation(["answerId"]));
   return new ValidationComposite(validations);
 };
