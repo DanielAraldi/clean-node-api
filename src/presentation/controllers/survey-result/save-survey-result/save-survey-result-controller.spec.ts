@@ -14,7 +14,7 @@ import {
   badRequest,
 } from "./save-survey-result-controller-protocols";
 import MockDate from "mockdate";
-import { throwError } from "@/domain/tests";
+import { mockSurveyModel, throwError } from "@/domain/tests";
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
@@ -24,19 +24,6 @@ const makeFakeRequest = (): HttpRequest => ({
     surveyId: "any_survey_id",
   },
   accountId: "any_account_id",
-});
-
-const makeFakeSurvey = (): SurveyModel => ({
-  id: "any_id",
-  question: "any_question",
-  answers: [
-    {
-      answerId: "any_answer_id",
-      image: "any_image",
-      answer: "any_answer",
-    },
-  ],
-  date: new Date(),
 });
 
 const makeFakeSurveyResult = (): SurveyResultModel => ({
@@ -59,7 +46,7 @@ const makeValidation = (): Validation => {
 const makeLoadSurveyById = (): LoadSurveyById => {
   class LoadSurveyByIdStub implements LoadSurveyById {
     async loadById(id: string): Promise<SurveyModel | null> {
-      return new Promise((resolve) => resolve(makeFakeSurvey()));
+      return new Promise((resolve) => resolve(mockSurveyModel()));
     }
   }
   return new LoadSurveyByIdStub();
