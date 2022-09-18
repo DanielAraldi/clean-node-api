@@ -10,7 +10,7 @@ import { mockSurveyModel, mockSurveysModels } from "@/domain/tests";
 export const mockAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
     async add(data: AddSurveyParams): Promise<void> {
-      return new Promise((resolve) => resolve());
+      return Promise.resolve();
     }
   }
   return new AddSurveyStub();
@@ -19,7 +19,7 @@ export const mockAddSurvey = (): AddSurvey => {
 export const mockLoadSurveys = (): LoadSurveys => {
   class LoadSurveysStub implements LoadSurveys {
     async load(): Promise<SurveyModel[]> {
-      return new Promise((resolve) => resolve(mockSurveysModels()));
+      return Promise.resolve(mockSurveysModels());
     }
   }
   return new LoadSurveysStub();
@@ -28,7 +28,7 @@ export const mockLoadSurveys = (): LoadSurveys => {
 export const mockLoadSurveyById = (): LoadSurveyById => {
   class LoadSurveyByIdStub implements LoadSurveyById {
     async loadById(id: string): Promise<SurveyModel | null> {
-      return new Promise((resolve) => resolve(mockSurveyModel()));
+      return Promise.resolve(mockSurveyModel());
     }
   }
   return new LoadSurveyByIdStub();

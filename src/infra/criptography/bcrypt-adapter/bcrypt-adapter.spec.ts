@@ -4,11 +4,11 @@ import { throwError } from "@/domain/tests";
 
 jest.mock("bcrypt", () => ({
   async hash(): Promise<string> {
-    return new Promise((resolve) => resolve("hash"));
+    return Promise.resolve("hash");
   },
 
   async compare(): Promise<boolean> {
-    return new Promise((resolve) => resolve(true));
+    return Promise.resolve(true);
   },
 }));
 
