@@ -26,7 +26,7 @@
 - ✅ LoadSurveys API
 - ✅ Paths no Typescript
 - ✅ SaveSurveyResult API
-- ⛔️ Refactor
+- ✅ Refactor
 - ⛔️ Swagger
 - ⛔️ LoadSurveyResult API
 - ⛔️ Refactor
