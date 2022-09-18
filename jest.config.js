@@ -3,10 +3,12 @@ module.exports = {
   roots: ["<rootDir>/src"],
   collectCoverageFrom: [
     "<rootDir>/src/**/*.ts",
+    "!<rootDir>/src/**/*.d.ts",
     "!<rootDir>/src/main/server.ts",
     "!<rootDir>/src/domain/**",
     "!<rootDir>/src/**/*protocols.ts",
     "!<rootDir>/src/**/protocols/**",
+    "!**/tests/**", // Does not cover tests in locations that have the tests folder
   ], // Where jest will be applied
   coverageDirectory: "coverage",
   coverageProvider: "v8",
