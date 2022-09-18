@@ -68,7 +68,7 @@ describe("DbAddAccount Usecase", () => {
     await sut.add(mockAddAccountParams());
     expect(addSpy).toHaveBeenCalledWith({
       name: "any_name",
-      email: "any_mail@mail.com",
+      email: "any_email@mail.com",
       password: "hashed_password",
     });
   });
@@ -103,6 +103,6 @@ describe("DbAddAccount Usecase", () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut();
     const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, "loadByEmail");
     await sut.add(mockAddAccountParams());
-    expect(loadSpy).toHaveBeenCalledWith("any_mail@mail.com");
+    expect(loadSpy).toHaveBeenCalledWith("any_email@mail.com");
   });
 });

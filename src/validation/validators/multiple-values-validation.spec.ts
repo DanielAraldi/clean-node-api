@@ -1,15 +1,7 @@
 import { MissingParamError } from "@/presentation/errors/missing-param-error";
 import { Validation } from "@/presentation/protocols";
+import { mockValidation } from "@/validation/tests";
 import { MultipleValuesValidation } from "./multiple-values-validation";
-
-const makeValidation = (): Validation => {
-  class ValidationStub implements Validation {
-    validate(input: any): Error | null {
-      return null;
-    }
-  }
-  return new ValidationStub();
-};
 
 type SutTypes = {
   sut: MultipleValuesValidation;
@@ -17,7 +9,7 @@ type SutTypes = {
 };
 
 const makeSut = (): SutTypes => {
-  const validationStub = makeValidation();
+  const validationStub = mockValidation();
   const sut = new MultipleValuesValidation("objectFieldName", [validationStub]);
   return { sut, validationStub };
 };

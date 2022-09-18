@@ -4,7 +4,7 @@ import { AuthenticationParams } from "@/domain/usecases/account/authentication";
 
 export const mockAddAccountParams = (): AddAccountParams => ({
   name: "any_name",
-  email: "any_mail@mail.com",
+  email: "any_email@mail.com",
   password: "any_password",
 });
 
