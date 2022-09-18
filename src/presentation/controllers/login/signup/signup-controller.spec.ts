@@ -16,6 +16,7 @@ import {
   serverError,
   forbidden,
 } from "./signup-controller-protocols";
+import { throwError } from "@/domain/tests";
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
@@ -80,18 +81,13 @@ const makeSut = (): SutTypes => {
 };
 
 describe("SignUp Controller", () => {
-  // Check if was AddAccount Internal Server Error
   test("Should return 500 if AddAccount throws", async () => {
     const { sut, addAccountStub } = makeSut();
-    // Implements a function to be returned
-    jest.spyOn(addAccountStub, "add").mockImplementationOnce(async () => {
-      return new Promise((resolve, rejects) => rejects(new Error()));
-    });
+    jest.spyOn(addAccountStub, "add").mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new ServerError("")));
   });
 
-  // Check if the data was passed correctly
   test("Should call AddAccount with correct values", async () => {
     const { sut, addAccountStub } = makeSut();
     const addSpy = jest.spyOn(addAccountStub, "add");
@@ -112,7 +108,6 @@ describe("SignUp Controller", () => {
     expect(httpResponse).toEqual(forbidden(new EmailInUseError()));
   });
 
-  // Sucess
   test("Should return 200 if valid data is provided", async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(makeFakeRequest());
@@ -150,11 +145,7 @@ describe("SignUp Controller", () => {
 
   test("Should returns 500 if Authentication throws", async () => {
     const { sut, authenticationStub } = makeSut();
-    jest
-      .spyOn(authenticationStub, "auth")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error()))
-      );
+    jest.spyOn(authenticationStub, "auth").mockImplementationOnce(throwError);
     const httpResponse: HttpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });

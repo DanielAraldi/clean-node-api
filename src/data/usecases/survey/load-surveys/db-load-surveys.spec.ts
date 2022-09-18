@@ -4,6 +4,7 @@ import {
 } from "./db-load-surveys-protocols";
 import { DbLoadSurveys } from "./db-load-surveys";
 import MockDate from "mockdate";
+import { throwError } from "@/domain/tests";
 
 const makeFakeLoadedSurveys = (): SurveyModel[] => [
   {
@@ -77,9 +78,7 @@ describe("DbLoadSurveys Usecase", () => {
     const { sut, loadSurveysRespositoryStub } = makeSut();
     jest
       .spyOn(loadSurveysRespositoryStub, "loadAll")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error()))
-      );
+      .mockImplementationOnce(throwError);
     const promise = sut.load();
     await expect(promise).rejects.toThrow();
   });

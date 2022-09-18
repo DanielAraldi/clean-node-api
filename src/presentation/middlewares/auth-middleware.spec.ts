@@ -8,6 +8,7 @@ import {
   serverError,
 } from "./auth-middleware-protocols";
 import { AuthMiddleware } from "./auth-middleware";
+import { throwError } from "@/domain/tests";
 
 const makeFakeAccount = (): AccountModel => ({
   id: "valid_id",
@@ -76,9 +77,7 @@ describe("Auth Middleware", () => {
     const { sut, loadAccountByTokenStub } = makeSut();
     jest
       .spyOn(loadAccountByTokenStub, "load")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error()))
-      );
+      .mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });

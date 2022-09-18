@@ -4,6 +4,7 @@ import {
   SurveyModel,
 } from "./db-load-survey-by-id-protocols";
 import MockDate from "mockdate";
+import { throwError } from "@/domain/tests";
 
 const makeFakeLoadedSurvey = (): SurveyModel => ({
   id: "any_id",
@@ -63,9 +64,7 @@ describe("DbLoadSurveyById Usecase", () => {
     const { sut, loadSurveyByIdRespositoryStub } = makeSut();
     jest
       .spyOn(loadSurveyByIdRespositoryStub, "loadById")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error()))
-      );
+      .mockImplementationOnce(throwError);
     const promise = sut.loadById("any_id");
     await expect(promise).rejects.toThrow();
   });
