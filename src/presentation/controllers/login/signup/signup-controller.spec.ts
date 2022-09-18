@@ -16,12 +16,12 @@ import {
   serverError,
   forbidden,
 } from "./signup-controller-protocols";
-import { throwError } from "@/domain/tests";
+import { throwError, mockAccountModel } from "@/domain/tests";
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     async add(account: AddAccountParams): Promise<AccountModel | null> {
-      return new Promise((resolve) => resolve(makeFakeAccount()));
+      return new Promise((resolve) => resolve(mockAccountModel()));
     }
   }
   return new AddAccountStub();
@@ -44,13 +44,6 @@ const makeValidation = (): Validation => {
   }
   return new validationStub();
 };
-
-const makeFakeAccount = (): AccountModel => ({
-  id: "valid_id",
-  name: "valid_name",
-  email: "valid_email@mail.com",
-  password: "valid_password",
-});
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
