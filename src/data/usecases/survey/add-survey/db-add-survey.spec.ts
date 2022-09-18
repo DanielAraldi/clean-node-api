@@ -1,22 +1,8 @@
-import {
-  AddSurveyParams,
-  AddSurveyRepository,
-} from "./db-add-survey-protocols";
+import { AddSurveyRepository } from "./db-add-survey-protocols";
 import { DbAddSurvey } from "./db-add-survey";
-import { throwError } from "@/domain/tests";
+import { throwError, mockAddSurveyParams } from "@/domain/tests";
 import { mockAddSurveyRepository } from "@/data/tests";
 import MockDate from "mockdate";
-
-const makeFakeSurveyData = (): AddSurveyParams => ({
-  question: "any_question",
-  answers: [
-    {
-      image: "any_image",
-      answer: "any_answer",
-    },
-  ],
-  date: new Date(),
-});
 
 type SutTypes = {
   sut: DbAddSurvey;
@@ -40,7 +26,7 @@ describe("DbAddSurvey Usecase", () => {
   test("Should call AddSurveyRepository with correct values", async () => {
     const { addSurveyRepositoryStub, sut } = makeSut();
     const addSpy = jest.spyOn(addSurveyRepositoryStub, "add");
-    const surveyData = makeFakeSurveyData();
+    const surveyData = mockAddSurveyParams();
     await sut.add(surveyData);
     expect(addSpy).toHaveBeenCalledWith(surveyData);
   });
@@ -50,7 +36,7 @@ describe("DbAddSurvey Usecase", () => {
     jest
       .spyOn(addSurveyRepositoryStub, "add")
       .mockImplementationOnce(throwError);
-    const promise = sut.add(makeFakeSurveyData());
+    const promise = sut.add(mockAddSurveyParams());
     await expect(promise).rejects.toThrow();
   });
 });
