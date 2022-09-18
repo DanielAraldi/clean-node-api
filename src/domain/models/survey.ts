@@ -10,7 +10,3 @@ export type SurveyAnswerModel = {
   answer: string;
   image?: string;
 };
-
-export type AddSurveyModel = Omit<SurveyModel, "id" | "answers"> & {
-  answers: Array<Omit<SurveyAnswerModel, "answerId">>;
-};

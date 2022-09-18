@@ -4,7 +4,7 @@ import {
   HttpRequest,
   HttpResponse,
   Validation,
-  AuthenticationModel,
+  AuthenticationParams,
   badRequest,
   ok,
   serverError,
@@ -14,7 +14,7 @@ import {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(authentication: AuthenticationModel): Promise<string | null> {
+    async auth(authentication: AuthenticationParams): Promise<string | null> {
       return new Promise((resolve) => resolve("any_token"));
     }
   }

@@ -1,5 +1,5 @@
 import {
-  AddSurveyModel,
+  AddSurveyParams,
   SurveyModel,
   LoadSurveysRepository,
   AddSurveyRepository,
@@ -13,7 +13,7 @@ export class SurveyMongoRepository
     LoadSurveysRepository,
     LoadSurveyByIdRepository
 {
-  async add(surveyData: AddSurveyModel): Promise<void> {
+  async add(surveyData: AddSurveyParams): Promise<void> {
     const surveyCollection = await MongoHelper.getCollection("surveys");
     const surveysAnswers = surveyData.answers.map((survey) => ({
       ...survey,
