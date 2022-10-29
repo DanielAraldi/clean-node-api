@@ -1,4 +1,4 @@
-import { loginPath, surveyPath } from './paths';
+import { loginPath, surveyPath, signUpPath } from './paths';
 import {
   badRequest,
   serverError,
@@ -14,6 +14,7 @@ import {
   surveySchema,
   surveysSchema,
   apiKeyAuthSchema,
+  signUpParamsSchema,
 } from './schemas';
 
 export default {
@@ -37,11 +38,13 @@ export default {
   paths: {
     // API routes
     '/login': loginPath,
+    '/signup': signUpPath,
     '/surveys': surveyPath,
   },
   schemas: {
     account: accountSchema,
     loginParams: loginParamsSchema,
+    signUpParams: signUpParamsSchema,
     error: errorSchema,
     survey: surveySchema,
     surveys: surveysSchema,
