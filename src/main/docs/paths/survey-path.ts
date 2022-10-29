@@ -31,4 +31,33 @@ export const surveyPath = {
       },
     },
   },
+  post: {
+    security: [{ apiKeyAuth: [] }],
+    tags: ['Survey'],
+    summary: 'Create a survey.',
+    description: 'Create a survey. Only administrators can create a survey.',
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/schemas/addSurveyParams',
+          },
+        },
+      },
+    },
+    responses: {
+      204: {
+        description: 'Requisition Success!',
+      },
+      403: {
+        $ref: '#/components/forbidden',
+      },
+      404: {
+        $ref: '#/components/notFound',
+      },
+      500: {
+        $ref: '#/components/serverError',
+      },
+    },
+  },
 };
