@@ -1,6 +1,20 @@
-import { loginPath } from './paths';
-import { badRequest, serverError, unanthorized, notFound } from './components';
-import { loginParamsSchema, errorSchema, accountSchema } from './schemas';
+import { loginPath, surveyPath } from './paths';
+import {
+  badRequest,
+  serverError,
+  unanthorized,
+  notFound,
+  forbidden,
+} from './components';
+import {
+  loginParamsSchema,
+  errorSchema,
+  accountSchema,
+  surveyAnswerSchema,
+  surveySchema,
+  surveysSchema,
+  apiKeyAuthSchema,
+} from './schemas';
 
 export default {
   openapi: '3.0.0', // API version
@@ -19,15 +33,28 @@ export default {
     url: 'https://github.com/DanielAraldi/clean-node-api/blob/main/LICENSE',
   },
   servers: [{ url: '/api' }], // Paths URL
-  tags: [{ name: 'Login' }], // Query titles
+  tags: [{ name: 'Login' }, { name: 'Survey' }], // Query titles
   paths: {
     // API routes
     '/login': loginPath,
+    '/surveys': surveyPath,
   },
   schemas: {
     account: accountSchema,
     loginParams: loginParamsSchema,
     error: errorSchema,
+    survey: surveySchema,
+    surveys: surveysSchema,
+    surveyAnswer: surveyAnswerSchema,
   },
-  components: { badRequest, serverError, unanthorized, notFound },
+  components: {
+    securitySchemes: {
+      apiKeyAuth: apiKeyAuthSchema,
+    },
+    badRequest,
+    serverError,
+    unanthorized,
+    notFound,
+    forbidden,
+  },
 };
