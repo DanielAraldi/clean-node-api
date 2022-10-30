@@ -8,3 +8,5 @@ export * from './api-key-auth-schema';
 export * from './signup-params-schema';
 export * from './add-survey-answer-schema';
 export * from './add-survey-params-schema';
+export * from './save-survey-params-schema';
+export * from './survey-result-schema';
