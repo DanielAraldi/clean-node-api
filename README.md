@@ -27,7 +27,7 @@
 - ✅ Paths no Typescript
 - ✅ SaveSurveyResult API
 - ✅ Refactor
-- ⛔️ Swagger
+- ✅ Swagger
 - ⛔️ LoadSurveyResult API
 - ⛔️ Refactor
 - ⛔️ Melhorando a Arquitetura
