@@ -1,28 +1,9 @@
-import { loginPath, surveyPath, signUpPath, surveyResultPath } from './paths';
-import {
-  badRequest,
-  serverError,
-  unanthorized,
-  notFound,
-  forbidden,
-} from './components';
-import {
-  loginParamsSchema,
-  errorSchema,
-  accountSchema,
-  surveyAnswerSchema,
-  surveySchema,
-  surveysSchema,
-  apiKeyAuthSchema,
-  signUpParamsSchema,
-  addSurveyAnswerSchema,
-  addSurveyParamsSchema,
-  saveSurveyParamsSchema,
-  surveyResultSchema,
-} from './schemas';
+import paths from './paths';
+import components from './components';
+import schemas from './schemas';
 
 export default {
-  openapi: '3.0.0', // API version
+  openapi: '3.0.0', // Swagger API version
   info: {
     title: 'Clean Node API',
     description:
@@ -39,34 +20,7 @@ export default {
   },
   servers: [{ url: '/api' }], // Paths URL
   tags: [{ name: 'Login' }, { name: 'Survey' }], // Query titles
-  paths: {
-    // API routes
-    '/login': loginPath,
-    '/signup': signUpPath,
-    '/surveys': surveyPath,
-    '/surveys/{surveyId}/results': surveyResultPath,
-  },
-  schemas: {
-    account: accountSchema,
-    loginParams: loginParamsSchema,
-    signUpParams: signUpParamsSchema,
-    error: errorSchema,
-    survey: surveySchema,
-    surveys: surveysSchema,
-    surveyAnswer: surveyAnswerSchema,
-    addSurveyAnswer: addSurveyAnswerSchema,
-    addSurveyParams: addSurveyParamsSchema,
-    saveSurveyParams: saveSurveyParamsSchema,
-    surveyResult: surveyResultSchema,
-  },
-  components: {
-    securitySchemes: {
-      apiKeyAuth: apiKeyAuthSchema,
-    },
-    badRequest,
-    serverError,
-    unanthorized,
-    notFound,
-    forbidden,
-  },
+  paths,
+  schemas,
+  components,
 };
