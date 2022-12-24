@@ -10,3 +10,4 @@ export * from './add-survey-answer-schema';
 export * from './add-survey-params-schema';
 export * from './save-survey-params-schema';
 export * from './survey-result-schema';
+export * from './survey-result-answer-schema';
