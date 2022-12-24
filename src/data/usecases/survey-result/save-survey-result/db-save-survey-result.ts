@@ -3,14 +3,14 @@ import {
   SaveSurveyResultParams,
   SurveyResultModel,
   SaveSurveyResultRepository,
-} from "./db-save-survey-result-protocols";
+} from './db-save-survey-result-protocols';
 
 export class DbSaveSurveyResult implements SaveSurveyResult {
   constructor(
     private readonly saveSurveyResultRepository: SaveSurveyResultRepository
   ) {}
 
-  async save(data: SaveSurveyResultParams): Promise<SurveyResultModel> {
+  async save(data: SaveSurveyResultParams): Promise<SurveyResultModel | null> {
     return await this.saveSurveyResultRepository.save(data);
   }
 }

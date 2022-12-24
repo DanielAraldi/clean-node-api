@@ -10,7 +10,7 @@ import {
   ok,
   Validation,
   badRequest,
-} from "./save-survey-result-controller-protocols";
+} from './save-survey-result-controller-protocols';
 
 export class SaveSurveyResultController implements Controller {
   constructor(
@@ -33,13 +33,13 @@ export class SaveSurveyResultController implements Controller {
 
       if (survey) {
         const findedAnswer = survey.answers.find(
-          (answer) => answer.answerId.toString() === answerId
+          answer => answer.answerId.toString() === answerId
         );
         if (!findedAnswer) {
-          return forbidden(new InvalidParamError("answerId"));
+          return forbidden(new InvalidParamError('answerId'));
         }
       } else {
-        return forbidden(new InvalidParamError("surveyId"));
+        return forbidden(new InvalidParamError('surveyId'));
       }
 
       const surveyResult = await this.saveSurveyResult.save({

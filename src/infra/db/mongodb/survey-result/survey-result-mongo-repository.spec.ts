@@ -1,10 +1,10 @@
 import {
   SurveyModel,
   AccountModel,
-} from "./survey-result-mongo-repository-protocols";
-import { MongoHelper } from "../helpers/mongodb-helper";
-import { SurveyResultMongoRepository } from "./survey-result-mongo-repository";
-import { Collection } from "mongodb";
+} from './survey-result-mongo-repository-protocols';
+import { MongoHelper } from '../helpers/mongodb-helper';
+import { SurveyResultMongoRepository } from './survey-result-mongo-repository';
+import { Collection } from 'mongodb';
 
 let surveyCollection: Collection;
 let surveyResultCollection: Collection;
@@ -12,9 +12,9 @@ let accountCollection: Collection;
 
 const makeAccount = async (): Promise<AccountModel> => {
   const insertedAccount = await accountCollection.insertOne({
-    name: "any_name",
-    email: "any_email@mail.com",
-    password: "any_password",
+    name: 'any_name',
+    email: 'any_email@mail.com',
+    password: 'any_password',
   });
   const account = await accountCollection.findOne({
     _id: insertedAccount.insertedId,
@@ -24,16 +24,16 @@ const makeAccount = async (): Promise<AccountModel> => {
 
 const makeSurvey = async (): Promise<SurveyModel> => {
   const insertedSurvey = await surveyCollection.insertOne({
-    question: "any_question",
+    question: 'any_question',
     answers: [
       {
-        answerId: "any_answer_id",
-        image: "any_image",
-        answer: "any_answer",
+        answerId: MongoHelper.objectId(),
+        image: 'any_image',
+        answer: 'any_answer',
       },
       {
-        answerId: "any_answer_id",
-        answer: "other_answer",
+        answerId: MongoHelper.objectId(),
+        answer: 'other_answer',
       },
     ],
     date: new Date(),
@@ -47,9 +47,9 @@ const makeSurvey = async (): Promise<SurveyModel> => {
 const makeSut = (): SurveyResultMongoRepository =>
   new SurveyResultMongoRepository();
 
-describe("Survey Mongo Repository", () => {
+describe('Survey Mongo Repository', () => {
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL || "");
+    await MongoHelper.connect(process.env.MONGO_URL || '');
   });
 
   afterAll(async () => {
@@ -57,16 +57,16 @@ describe("Survey Mongo Repository", () => {
   });
 
   beforeEach(async () => {
-    surveyCollection = await MongoHelper.getCollection("surveys");
+    surveyCollection = await MongoHelper.getCollection('surveys');
     await surveyCollection.deleteMany({});
-    surveyResultCollection = await MongoHelper.getCollection("surveyResults");
+    surveyResultCollection = await MongoHelper.getCollection('surveyResults');
     await surveyResultCollection.deleteMany({});
-    accountCollection = await MongoHelper.getCollection("accounts");
+    accountCollection = await MongoHelper.getCollection('accounts');
     await accountCollection.deleteMany({});
   });
 
-  describe("save()", () => {
-    test("Should add a survey result if its new", async () => {
+  describe('save()', () => {
+    test('Should add a survey result if its new', async () => {
       const sut = makeSut();
       const survey = await makeSurvey();
       const account = await makeAccount();
@@ -77,17 +77,18 @@ describe("Survey Mongo Repository", () => {
         date: new Date(),
       });
       expect(surveyResult).toBeTruthy();
-      expect(surveyResult.id).toBeTruthy();
-      expect(surveyResult.answerId).toBe(survey.answers[0].answerId);
+      expect(surveyResult.surveyId).toEqual(survey.id);
+      expect(surveyResult.answers[0].count).toBe(1);
+      expect(surveyResult.answers[0].percent).toBe(100);
     });
 
-    test("Should update survey result if its not new", async () => {
+    test('Should update survey result if its not new', async () => {
       const sut = makeSut();
       const survey = await makeSurvey();
       const account = await makeAccount();
-      const insertedSurveyResult = await surveyResultCollection.insertOne({
-        surveyId: survey.id,
-        accountId: account.id,
+      await surveyResultCollection.insertOne({
+        surveyId: MongoHelper.objectId(survey.id),
+        accountId: MongoHelper.objectId(account.id),
         answerId: survey.answers[0].answerId,
         date: new Date(),
       });
@@ -98,8 +99,12 @@ describe("Survey Mongo Repository", () => {
         date: new Date(),
       });
       expect(surveyResult).toBeTruthy();
-      expect(surveyResult.id).toEqual(insertedSurveyResult.insertedId);
-      expect(surveyResult.answerId).toBe(survey.answers[1].answerId);
+      expect(surveyResult.surveyId).toEqual(survey.id);
+      expect(surveyResult.answers[0].answerId).toEqual(
+        survey.answers[1].answerId
+      );
+      expect(surveyResult.answers[0].count).toBe(1);
+      expect(surveyResult.answers[0].percent).toBe(100);
     });
   });
 });
