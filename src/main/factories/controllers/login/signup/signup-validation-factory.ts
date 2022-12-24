@@ -14,7 +14,7 @@ export const makeSignUpValidation = (): ValidationComposite => {
       "name",
       "email",
       "password",
-      "passwordConfirmation",
+      "passwordConfirmation"
     ])
   );
   validations.push(

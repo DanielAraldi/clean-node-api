@@ -13,7 +13,7 @@ export const surveyResultPath = {
           type: 'string',
           description: 'Id of the survey that the user wants to answer.',
         },
-      },
+      }
     ],
     requestBody: {
       content: {

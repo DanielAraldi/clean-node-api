@@ -1,4 +1,4 @@
-import { Validation } from "@/presentation/protocols";
+import { Validation } from '@/presentation/protocols';
 
 export const mockValidation = (): Validation => {
   class ValidationStub implements Validation {

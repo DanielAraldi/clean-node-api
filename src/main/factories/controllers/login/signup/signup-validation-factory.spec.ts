@@ -19,7 +19,7 @@ describe("SignUpValidation Factory", () => {
         "name",
         "email",
         "password",
-        "passwordConfirmation",
+        "passwordConfirmation"
       ])
     );
     validations.push(

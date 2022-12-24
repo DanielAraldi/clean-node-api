@@ -90,7 +90,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
             {
               $divide: ['$count', '$_id.total'],
             },
-            100,
+            100
           ],
         },
       })

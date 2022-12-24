@@ -4,55 +4,62 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-		"@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
-		"@typescript-eslint/no-unused-vars": "off",
-		"@typescript-eslint/quotes": "off",
-		"@typescript-eslint/camelcase": "off",
-		"@typescript-eslint/indent": "off",
-		"@typescript-eslint/brace-style": "off",
-		"@typescript-eslint/return-await": "off",
-		"@typescript-eslint/consistent-type-definitions": "off",
-		"@typescript-eslint/semi": ["error", "always"],
-		"@typescript-eslint/method-signature-style": ["error", "method"],
-		"@typescript-eslint/space-before-function-paren": ["error", {
-			"anonymous": "never",
-			"named": "never",
-			"asyncArrow": "always"
-		}],
-		"@typescript-eslint/member-delimiter-style": ["error", {
-			"multiline": {
-				"requireLast": true
-    	}
-		}],
-		"@typescript-eslint/no-misused-promises": [
-			"error",
-			{
-				"checksVoidReturn": false
-			}
-		],
-		"@typescript-eslint/naming-convention": ["error",
-			{
-				"selector": ["variableLike"],
-				"format": ["camelCase", "PascalCase"],
-				"leadingUnderscore": "allow"
-			},
-			{
-				"selector": "typeLike",
-				"format": ["camelCase", "PascalCase"]
-			}
-		],
-		"promise/param-names": "off",
-		"node/no-path-concat": "off",
-		"comma-dangle": ["error", {
-			"arrays": "only-multiline",
-			"objects": "always-multiline",
-			"imports": "always-multiline",
-			"exports": "always-multiline"
-		}],
-		"new-cap": ["error", {
-			"newIsCap": false,
-			"capIsNew": false
-		}]
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/quotes": "off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/brace-style": "off",
+    "@typescript-eslint/return-await": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/method-signature-style": ["error", "method"],
+    "@typescript-eslint/space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "requireLast": true
+        }
+      }
+    ],
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": ["variableLike"],
+        "format": ["camelCase", "PascalCase"],
+        "leadingUnderscore": "allow"
+      },
+      {
+        "selector": "typeLike",
+        "format": ["camelCase", "PascalCase"]
+      }
+    ],
+    "@typescript-eslint/comma-dangle": [
+      "error",
+      {
+        "arrays": "only-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline"
+      }
+    ],
+    "promise/param-names": "off",
+    "n/no-path-concat": "off"
   }
 }

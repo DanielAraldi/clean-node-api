@@ -10,7 +10,7 @@ export const makeAddSurveyValidation = (): ValidationComposite => {
   validations.push(new RequiredFieldValidation(["question", "answers"]));
   validations.push(
     new MultipleValuesValidation("answers", [
-      new RequiredFieldValidation(["answer"]),
+      new RequiredFieldValidation(["answer"])
     ])
   );
   return new ValidationComposite(validations);

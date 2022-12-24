@@ -15,7 +15,7 @@ describe("AddSurveyValidation Factory", () => {
     validations.push(new RequiredFieldValidation(["question", "answers"]));
     validations.push(
       new MultipleValuesValidation("answers", [
-        new RequiredFieldValidation(["answer"]),
+        new RequiredFieldValidation(["answer"])
       ])
     );
     expect(ValidationComposite).toHaveBeenCalledWith(validations);
