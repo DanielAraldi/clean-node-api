@@ -2,7 +2,7 @@ import {
   SurveyModel,
   AccountModel,
 } from './survey-result-mongo-repository-protocols';
-import { MongoHelper } from '../helpers/mongodb-helper';
+import { MongoHelper } from '../helpers';
 import { SurveyResultMongoRepository } from './survey-result-mongo-repository';
 import { Collection } from 'mongodb';
 
