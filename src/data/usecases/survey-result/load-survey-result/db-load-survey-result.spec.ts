@@ -45,7 +45,7 @@ describe('DbLoadSurveyResult UseCase', () => {
       .spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId')
       .mockReturnValueOnce(Promise.resolve(null));
     const surveyResult = await sut.load('any_survey_id');
-    expect(surveyResult).toBe(null);
+    expect(surveyResult).toBeNull();
   });
 
   test('Should return surveyResultModel on success', async () => {

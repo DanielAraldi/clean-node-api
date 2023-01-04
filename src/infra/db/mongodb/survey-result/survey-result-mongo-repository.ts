@@ -9,7 +9,7 @@ import {
 export class SurveyResultMongoRepository
   implements SaveSurveyResultRepository, LoadSurveyResultRepository
 {
-  async save(data: SaveSurveyResultParams): Promise<SurveyResultModel | null> {
+  async save(data: SaveSurveyResultParams): Promise<void> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults'
     );
@@ -28,8 +28,6 @@ export class SurveyResultMongoRepository
         upsert: true,
       }
     );
-    const surveyResult = await this.loadBySurveyId(data.surveyId);
-    return surveyResult;
   }
 
   async loadBySurveyId(surveyId: string): Promise<SurveyResultModel | null> {
