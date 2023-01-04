@@ -25,12 +25,21 @@ describe('DbLoadSurveyResult UseCase', () => {
     expect(loadBySurveyIdSpy).toHaveBeenCalledWith('any_survey_id');
   });
 
-  test('Should throw if SaveSurveyResultRepository throws', async () => {
+  test('Should throw if LoadSurveyResultRepository throws', async () => {
     const { loadSurveyResultRepositoryStub, sut } = makeSut();
     jest
       .spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId')
       .mockImplementationOnce(throwError);
     const promise = sut.load('any_survey_id');
     await expect(promise).rejects.toThrow();
+  });
+
+  test("Should return null if LoadSurveyResultRepository isn't exists", async () => {
+    const { loadSurveyResultRepositoryStub, sut } = makeSut();
+    jest
+      .spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId')
+      .mockReturnValueOnce(Promise.resolve(null));
+    const surveyResult = await sut.load('any_survey_id');
+    expect(surveyResult).toBe(null);
   });
 });
