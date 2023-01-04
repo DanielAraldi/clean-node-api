@@ -44,7 +44,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
         data: {
           $push: '$$ROOT',
         },
-        count: {
+        total: {
           $sum: 1,
         },
       })
@@ -65,43 +65,126 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
           surveyId: '$survey._id',
           question: '$survey.question',
           date: '$survey.date',
-          total: '$count',
-          answer: {
-            $filter: {
-              input: '$survey.answers',
-              as: 'item',
-              cond: {
-                $eq: ['$$item.answerId', '$data.answerId'],
-              },
-            },
-          },
+          total: '$total',
+          answerId: '$data.answerId',
+          answers: '$survey.answers',
         },
         count: {
           $sum: 1,
         },
       })
-      .builder('$unwind', {
-        path: '$_id.answer',
-      })
-      .builder('$addFields', {
-        '_id.answer.count': '$count',
-        '_id.answer.percent': {
-          $multiply: [
-            {
-              $divide: ['$count', '$_id.total'],
+      .builder('$project', {
+        _id: 0,
+        surveyId: '$_id.surveyId',
+        question: '$_id.question',
+        date: '$_id.date',
+        answers: {
+          $map: {
+            input: '$_id.answers',
+            as: 'item',
+            in: {
+              $mergeObjects: [
+                '$$item',
+                {
+                  count: {
+                    $cond: {
+                      if: {
+                        $eq: ['$$item.answerId', '$_id.answerId'],
+                      },
+                      then: '$count',
+                      else: 0,
+                    },
+                  },
+                  percent: {
+                    $cond: {
+                      if: {
+                        $eq: ['$$item.answerId', '$_id.answerId'],
+                      },
+                      then: {
+                        $multiply: [
+                          {
+                            $divide: ['$count', '$_id.total'],
+                          },
+                          100,
+                        ],
+                      },
+                      else: 0,
+                    },
+                  },
+                },
+              ],
             },
-            100
-          ],
+          },
         },
       })
       .builder('$group', {
         _id: {
-          surveyId: '$_id.surveyId',
-          question: '$_id.question',
-          date: '$_id.date',
+          surveyId: '$surveyId',
+          question: '$question',
+          date: '$date',
         },
         answers: {
-          $push: '$_id.answer',
+          $push: '$answers',
+        },
+      })
+      .builder('$project', {
+        _id: 0,
+        surveyId: '$_id.surveyId',
+        question: '$_id.question',
+        date: '$_id.date',
+        answers: {
+          $reduce: {
+            input: '$answers',
+            initialValue: [],
+            in: {
+              $concatArrays: ['$$value', '$$this'],
+            },
+          },
+        },
+      })
+      .builder('$unwind', {
+        path: '$answers',
+      })
+      .builder('$group', {
+        _id: {
+          surveyId: '$surveyId',
+          question: '$question',
+          date: '$date',
+          answerId: '$answers.answerId',
+          answer: '$answers.answer',
+          image: '$answers.image',
+        },
+        count: {
+          $sum: '$answers.count',
+        },
+        percent: {
+          $sum: '$answers.percent',
+        },
+      })
+      .builder('$project', {
+        _id: 0,
+        surveyId: '$_id.surveyId',
+        question: '$_id.question',
+        date: '$_id.date',
+        answer: {
+          answerId: '$_id.answerId',
+          answer: '$_id.answer',
+          image: '$_id.image',
+          count: '$count',
+          percent: '$percent',
+        },
+      })
+      .builder('$sort', {
+        'answer.count': -1,
+      })
+      .builder('$group', {
+        _id: {
+          surveyId: '$surveyId',
+          question: '$question',
+          date: '$date',
+        },
+        answers: {
+          $push: '$answer',
         },
       })
       .builder('$project', {
