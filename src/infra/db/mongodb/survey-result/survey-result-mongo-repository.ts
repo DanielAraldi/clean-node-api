@@ -1,11 +1,14 @@
 import { MongoHelper, QueryBuilder } from '../helpers';
+import { LoadSurveyResultRepository } from '@/data/protocols/db/survey-result/load-survey-result-repository';
 import {
   SaveSurveyResultParams,
   SaveSurveyResultRepository,
   SurveyResultModel,
 } from './survey-result-mongo-repository-protocols';
 
-export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
+export class SurveyResultMongoRepository
+  implements SaveSurveyResultRepository, LoadSurveyResultRepository
+{
   async save(data: SaveSurveyResultParams): Promise<SurveyResultModel | null> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults'
@@ -29,9 +32,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
     return surveyResult;
   }
 
-  private async loadBySurveyId(
-    surveyId: string
-  ): Promise<SurveyResultModel | null> {
+  async loadBySurveyId(surveyId: string): Promise<SurveyResultModel | null> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults'
     );
