@@ -23,5 +23,7 @@ jobs:
           cache: 'npm'
       - name: Install Dependencies
       - run: npm install
+      - name: Fixing non-standard Scripts
       - run: eslint './src/**/*.ts' --fix
+      - name: Run Tests
       - run: npm run test
