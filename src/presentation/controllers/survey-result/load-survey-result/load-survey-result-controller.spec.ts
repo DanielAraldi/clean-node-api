@@ -71,4 +71,13 @@ describe('LoadSurveyResult Controller', () => {
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });
+
+  test('Should return 403 if LoadSurveyResult returns null', async () => {
+    const { loadSurveyResultStub, sut } = makeSut();
+    jest
+      .spyOn(loadSurveyResultStub, 'load')
+      .mockReturnValueOnce(Promise.resolve(null));
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(forbidden(new InvalidParamError('surveyId')));
+  });
 });
