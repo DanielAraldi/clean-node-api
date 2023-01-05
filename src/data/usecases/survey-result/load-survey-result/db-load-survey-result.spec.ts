@@ -50,15 +50,6 @@ describe('DbLoadSurveyResult UseCase', () => {
     await expect(promise).rejects.toThrow();
   });
 
-  test("Should return null if LoadSurveyResultRepository isn't exists", async () => {
-    const { loadSurveyResultRepositoryStub, sut } = makeSut();
-    jest
-      .spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId')
-      .mockReturnValueOnce(Promise.resolve(null));
-    const surveyResult = await sut.load('any_survey_id');
-    expect(surveyResult).toBeNull();
-  });
-
   test('Should call LoadSurveyByIdRepository if LoadSurveyResultRepository returns null', async () => {
     const {
       sut,
@@ -71,6 +62,31 @@ describe('DbLoadSurveyResult UseCase', () => {
       .mockReturnValueOnce(Promise.resolve(null));
     await sut.load('any_survey_id');
     expect(loadByIdSpy).toHaveBeenCalledWith('any_survey_id');
+  });
+
+  test("Should return null if LoadSurveyByIdRepository isn't exists", async () => {
+    const {
+      loadSurveyByIdRepositoryStub,
+      loadSurveyResultRepositoryStub,
+      sut,
+    } = makeSut();
+    jest
+      .spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId')
+      .mockReturnValueOnce(Promise.resolve(null));
+    jest
+      .spyOn(loadSurveyByIdRepositoryStub, 'loadById')
+      .mockReturnValueOnce(Promise.resolve(null));
+    const surveyResult = await sut.load('any_survey_id');
+    expect(surveyResult).toBeNull();
+  });
+
+  test('Should return surveyResultModel with all answers with count and percent zero if LoadSurveyResultRepository returns null', async () => {
+    const { sut, loadSurveyResultRepositoryStub } = makeSut();
+    jest
+      .spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId')
+      .mockReturnValueOnce(Promise.resolve(null));
+    const surveyResult = await sut.load('any_survey_id');
+    expect(surveyResult).toEqual(mockSaveSurveyResultModel());
   });
 
   test('Should return surveyResultModel on success', async () => {
