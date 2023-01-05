@@ -8,7 +8,7 @@ export default {
     title: 'Clean Node API',
     description:
       'API of surveys in NodeJs using Typescript, TDD, Clean Architecture, Design Patterns and SOLID principles.',
-    version: '1.0.0', // Documentation version
+    version: '1.1.0', // Documentation version
   },
   contact: {
     name: 'Daniel Sansão Araldi',
