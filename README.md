@@ -90,7 +90,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - [Jest](https://jestjs.io/)
 - [MongoDb](https://www.mongodb.com/)
 - Bcrypt
-- JsonWebToken
+- [JsonWebToken](https://jwt.io/)
 - Validator
 - [Express](https://expressjs.com/pt-br/)
 - Supertest
