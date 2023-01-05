@@ -6,9 +6,11 @@ import {
   InvalidParamError,
   serverError,
   LoadSurveyResult,
+  ok,
 } from './load-survey-result-protocols';
 import { mockLoadSurveyById, mockLoadSurveyResult } from '@/presentation/tests';
-import { throwError } from '@/domain/tests';
+import { mockSaveSurveyResultModel, throwError } from '@/domain/tests';
+import MockDate from 'mockdate';
 
 const makeFakeRequest = (): HttpRequest => ({
   params: {
@@ -33,6 +35,10 @@ const makeSut = (): SutTypes => {
 };
 
 describe('LoadSurveyResult Controller', () => {
+  beforeAll(() => MockDate.set(new Date()));
+
+  afterAll(() => MockDate.reset());
+
   test('Should call LoadSurveyById with correct value', async () => {
     const { loadSurveyByIdStub, sut } = makeSut();
     const loadByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById');
@@ -79,5 +85,11 @@ describe('LoadSurveyResult Controller', () => {
       .mockReturnValueOnce(Promise.resolve(null));
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(forbidden(new InvalidParamError('surveyId')));
+  });
+
+  test('Should return 200 on success', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(ok(mockSaveSurveyResultModel()));
   });
 });
