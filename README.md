@@ -28,7 +28,7 @@
 - ✅ SaveSurveyResult API
 - ✅ Refactor
 - ✅ Swagger
-- ⛔️ LoadSurveyResult API
+- ✅ LoadSurveyResult API
 - ⛔️ Refactor
 - ⛔️ Melhorando a Arquitetura
 - ⛔️ GraphQL
