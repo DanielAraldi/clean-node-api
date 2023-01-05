@@ -13,7 +13,7 @@ export const surveyResultPath = {
           type: 'string',
           description: 'Id of the survey that the user wants to answer.',
         },
-      }
+      },
     ],
     requestBody: {
       content: {
@@ -24,6 +24,45 @@ export const surveyResultPath = {
         },
       },
     },
+    responses: {
+      200: {
+        description: 'Requisition Success!',
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/schemas/surveyResult',
+            },
+          },
+        },
+      },
+      403: {
+        $ref: '#/components/forbidden',
+      },
+      404: {
+        $ref: '#/components/notFound',
+      },
+      500: {
+        $ref: '#/components/serverError',
+      },
+    },
+  },
+
+  get: {
+    security: [{ apiKeyAuth: [] }],
+    tags: ['Survey'],
+    summary: 'Load the result of a survey.',
+    description: 'Shows the result of a survey. Made only by logged in users.',
+    parameters: [
+      {
+        in: 'path',
+        name: 'surveyId',
+        required: true,
+        schema: {
+          type: 'string',
+          description: 'Id of the survey.',
+        },
+      },
+    ],
     responses: {
       200: {
         description: 'Requisition Success!',
