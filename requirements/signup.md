@@ -11,7 +11,7 @@
 1. ✅ Cria uma conta para o usuário com os dados informados, substituindo a senha pela senha criptorafada.
 1. ✅ Gera um token de acesso a partir do ID do usuário.
 1. ✅ Atualiza os dados do usuário com o token de acesso gerado.
-1. ✅ Retorna **200** com o token de acesso.
+1. ✅ Retorna **200** com o token de acesso e o nome do usuário.
 
 > ## Exceções:
 
