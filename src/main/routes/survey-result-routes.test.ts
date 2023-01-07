@@ -9,7 +9,7 @@ import request from 'supertest';
 let surveyCollection: Collection;
 let accountCollection: Collection;
 
-const makeSurvey = async (): Promise<SurveyModel> => {
+const mockSurvey = async (): Promise<SurveyModel> => {
   const insertedSurvey = await surveyCollection.insertOne({
     question: 'Question',
     answers: [
@@ -62,7 +62,7 @@ describe('SurveyResult Routes', () => {
 
   describe('PUT /surveys/:surveyId/results', () => {
     test('Should return 403 on save survey result without accessToken', async () => {
-      const survey = await makeSurvey();
+      const survey = await mockSurvey();
       await request(app)
         .put('/api/surveys/any_id/results')
         .send({
@@ -72,7 +72,7 @@ describe('SurveyResult Routes', () => {
     });
 
     test('Should return 200 on save survey result with accessToken', async () => {
-      const survey = await makeSurvey();
+      const survey = await mockSurvey();
       const accessToken = await makeAccessToken();
       await request(app)
         .put(`/api/surveys/${survey.id}/results`)
@@ -89,7 +89,7 @@ describe('SurveyResult Routes', () => {
       await request(app).get('/api/surveys/any_id/results').expect(403));
 
     test('Should return 200 on load survey result with accessToken', async () => {
-      const survey = await makeSurvey();
+      const survey = await mockSurvey();
       const accessToken = await makeAccessToken();
       await request(app)
         .get(`/api/surveys/${survey.id}/results`)

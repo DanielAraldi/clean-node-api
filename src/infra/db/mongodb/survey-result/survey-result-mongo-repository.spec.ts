@@ -11,7 +11,7 @@ let surveyCollection: Collection;
 let surveyResultCollection: Collection;
 let accountCollection: Collection;
 
-const makeAccount = async (): Promise<AccountModel> => {
+const mockAccount = async (): Promise<AccountModel> => {
   const insertedAccount = await accountCollection.insertOne(
     mockAddAccountParams()
   );
@@ -21,7 +21,7 @@ const makeAccount = async (): Promise<AccountModel> => {
   return MongoHelper.assign<AccountModel>(account);
 };
 
-const makeSurvey = async (): Promise<SurveyModel> => {
+const mockSurvey = async (): Promise<SurveyModel> => {
   const addSurveyParams = mockAddSurveyParams();
   const insertedSurvey = await surveyCollection.insertOne({
     ...addSurveyParams,
@@ -59,8 +59,8 @@ describe('SurveyResultMongoRepository', () => {
   describe('save()', () => {
     test('Should add a survey result if its new', async () => {
       const sut = makeSut();
-      const survey = await makeSurvey();
-      const account = await makeAccount();
+      const survey = await mockSurvey();
+      const account = await mockAccount();
       await sut.save({
         surveyId: survey.id,
         accountId: account.id,
@@ -76,8 +76,8 @@ describe('SurveyResultMongoRepository', () => {
 
     test('Should update survey result if its not new', async () => {
       const sut = makeSut();
-      const survey = await makeSurvey();
-      const account = await makeAccount();
+      const survey = await mockSurvey();
+      const account = await mockAccount();
       await surveyResultCollection.insertOne({
         surveyId: MongoHelper.objectId(survey.id),
         accountId: MongoHelper.objectId(account.id),
@@ -104,8 +104,8 @@ describe('SurveyResultMongoRepository', () => {
   describe('loadBySurveyId()', () => {
     test('Should load survey result', async () => {
       const sut = makeSut();
-      const survey = await makeSurvey();
-      const account = await makeAccount();
+      const survey = await mockSurvey();
+      const account = await mockAccount();
       await surveyResultCollection.insertMany([
         {
           surveyId: MongoHelper.objectId(survey.id),
@@ -131,7 +131,7 @@ describe('SurveyResultMongoRepository', () => {
 
     test("Should return null if survey result don't have answers", async () => {
       const sut = makeSut();
-      const survey = await makeSurvey();
+      const survey = await mockSurvey();
       const surveyResult = await sut.loadBySurveyId(survey.id);
       expect(surveyResult).toBeNull();
     });

@@ -1,8 +1,8 @@
-import { LoadSurveysRepository } from './db-load-surveys-protocols';
 import { DbLoadSurveys } from './db-load-surveys';
-import { mockSurveysModels, throwError } from '@/domain/tests';
+import { throwError } from '@/domain/tests';
 import { LoadSurveysRepositorySpy } from '@/data/tests';
 import MockDate from 'mockdate';
+import { faker } from '@faker-js/faker';
 
 type SutTypes = {
   sut: DbLoadSurveys;
@@ -18,20 +18,26 @@ const makeSut = (): SutTypes => {
   };
 };
 
+let accountId: string;
+
 describe('DbLoadSurveys Usecase', () => {
   beforeAll(() => MockDate.set(new Date()));
 
   afterAll(() => MockDate.reset());
 
+  beforeEach(() => {
+    accountId = faker.datatype.uuid();
+  });
+
   test('Should call LoadSurveysRepository', async () => {
     const { sut, loadSurveysRepositorySpy } = makeSut();
-    await sut.load();
-    expect(loadSurveysRepositorySpy.callsCount).toBe(1);
+    await sut.load(accountId);
+    expect(loadSurveysRepositorySpy.accountId).toBe(accountId);
   });
 
   test('Should return a list of survey on success', async () => {
     const { sut, loadSurveysRepositorySpy } = makeSut();
-    const surveys = await sut.load();
+    const surveys = await sut.load(accountId);
     expect(surveys).toEqual(loadSurveysRepositorySpy.surveyModels);
   });
 
@@ -40,7 +46,7 @@ describe('DbLoadSurveys Usecase', () => {
     jest
       .spyOn(loadSurveysRepositorySpy, 'loadAll')
       .mockImplementationOnce(throwError);
-    const promise = sut.load();
+    const promise = sut.load(accountId);
     await expect(promise).rejects.toThrow();
   });
 });
