@@ -40,7 +40,7 @@ Essa API faz parte do treinamento do professor [Rodrigo Manguinho (Mango)](https
 
 O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem definida e desacoplada, utilizando TDD (programação orientada a testes) como metodologia de trabalho, Clean Architecture para fazer a distribuição de responsabilidades em camadas, sempre seguindo os princípios do SOLID e, sempre que possível, aplicando Design Patterns para resolver alguns problemas comuns.
 
-> ## APIs previstas para esse treinamento:
+> ## APIs construídas no treinamento:
 
 1. [Cadastro](./requirements/signup.md)
 1. [Login](./requirements/login.md)
@@ -91,6 +91,8 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - [MongoDb](https://www.mongodb.com/)
 - Bcrypt
 - [JsonWebToken](https://jwt.io/)
+- [Faker](https://fakerjs.dev/)
+- [Coveralls](https://coveralls.io/)
 - Validator
 - [Express](https://expressjs.com/pt-br/)
 - Supertest
@@ -113,6 +115,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - Testes de Integração
 - Testes Unitários
 - Cobertura de Testes
+- Test Doubles
 - Mocks
 - Stubs
 - Spies
@@ -120,3 +123,18 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - Deploy no Heroku
 - Uso de breakpoints no Typescript
 - Uso correto de tags no Git
+- Fakes
+
+## Features do MongoDb
+
+- Connect e Reconnect
+- Collections
+- InsertOne e InserMany
+- Find, FindOne e FindOneAndUpdate
+- DeleteMany
+- UpdateOne
+- Aggregation (Match, Group, Unwind, Lookup, AddFields, Project, Sort)
+- ObjectId
+- Upsert e ReturnOriginal
+- Push, Divide, Multiply, ArrayElemAt, Cond, Sum
+- Filter, Map, Reduce, MergeObjects, ConcatArrays
