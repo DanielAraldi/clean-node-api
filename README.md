@@ -1,40 +1,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/DanielAraldi/clean-node-api/badge.svg?branch=main)](https://coveralls.io/github/DanielAraldi/clean-node-api?branch=main)
 [![wakatime](https://wakatime.com/badge/user/920a7e43-2969-4212-82ff-1b375685ff58/project/aa2b6b4a-f3d6-4ae6-a2e3-8eeb25e31f91.svg)](https://wakatime.com/badge/user/920a7e43-2969-4212-82ff-1b375685ff58/project/aa2b6b4a-f3d6-4ae6-a2e3-8eeb25e31f91)
 
-# **Estudando... 👨‍💻**
-
-> ## Aulas Feitas 👨‍🏫
-
-- ✅ Introdução
-- ✅ SignUp API - Presentation Layer
-- ✅ Jest
-- ✅ Utils Layer
-- ✅ SignUp API - Data Layer
-- ✅ SignUp API - Infra Layer
-- ✅ SignUp API - Main Layer
-- ✅ Log de Erro
-- ✅ Login API - Presentation Layer
-- ✅ Login API - Data Layer
-- ✅ Segurança - Hash/Encrypt/Encode
-- ✅ Login API - Infra Layer
-- ✅ Login API - Main Layer
-- ✅ Docker
-- ✅ SignUp API - Ajustes
-- ✅ AddSurvey API
-- ✅ Criando Middleware de Autenticação
-- ✅ CI/CD
-- ✅ LoadSurveys API
-- ✅ Paths no Typescript
-- ✅ SaveSurveyResult API
-- ✅ Refactor
-- ✅ Swagger
-- ✅ LoadSurveyResult API
-- ⛔️ Refactor
-- ⛔️ Melhorando a Arquitetura
-- ⛔️ GraphQL
-- ⛔️ Atualizando Libs
-
 # **Clean Node API**
+
+[![alt text](./public/img/logo-course.png 'Link para o treinamento')](https://www.udemy.com/course/tdd-com-mango/?referralCode=B53CE5CA2B9AFA5A6FA1)
 
 Essa API faz parte do treinamento do professor [Rodrigo Manguinho (Mango)](https://github.com/rmanguinho) na Udemy.
 
@@ -104,6 +73,8 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - [Nodemon](https://nodemon.io/)
 - Rimraf
 - In-Memory MongoDb Server
+- MockDate
+- Module-Alias
 
 > ## Features abordadas:
 
@@ -125,7 +96,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - Uso correto de tags no Git
 - Fakes
 
-## Features do MongoDb
+> ## Features do MongoDb
 
 - Connect e Reconnect
 - Collections
@@ -138,3 +109,34 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - Upsert e ReturnOriginal
 - Push, Divide, Multiply, ArrayElemAt, Cond, Sum
 - Filter, Map, Reduce, MergeObjects, ConcatArrays
+
+> ## Aulas Feitas
+
+- ✅ Introdução
+- ✅ SignUp API - Presentation Layer
+- ✅ Jest
+- ✅ Utils Layer
+- ✅ SignUp API - Data Layer
+- ✅ SignUp API - Infra Layer
+- ✅ SignUp API - Main Layer
+- ✅ Log de Erro
+- ✅ Login API - Presentation Layer
+- ✅ Login API - Data Layer
+- ✅ Segurança - Hash/Encrypt/Encode
+- ✅ Login API - Infra Layer
+- ✅ Login API - Main Layer
+- ✅ Docker
+- ✅ SignUp API - Ajustes
+- ✅ AddSurvey API
+- ✅ Criando Middleware de Autenticação
+- ✅ CI/CD
+- ✅ LoadSurveys API
+- ✅ Paths no Typescript
+- ✅ SaveSurveyResult API
+- ✅ Refactor
+- ✅ Swagger
+- ✅ LoadSurveyResult API
+- ⛔️ Refactor
+- ⛔️ Melhorando a Arquitetura
+- ⛔️ GraphQL
+- ⛔️ Atualizando Libs
