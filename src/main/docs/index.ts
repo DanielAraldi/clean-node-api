@@ -3,12 +3,12 @@ import components from './components';
 import schemas from './schemas';
 
 export default {
-  openapi: '3.0.0', // Swagger API version
+  openapi: '3.0.0',
   info: {
     title: 'Clean Node API',
     description:
       'API of surveys in NodeJs using Typescript, TDD, Clean Architecture, Design Patterns and SOLID principles.',
-    version: '1.1.0', // Documentation version
+    version: '1.2.0',
   },
   contact: {
     name: 'Daniel Sansão Araldi',
