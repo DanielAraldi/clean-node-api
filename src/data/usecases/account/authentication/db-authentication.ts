@@ -5,6 +5,7 @@ import {
   LoadAccountByEmailRepository,
   Encrypter,
   UpdateAccessTokenRepository,
+  AuthenticationModel,
 } from './db-authentication-protocols';
 
 export class DbAuthentication implements Authentication {
@@ -17,7 +18,7 @@ export class DbAuthentication implements Authentication {
 
   async auth(
     authenticationParams: AuthenticationParams
-  ): Promise<string | null> {
+  ): Promise<AuthenticationModel | null> {
     const account = await this.loadAccountByEmailRepository.loadByEmail(
       authenticationParams.email
     );
@@ -32,7 +33,7 @@ export class DbAuthentication implements Authentication {
           account.id,
           accessToken
         );
-        return accessToken;
+        return { accessToken, name: account.name };
       }
     }
     return null;
