@@ -25,8 +25,8 @@ services:
     # local dir from project
     working_dir: /usr/src/clean-node-api
     restart: always
-    # Install only production dependencies and before run debug (on final)
-    command: bash -c "npm install --only=prod && npm run debug"
+    # Install dependencies and before run debug (on final)
+    command: bash -c "npm install && npm run debug"
     # Set environment MONGO_URL to mongodb docker
     environment: 
       - MONGO_URL=mongodb://mongo:27017/clean-node-api
