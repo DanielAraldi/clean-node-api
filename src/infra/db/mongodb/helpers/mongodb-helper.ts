@@ -1,4 +1,4 @@
-import { Collection, MongoClient, ObjectId } from "mongodb";
+import { Collection, MongoClient, ObjectId } from 'mongodb';
 
 export const MongoHelper = {
   client: null as MongoClient,
@@ -22,12 +22,12 @@ export const MongoHelper = {
   },
 
   assign: <T>(collection: any): T => {
-    const { _id, ...collectionWithoutId } = collection;
-    return Object.assign({}, collectionWithoutId, { id: _id });
+    const { _id, ...rest } = collection;
+    return Object.assign({}, rest, { id: _id });
   },
 
   objectId: (id?: string): ObjectId => new ObjectId(id),
 
   map: <T>(collections: any[]): T[] =>
-    collections.map((collection) => MongoHelper.assign<T>(collection)),
+    collections.map(collection => MongoHelper.assign<T>(collection)),
 };

@@ -1,3 +1,3 @@
 export interface Encrypter {
-  encrypt(value: string): string;
+  encrypt(plaintext: string): string;
 }

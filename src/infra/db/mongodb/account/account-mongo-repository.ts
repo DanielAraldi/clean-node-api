@@ -6,7 +6,7 @@ import {
   LoadAccountByTokenRepository,
   MongoHelper,
   UpdateAccessTokenRepository,
-} from "./account-mongo-repository-protocols";
+} from './account-mongo-repository-protocols';
 
 export class AccountMongoRepository
   implements
@@ -15,9 +15,9 @@ export class AccountMongoRepository
     UpdateAccessTokenRepository,
     LoadAccountByTokenRepository
 {
-  async add(accountData: AddAccountParams): Promise<AccountModel> {
-    const accountCollection = await MongoHelper.getCollection("accounts");
-    const result = await accountCollection.insertOne(accountData);
+  async add(data: AddAccountParams): Promise<AccountModel> {
+    const accountCollection = await MongoHelper.getCollection('accounts');
+    const result = await accountCollection.insertOne(data);
     const account = await accountCollection.findOne({
       _id: result.insertedId,
     });
@@ -25,13 +25,13 @@ export class AccountMongoRepository
   }
 
   async loadByEmail(email: string): Promise<AccountModel | null> {
-    const accountCollection = await MongoHelper.getCollection("accounts");
+    const accountCollection = await MongoHelper.getCollection('accounts');
     const account = await accountCollection.findOne({ email });
     return account && MongoHelper.assign<AccountModel>(account);
   }
 
   async updateAccessToken(id: string, token: string): Promise<void> {
-    const accountCollection = await MongoHelper.getCollection("accounts");
+    const accountCollection = await MongoHelper.getCollection('accounts');
     const accountId = MongoHelper.objectId(id);
     await accountCollection.updateOne(
       { _id: accountId },
@@ -43,10 +43,10 @@ export class AccountMongoRepository
     token: string,
     role?: string
   ): Promise<AccountModel | null> {
-    const accountCollection = await MongoHelper.getCollection("accounts");
+    const accountCollection = await MongoHelper.getCollection('accounts');
     const account = await accountCollection.findOne({
       accessToken: token,
-      $or: [{ role }, { role: "admin" }],
+      $or: [{ role }, { role: 'admin' }],
     });
     return account && MongoHelper.assign<AccountModel>(account);
   }

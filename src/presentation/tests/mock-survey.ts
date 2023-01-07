@@ -1,35 +1,37 @@
 import {
   AddSurvey,
   AddSurveyParams,
-} from "@/domain/usecases/survey/add-survey";
-import { LoadSurveyById } from "@/domain/usecases/survey/load-survey-by-id";
-import { SurveyModel } from "@/domain/models/survey";
-import { LoadSurveys } from "@/domain/usecases/survey/load-surveys";
-import { mockSurveyModel, mockSurveysModels } from "@/domain/tests";
+} from '@/domain/usecases/survey/add-survey';
+import { LoadSurveyById } from '@/domain/usecases/survey/load-survey-by-id';
+import { SurveyModel } from '@/domain/models/survey';
+import { LoadSurveys } from '@/domain/usecases/survey/load-surveys';
+import { mockSurveyModel, mockSurveysModels } from '@/domain/tests';
 
-export const mockAddSurvey = (): AddSurvey => {
-  class AddSurveyStub implements AddSurvey {
-    async add(data: AddSurveyParams): Promise<void> {
-      return Promise.resolve();
-    }
-  }
-  return new AddSurveyStub();
-};
+export class AddSurveySpy implements AddSurvey {
+  addSurveyParams: AddSurveyParams;
 
-export const mockLoadSurveys = (): LoadSurveys => {
-  class LoadSurveysStub implements LoadSurveys {
-    async load(): Promise<SurveyModel[]> {
-      return Promise.resolve(mockSurveysModels());
-    }
+  async add(data: AddSurveyParams): Promise<void> {
+    this.addSurveyParams = data;
+    return Promise.resolve();
   }
-  return new LoadSurveysStub();
-};
+}
 
-export const mockLoadSurveyById = (): LoadSurveyById => {
-  class LoadSurveyByIdStub implements LoadSurveyById {
-    async loadById(id: string): Promise<SurveyModel | null> {
-      return Promise.resolve(mockSurveyModel());
-    }
+export class LoadSurveysSpy implements LoadSurveys {
+  surveyModels = mockSurveysModels();
+  callsCount = 0;
+
+  async load(): Promise<SurveyModel[]> {
+    this.callsCount++;
+    return Promise.resolve(this.surveyModels);
   }
-  return new LoadSurveyByIdStub();
-};
+}
+
+export class LoadSurveyByIdSpy implements LoadSurveyById {
+  surveyModel = mockSurveyModel();
+  id: string;
+
+  async loadById(id: string): Promise<SurveyModel> {
+    this.id = id;
+    return Promise.resolve(this.surveyModel);
+  }
+}

@@ -1,31 +1,32 @@
 import { SaveSurveyResultParams } from '@/domain/usecases/survey-result/save-survey-result';
 import { SurveyResultModel } from '@/domain/models/survey-result';
+import { faker } from '@faker-js/faker';
 
 export const mockSaveSurveyResultParams = (): SaveSurveyResultParams => ({
-  accountId: 'any_account_id',
-  surveyId: 'any_survey_id',
-  answerId: 'any_answer_id',
-  date: new Date(),
+  accountId: faker.datatype.uuid(),
+  surveyId: faker.datatype.uuid(),
+  answerId: faker.datatype.uuid(),
+  date: faker.date.recent(),
 });
 
 export const mockSaveSurveyResultModel = (): SurveyResultModel => ({
   answers: [
     {
-      answer: 'any_answer',
-      answerId: 'any_answer_id',
-      count: 0,
-      percent: 0,
-      image: 'any_image',
+      answer: faker.random.word(),
+      answerId: faker.datatype.uuid(),
+      count: faker.datatype.number({ min: 0, max: 1000 }),
+      percent: faker.datatype.number({ min: 0, max: 100 }),
+      image: faker.image.imageUrl(),
     },
     {
-      answer: 'other_answer',
-      answerId: 'other_answer_id',
-      count: 0,
-      percent: 0,
-      image: 'other_image',
+      answer: faker.random.word(),
+      answerId: faker.datatype.uuid(),
+      count: faker.datatype.number({ min: 0, max: 1000 }),
+      percent: faker.datatype.number({ min: 0, max: 100 }),
+      image: faker.image.imageUrl(),
     },
   ],
-  date: new Date(),
-  question: 'any_question',
-  surveyId: 'any_id',
+  date: faker.date.recent(),
+  question: faker.random.words(),
+  surveyId: faker.datatype.uuid(),
 });

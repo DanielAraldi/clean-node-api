@@ -8,7 +8,7 @@ import {
   LoadSurveyResult,
   ok,
   serverError,
-} from './load-survey-result-protocols';
+} from './load-survey-result-controller-protocols';
 
 export class LoadSurveyResultController implements Controller {
   constructor(
