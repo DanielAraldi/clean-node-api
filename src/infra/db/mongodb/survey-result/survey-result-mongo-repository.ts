@@ -30,7 +30,10 @@ export class SurveyResultMongoRepository
     );
   }
 
-  async loadBySurveyId(surveyId: string): Promise<SurveyResultModel | null> {
+  async loadBySurveyId(
+    surveyId: string,
+    accountId: string
+  ): Promise<SurveyResultModel | null> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults'
     );
@@ -71,6 +74,15 @@ export class SurveyResultMongoRepository
         count: {
           $sum: 1,
         },
+        currentAccountAnswer: {
+          $push: {
+            $cond: [
+              { $eq: ['$data.accountId', MongoHelper.objectId(accountId)] },
+              '$data.answerId',
+              null,
+            ],
+          },
+        },
       })
       .builder('$project', {
         _id: 0,
@@ -109,6 +121,12 @@ export class SurveyResultMongoRepository
                       },
                       else: 0,
                     },
+                  },
+                  isCurrentAccountAnswer: {
+                    $eq: [
+                      '$$item.answerId',
+                      { $arrayElemAt: ['$currentAccountAnswer', 0] },
+                    ],
                   },
                 },
               ],
@@ -152,6 +170,7 @@ export class SurveyResultMongoRepository
           answerId: '$answers.answerId',
           answer: '$answers.answer',
           image: '$answers.image',
+          isCurrentAccountAnswer: '$answers.isCurrentAccountAnswer',
         },
         count: {
           $sum: '$answers.count',
@@ -169,8 +188,13 @@ export class SurveyResultMongoRepository
           answerId: '$_id.answerId',
           answer: '$_id.answer',
           image: '$_id.image',
-          count: '$count',
-          percent: '$percent',
+          count: {
+            $round: ['$count'],
+          },
+          percent: {
+            $round: ['$percent'],
+          },
+          isCurrentAccountAnswer: '$_id.isCurrentAccountAnswer',
         },
       })
       .builder('$sort', {

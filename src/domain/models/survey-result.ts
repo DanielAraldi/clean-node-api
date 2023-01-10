@@ -11,4 +11,5 @@ type SurveyResultAnswerModel = {
   count: number;
   percent: number;
   image?: string;
+  isCurrentAccountAnswer: boolean;
 };
