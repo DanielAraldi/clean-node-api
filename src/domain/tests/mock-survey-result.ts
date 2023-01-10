@@ -17,6 +17,7 @@ export const mockSaveSurveyResultModel = (): SurveyResultModel => ({
       count: faker.datatype.number({ min: 0, max: 1000 }),
       percent: faker.datatype.number({ min: 0, max: 100 }),
       image: faker.image.imageUrl(),
+      isCurrentAccountAnswer: faker.datatype.boolean(),
     },
     {
       answer: faker.random.word(),
@@ -24,6 +25,7 @@ export const mockSaveSurveyResultModel = (): SurveyResultModel => ({
       count: faker.datatype.number({ min: 0, max: 1000 }),
       percent: faker.datatype.number({ min: 0, max: 100 }),
       image: faker.image.imageUrl(),
+      isCurrentAccountAnswer: faker.datatype.boolean(),
     },
   ],
   date: faker.date.recent(),

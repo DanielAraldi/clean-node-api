@@ -1,9 +1,5 @@
 import { DbSaveSurveyResult } from './db-save-survey-result';
-import {
-  throwError,
-  mockSaveSurveyResultModel,
-  mockSaveSurveyResultParams,
-} from '@/domain/tests';
+import { throwError, mockSaveSurveyResultParams } from '@/domain/tests';
 import {
   LoadSurveyResultRepositorySpy,
   SaveSurveyResultRepositorySpy,
