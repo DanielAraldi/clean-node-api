@@ -1,26 +1,26 @@
 module.exports = {
   // Performs test coverage
-  roots: ["<rootDir>/src"],
+  roots: ['<rootDir>/src'],
   collectCoverageFrom: [
-    "<rootDir>/src/**/*.ts",
-    "!<rootDir>/src/**/*.d.ts",
-    "!<rootDir>/src/main/server.ts",
-    "!<rootDir>/src/domain/**",
-    "!<rootDir>/src/**/*protocols.ts",
-    "!<rootDir>/src/**/protocols/**",
-    "!**/tests/**", // Does not cover tests in locations that have the tests folder
+    '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/**/*.d.ts',
+    '!<rootDir>/src/main/server.ts',
+    '!<rootDir>/src/domain/**',
+    '!<rootDir>/src/**/*protocols.ts',
+    '!<rootDir>/src/**/protocols/**',
+    '!**/tests/**', // Does not cover tests in locations that have the tests folder
   ], // Where jest will be applied
-  coverageDirectory: "coverage",
-  coverageProvider: "v8",
-  testEnvironment: "node",
-  preset: "@shelf/jest-mongodb",
+  coverageDirectory: 'coverage',
+  coverageProvider: 'babel',
+  testEnvironment: 'node',
+  preset: '@shelf/jest-mongodb',
   transform: {
     // add to any text that has .ts the ts-jest, converted for ts to js
-    ".+\\.ts$": "ts-jest",
+    '.+\\.ts$': 'ts-jest',
   },
   moduleNameMapper: {
     // allows jest to recognize tests that start with import with alias of "@/"
-    "@/(.*)": "<rootDir>/src/$1",
+    '@/(.*)': '<rootDir>/src/$1',
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
