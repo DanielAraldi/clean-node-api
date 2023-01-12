@@ -79,7 +79,7 @@ export class SurveyResultMongoRepository
             $cond: [
               { $eq: ['$data.accountId', MongoHelper.objectId(accountId)] },
               '$data.answerId',
-              null,
+              '$invalid',
             ],
           },
         },
@@ -122,10 +122,18 @@ export class SurveyResultMongoRepository
                       else: 0,
                     },
                   },
-                  isCurrentAccountAnswer: {
-                    $eq: [
-                      '$$item.answerId',
-                      { $arrayElemAt: ['$currentAccountAnswer', 0] },
+                  isCurrentAccountAnswerCount: {
+                    $cond: [
+                      {
+                        $eq: [
+                          '$$item.answerId',
+                          {
+                            $arrayElemAt: ['$currentAccountAnswer', 0],
+                          },
+                        ],
+                      },
+                      1,
+                      0,
                     ],
                   },
                 },
@@ -170,13 +178,15 @@ export class SurveyResultMongoRepository
           answerId: '$answers.answerId',
           answer: '$answers.answer',
           image: '$answers.image',
-          isCurrentAccountAnswer: '$answers.isCurrentAccountAnswer',
         },
         count: {
           $sum: '$answers.count',
         },
         percent: {
           $sum: '$answers.percent',
+        },
+        isCurrentAccountAnswerCount: {
+          $sum: '$answers.isCurrentAccountAnswerCount',
         },
       })
       .builder('$project', {
@@ -194,7 +204,9 @@ export class SurveyResultMongoRepository
           percent: {
             $round: ['$percent'],
           },
-          isCurrentAccountAnswer: '$_id.isCurrentAccountAnswer',
+          isCurrentAccountAnswer: {
+            $eq: ['$isCurrentAccountAnswerCount', 1],
+          },
         },
       })
       .builder('$sort', {
