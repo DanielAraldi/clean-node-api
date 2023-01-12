@@ -37,9 +37,9 @@ const makeSut = (): SutTypes => {
 };
 
 describe('AddSurvey Controller', () => {
-  beforeAll(() => MockDate.set(new Date()));
+  beforeAll(() => { MockDate.set(new Date()); });
 
-  afterAll(() => MockDate.reset());
+  afterAll(() => { MockDate.reset(); });
 
   test('Should call Validation with correct values', async () => {
     const { sut, validationSpy } = makeSut();

@@ -21,9 +21,9 @@ const makeSut = (): SutTypes => {
 let surveyId: string;
 
 describe('DbLoadSurveyById Usecase', () => {
-  beforeAll(() => MockDate.set(new Date()));
+  beforeAll(() => { MockDate.set(new Date()); });
 
-  afterAll(() => MockDate.reset());
+  afterAll(() => { MockDate.reset(); });
 
   beforeEach(() => {
     surveyId = faker.datatype.uuid();

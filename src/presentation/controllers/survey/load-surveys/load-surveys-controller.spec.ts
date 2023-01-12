@@ -26,9 +26,9 @@ const makeSut = (): SutTypes => {
 };
 
 describe('LoadSurveys Controller', () => {
-  beforeAll(() => MockDate.set(new Date()));
+  beforeAll(() => { MockDate.set(new Date()); });
 
-  afterAll(() => MockDate.reset());
+  afterAll(() => { MockDate.reset(); });
 
   test('Should call LoadSurveys with correct value', async () => {
     const { sut, loadSurveysSpy } = makeSut();

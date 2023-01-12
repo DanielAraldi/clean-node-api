@@ -27,9 +27,9 @@ let surveyId: string;
 let accountId: string;
 
 describe('DbLoadSurveyResult UseCase', () => {
-  beforeAll(() => MockDate.set(new Date()));
+  beforeAll(() => { MockDate.set(new Date()); });
 
-  afterAll(() => MockDate.reset());
+  afterAll(() => { MockDate.reset(); });
 
   beforeEach(() => {
     surveyId = faker.datatype.uuid();

@@ -18,9 +18,9 @@ const makeSut = (): SutTypes => {
 };
 
 describe('DbAddSurvey Usecase', () => {
-  beforeAll(() => MockDate.set(new Date()));
+  beforeAll(() => { MockDate.set(new Date()); });
 
-  afterAll(() => MockDate.reset());
+  afterAll(() => { MockDate.reset(); });
 
   test('Should call AddSurveyRepository with correct values', async () => {
     const { addSurveyRepositorySpy, sut } = makeSut();
