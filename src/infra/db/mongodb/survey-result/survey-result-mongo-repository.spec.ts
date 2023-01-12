@@ -110,13 +110,13 @@ describe('SurveyResultMongoRepository', () => {
       await surveyResultCollection.insertMany([
         {
           surveyId: MongoHelper.objectId(survey.id),
-          accountId: MongoHelper.objectId(firstAccount.id),
+          accountId: MongoHelper.objectId(secondAccount.id),
           answerId: survey.answers[0].answerId,
           date: new Date(),
         },
         {
           surveyId: MongoHelper.objectId(survey.id),
-          accountId: MongoHelper.objectId(secondAccount.id),
+          accountId: MongoHelper.objectId(firstAccount.id),
           answerId: survey.answers[0].answerId,
           date: new Date(),
         },
@@ -130,6 +130,7 @@ describe('SurveyResultMongoRepository', () => {
       expect(surveyResult.answers[1].count).toBe(0);
       expect(surveyResult.answers[1].percent).toBe(0);
       expect(surveyResult.answers[1].isCurrentAccountAnswer).toBe(false);
+      expect(surveyResult.answers.length).toBe(survey.answers.length);
     });
 
     test('Should load survey result with three users', async () => {
@@ -162,7 +163,6 @@ describe('SurveyResultMongoRepository', () => {
         survey.id,
         secondAccount.id
       );
-      console.log(surveyResult);
       expect(surveyResult).toBeTruthy();
       expect(surveyResult.surveyId).toEqual(survey.id);
       expect(surveyResult.answers[0].count).toBe(2);
@@ -171,6 +171,7 @@ describe('SurveyResultMongoRepository', () => {
       expect(surveyResult.answers[1].count).toBe(1);
       expect(surveyResult.answers[1].percent).toBe(33);
       expect(surveyResult.answers[1].isCurrentAccountAnswer).toBe(false);
+      expect(surveyResult.answers.length).toBe(survey.answers.length);
     });
 
     test('Should load survey result with third user no answers', async () => {
@@ -202,6 +203,7 @@ describe('SurveyResultMongoRepository', () => {
       expect(surveyResult.answers[1].count).toBe(1);
       expect(surveyResult.answers[1].percent).toBe(50);
       expect(surveyResult.answers[1].isCurrentAccountAnswer).toBe(false);
+      expect(surveyResult.answers.length).toBe(survey.answers.length);
     });
 
     test("Should return null if survey result don't have answers", async () => {
