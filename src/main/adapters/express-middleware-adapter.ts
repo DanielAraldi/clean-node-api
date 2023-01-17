@@ -1,5 +1,5 @@
-import { HttpRequest, Middleware } from "@/presentation/protocols";
-import { NextFunction, Request, Response } from "express";
+import { HttpRequest, Middleware } from '@/presentation/protocols';
+import { NextFunction, Request, Response } from 'express';
 
 // Design Pattern - Proxy (works as a filter)
 export const adaptMiddleware = (middleware: Middleware) => {

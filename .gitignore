@@ -115,6 +115,7 @@ data
 
 # Not ignore files in
 !src/data
+!tests/data
 
 # CI
 .coveralls.yml
