@@ -5,14 +5,15 @@ import {
   UpdateAccessTokenRepository,
 } from '@/data/protocols/db';
 import { mockAccountModel } from '@/../tests/domain/mocks';
-import { AddAccountParams } from '@/domain/usecases/account/add-account';
 import { AccountModel } from '@/domain/models/account';
 
 export class AddAccountRepositorySpy implements AddAccountRepository {
   accountModel = mockAccountModel();
-  addAccountParams: AddAccountParams;
+  addAccountParams: AddAccountRepository.Params;
 
-  async add(data: AddAccountParams): Promise<AccountModel> {
+  async add(
+    data: AddAccountRepository.Params
+  ): Promise<AddAccountRepository.Result> {
     this.addAccountParams = data;
     return Promise.resolve(this.accountModel);
   }
