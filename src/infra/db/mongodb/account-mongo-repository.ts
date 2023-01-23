@@ -5,7 +5,6 @@ import {
   UpdateAccessTokenRepository,
   LoadAccountByTokenRepository,
 } from '@/data/protocols/db';
-import { AccountModel } from '@/domain/models';
 
 export class AccountMongoRepository
   implements
@@ -22,13 +21,21 @@ export class AccountMongoRepository
     const account = await accountCollection.findOne({
       _id: result.insertedId,
     });
-    return MongoHelper.assign<AddAccountRepository.Result>(account);
+    return !!account;
   }
 
-  async loadByEmail(email: string): Promise<AccountModel | null> {
+  async loadByEmail(
+    email: string
+  ): Promise<LoadAccountByEmailRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts');
-    const account = await accountCollection.findOne({ email });
-    return account && MongoHelper.assign<AccountModel>(account);
+    const account = await accountCollection.findOne(
+      { email },
+      { projection: { _id: 1, name: 1, password: 1 } }
+    );
+    if (account) {
+      return MongoHelper.assign<LoadAccountByEmailRepository.Result>(account);
+    }
+    return null;
   }
 
   async updateAccessToken(id: string, token: string): Promise<void> {
@@ -52,9 +59,9 @@ export class AccountMongoRepository
       },
       { projection: { _id: 1 } }
     );
-    return (
-      account &&
-      MongoHelper.assign<LoadAccountByTokenRepository.Result>(account)
-    );
+    if (account) {
+      return MongoHelper.assign<LoadAccountByTokenRepository.Result>(account);
+    }
+    return null;
   }
 }

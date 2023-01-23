@@ -25,12 +25,8 @@ describe('AccountMongoRepository', () => {
     test('Should return an account on add success', async () => {
       const sut = makeSut();
       const addAccountParams = mockAddAccountParams();
-      const account = await sut.add(addAccountParams);
-      expect(account).toBeTruthy();
-      expect(account.id).toBeTruthy();
-      expect(account.name).toBe(addAccountParams.name);
-      expect(account.email).toBe(addAccountParams.email);
-      expect(account.password).toBe(addAccountParams.password);
+      const isValid = await sut.add(addAccountParams);
+      expect(isValid).toBe(true);
     });
   });
 
@@ -43,7 +39,6 @@ describe('AccountMongoRepository', () => {
       expect(account).toBeTruthy();
       expect(account.id).toBeTruthy();
       expect(account.name).toBe(addAccountParams.name);
-      expect(account.email).toBe(addAccountParams.email);
       expect(account.password).toBe(addAccountParams.password);
     });
 

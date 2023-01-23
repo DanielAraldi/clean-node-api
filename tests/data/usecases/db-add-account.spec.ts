@@ -1,14 +1,11 @@
 import { DbAddAccount } from '@/data/usecases';
-import {
-  mockAccountModel,
-  mockAddAccountParams,
-  throwError,
-} from '@/../tests/domain/mocks';
+import { mockAddAccountParams, throwError } from '@/../tests/domain/mocks';
 import {
   HasherSpy,
   AddAccountRepositorySpy,
   LoadAccountByEmailRepositorySpy,
 } from '@/../tests/data/mocks';
+import { faker } from '@faker-js/faker';
 
 type SutTypes = {
   sut: DbAddAccount;
@@ -19,7 +16,7 @@ type SutTypes = {
 
 const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositorySpy = new LoadAccountByEmailRepositorySpy();
-  loadAccountByEmailRepositorySpy.accountModel = null;
+  loadAccountByEmailRepositorySpy.result = null;
   const hasherSpy = new HasherSpy();
   const addAccountRepositorySpy = new AddAccountRepositorySpy();
   const sut = new DbAddAccount(
@@ -70,7 +67,14 @@ describe('DbAddAccount Usecase', () => {
     await expect(promise).rejects.toThrow();
   });
 
-  test('Should return true if loadAccountByEmailRepositorySpy returns null', async () => {
+  test('Should return false if addAccountRepositorySpy returns false', async () => {
+    const { sut, addAccountRepositorySpy } = makeSut();
+    addAccountRepositorySpy.result = false;
+    const isValid = await sut.add(mockAddAccountParams());
+    expect(isValid).toBe(false);
+  });
+
+  test('Should return true no success', async () => {
     const { sut } = makeSut();
     const isValid = await sut.add(mockAddAccountParams());
     expect(isValid).toBe(true);
@@ -78,7 +82,11 @@ describe('DbAddAccount Usecase', () => {
 
   test('Should return false if loadAccountByEmailRepositorySpy returns an account', async () => {
     const { sut, loadAccountByEmailRepositorySpy } = makeSut();
-    loadAccountByEmailRepositorySpy.accountModel = mockAccountModel();
+    loadAccountByEmailRepositorySpy.result = {
+      id: faker.datatype.uuid(),
+      name: faker.name.fullName(),
+      password: faker.internet.password(),
+    };
     const isValid = await sut.add(mockAddAccountParams());
     expect(isValid).toBe(false);
   });
