@@ -5,7 +5,6 @@ import {
   UpdateAccessTokenRepository,
   LoadAccountByTokenRepository,
 } from '@/data/protocols/db';
-import { AddAccount } from '@/domain/usecases';
 import { AccountModel } from '@/domain/models';
 
 export class AccountMongoRepository
@@ -23,7 +22,7 @@ export class AccountMongoRepository
     const account = await accountCollection.findOne({
       _id: result.insertedId,
     });
-    return MongoHelper.assign<AccountModel>(account);
+    return MongoHelper.assign<AddAccountRepository.Result>(account);
   }
 
   async loadByEmail(email: string): Promise<AccountModel | null> {
@@ -44,12 +43,18 @@ export class AccountMongoRepository
   async loadByToken(
     token: string,
     role?: string
-  ): Promise<AccountModel | null> {
+  ): Promise<LoadAccountByTokenRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts');
-    const account = await accountCollection.findOne({
-      accessToken: token,
-      $or: [{ role }, { role: 'admin' }],
-    });
-    return account && MongoHelper.assign<AccountModel>(account);
+    const account = await accountCollection.findOne(
+      {
+        accessToken: token,
+        $or: [{ role }, { role: 'admin' }],
+      },
+      { projection: { _id: 1 } }
+    );
+    return (
+      account &&
+      MongoHelper.assign<LoadAccountByTokenRepository.Result>(account)
+    );
   }
 }
