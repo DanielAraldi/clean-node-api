@@ -17,6 +17,7 @@
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/method-signature-style": ["error", "method"],
     "@typescript-eslint/space-before-function-paren": [
