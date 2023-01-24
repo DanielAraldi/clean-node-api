@@ -3,7 +3,7 @@ import { InvalidParamError } from '@/presentation/errors';
 import { forbidden, serverError, ok, badRequest } from '@/presentation/helpers';
 import {
   SaveSurveyResultSpy,
-  LoadSurveyByIdSpy,
+  LoadAnswersBySurveySpy,
   ValidationSpy,
 } from '@/../tests/presentation/mocks';
 import { throwError } from '@/../tests/domain/mocks';
@@ -21,20 +21,20 @@ const mockRequest = (
 type SutTypes = {
   sut: SaveSurveyResultController;
   validationSpy: ValidationSpy;
-  loadSurveyByIdSpy: LoadSurveyByIdSpy;
+  loadAnswersBySurvey: LoadAnswersBySurveySpy;
   saveSurveyResultSpy: SaveSurveyResultSpy;
 };
 
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy();
-  const loadSurveyByIdSpy = new LoadSurveyByIdSpy();
+  const loadAnswersBySurvey = new LoadAnswersBySurveySpy();
   const saveSurveyResultSpy = new SaveSurveyResultSpy();
   const sut = new SaveSurveyResultController(
     validationSpy,
-    loadSurveyByIdSpy,
+    loadAnswersBySurvey,
     saveSurveyResultSpy
   );
-  return { sut, validationSpy, loadSurveyByIdSpy, saveSurveyResultSpy };
+  return { sut, validationSpy, loadAnswersBySurvey, saveSurveyResultSpy };
 };
 
 describe('SaveSurveyResult Controller', () => {
@@ -61,16 +61,16 @@ describe('SaveSurveyResult Controller', () => {
     expect(httpResponse).toEqual(badRequest(new Error()));
   });
 
-  test('Should call LoadSurveyById with correct values', async () => {
-    const { sut, loadSurveyByIdSpy } = makeSut();
+  test('Should call LoadAnswersBySurvey with correct values', async () => {
+    const { sut, loadAnswersBySurvey } = makeSut();
     const request = mockRequest();
     await sut.handle(request);
-    expect(loadSurveyByIdSpy.id).toBe(request.surveyId);
+    expect(loadAnswersBySurvey.id).toBe(request.surveyId);
   });
 
-  test('Should return 403 if LoadSurveyById returns null', async () => {
-    const { sut, loadSurveyByIdSpy } = makeSut();
-    loadSurveyByIdSpy.surveyModel = null;
+  test('Should return 403 if LoadAnswersBySurvey returns null', async () => {
+    const { sut, loadAnswersBySurvey } = makeSut();
+    loadAnswersBySurvey.result = [];
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(forbidden(new InvalidParamError('surveyId')));
   });
@@ -82,19 +82,17 @@ describe('SaveSurveyResult Controller', () => {
   });
 
   test('Should return 500 if LoadSurveyById throws', async () => {
-    const { sut, loadSurveyByIdSpy } = makeSut();
+    const { sut, loadAnswersBySurvey } = makeSut();
     jest
-      .spyOn(loadSurveyByIdSpy, 'loadById')
+      .spyOn(loadAnswersBySurvey, 'loadAnswers')
       .mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });
 
   test('Should call SaveSurveyResult with correct values', async () => {
-    const { sut, saveSurveyResultSpy, loadSurveyByIdSpy } = makeSut();
-    const request = mockRequest(
-      loadSurveyByIdSpy.surveyModel.answers[0].answerId
-    );
+    const { sut, saveSurveyResultSpy, loadAnswersBySurvey } = makeSut();
+    const request = mockRequest(loadAnswersBySurvey.result[0]);
     await sut.handle(request);
     expect(saveSurveyResultSpy.saveSurveyResultParams).toEqual({
       surveyId: request.surveyId,
@@ -105,20 +103,16 @@ describe('SaveSurveyResult Controller', () => {
   });
 
   test('Should return 500 if SaveSurveyResult throws', async () => {
-    const { sut, saveSurveyResultSpy, loadSurveyByIdSpy } = makeSut();
+    const { sut, saveSurveyResultSpy, loadAnswersBySurvey } = makeSut();
     jest.spyOn(saveSurveyResultSpy, 'save').mockImplementationOnce(throwError);
-    const request = mockRequest(
-      loadSurveyByIdSpy.surveyModel.answers[0].answerId
-    );
+    const request = mockRequest(loadAnswersBySurvey.result[0]);
     const httpResponse = await sut.handle(request);
     expect(httpResponse).toEqual(serverError(new Error()));
   });
 
   test('Should return 200 on success', async () => {
-    const { sut, saveSurveyResultSpy, loadSurveyByIdSpy } = makeSut();
-    const request = mockRequest(
-      loadSurveyByIdSpy.surveyModel.answers[0].answerId
-    );
+    const { sut, saveSurveyResultSpy, loadAnswersBySurvey } = makeSut();
+    const request = mockRequest(loadAnswersBySurvey.result[0]);
     const httpResponse = await sut.handle(request);
     expect(httpResponse).toEqual(ok(saveSurveyResultSpy.surveyResultModel));
   });

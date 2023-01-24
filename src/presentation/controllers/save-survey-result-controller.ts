@@ -1,12 +1,12 @@
 import { Controller, HttpResponse, Validation } from '@/presentation/protocols';
 import { forbidden, serverError, ok, badRequest } from '@/presentation/helpers';
 import { InvalidParamError } from '@/presentation/errors';
-import { LoadSurveyById, SaveSurveyResult } from '@/domain/usecases';
+import { LoadAnswersBySurvey, SaveSurveyResult } from '@/domain/usecases';
 
 export class SaveSurveyResultController implements Controller {
   constructor(
     private readonly validation: Validation,
-    private readonly loadSurveyById: LoadSurveyById,
+    private readonly loadAnswersBySurvey: LoadAnswersBySurvey,
     private readonly saveSurveyResult: SaveSurveyResult
   ) {}
 
@@ -21,13 +21,11 @@ export class SaveSurveyResultController implements Controller {
 
       const { accountId, answerId, surveyId } = request;
 
-      const survey = await this.loadSurveyById.loadById(surveyId);
+      const answersId = await this.loadAnswersBySurvey.loadAnswers(surveyId);
 
-      if (survey) {
-        const findedAnswer = survey.answers.find(
-          answer => answer.answerId.toString() === answerId
-        );
-        if (!findedAnswer) {
+      if (answersId.length) {
+        const findedAnswerId = answersId.find(id => id.toString() === answerId);
+        if (!findedAnswerId) {
           return forbidden(new InvalidParamError('answerId'));
         }
       } else {
