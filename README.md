@@ -137,6 +137,6 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - ✅ Swagger
 - ✅ LoadSurveyResult API
 - ✅ Refactor
-- ⛔️ Melhorando a Arquitetura
+- ✅ Melhorando a Arquitetura
 - ⛔️ GraphQL
 - ⛔️ Atualizando Libs
