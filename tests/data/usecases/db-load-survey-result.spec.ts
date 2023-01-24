@@ -68,7 +68,7 @@ describe('DbLoadSurveyResult UseCase', () => {
     const { loadSurveyByIdRepositorySpy, loadSurveyResultRepositorySpy, sut } =
       makeSut();
     loadSurveyResultRepositorySpy.surveyResultModel = null;
-    loadSurveyByIdRepositorySpy.surveyModel = null;
+    loadSurveyByIdRepositorySpy.result = null;
     const surveyResult = await sut.load(surveyId, accountId);
     expect(surveyResult).toBeNull();
   });
@@ -78,12 +78,12 @@ describe('DbLoadSurveyResult UseCase', () => {
       makeSut();
     loadSurveyResultRepositorySpy.surveyResultModel = null;
     const surveyResult = await sut.load(surveyId, accountId);
-    const { surveyModel } = loadSurveyByIdRepositorySpy;
+    const { result } = loadSurveyByIdRepositorySpy;
     expect(surveyResult).toEqual({
-      surveyId: surveyModel.id,
-      question: surveyModel.question,
-      date: surveyModel.date,
-      answers: surveyModel.answers.map(answer =>
+      surveyId: result.id,
+      question: result.question,
+      date: result.date,
+      answers: result.answers.map(answer =>
         Object.assign({}, answer, {
           count: 0,
           percent: 0,

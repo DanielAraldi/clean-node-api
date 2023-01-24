@@ -1,5 +1,4 @@
 import { LoadSurveyById } from '@/domain/usecases';
-import { SurveyModel } from '@/domain/models';
 import { LoadSurveyByIdRepository } from '@/data/protocols';
 
 export class DbLoadSurveyById implements LoadSurveyById {
@@ -7,7 +6,7 @@ export class DbLoadSurveyById implements LoadSurveyById {
     private readonly loadSurveyByIdRepository: LoadSurveyByIdRepository
   ) {}
 
-  async loadById(id: string): Promise<SurveyModel | null> {
+  async loadById(id: string): Promise<LoadSurveyById.Result> {
     return await this.loadSurveyByIdRepository.loadById(id);
   }
 }
