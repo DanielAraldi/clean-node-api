@@ -1,4 +1,4 @@
-import { SaveSurveyResult, SaveSurveyResultParams } from '@/domain/usecases';
+import { SaveSurveyResult } from '@/domain/usecases';
 import { SurveyResultModel } from '@/domain/models';
 import {
   SaveSurveyResultRepository,
@@ -11,7 +11,7 @@ export class DbSaveSurveyResult implements SaveSurveyResult {
     private readonly loadSurveyResultRepository: LoadSurveyResultRepository
   ) {}
 
-  async save(data: SaveSurveyResultParams): Promise<SurveyResultModel | null> {
+  async save(data: SaveSurveyResult.Params): Promise<SaveSurveyResult.Result> {
     await this.saveSurveyResultRepository.save(data);
     return this.loadSurveyResultRepository.loadBySurveyId(
       data.surveyId,

@@ -79,7 +79,7 @@ describe('LoadSurveyResult Controller', () => {
 
   test('Should return 403 if LoadSurveyResult returns null', async () => {
     const { loadSurveyResultSpy, sut } = makeSut();
-    loadSurveyResultSpy.surveyResultModel = null;
+    loadSurveyResultSpy.result = null;
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(forbidden(new InvalidParamError('surveyId')));
   });
@@ -87,6 +87,6 @@ describe('LoadSurveyResult Controller', () => {
   test('Should return 200 on success', async () => {
     const { sut, loadSurveyResultSpy } = makeSut();
     const httpResponse = await sut.handle(mockRequest());
-    expect(httpResponse).toEqual(ok(loadSurveyResultSpy.surveyResultModel));
+    expect(httpResponse).toEqual(ok(loadSurveyResultSpy.result));
   });
 });

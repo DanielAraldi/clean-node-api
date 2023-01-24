@@ -4,5 +4,9 @@ export interface LoadSurveyResultRepository {
   loadBySurveyId(
     surveyId: string,
     accountId: string
-  ): Promise<SurveyResultModel | null>;
+  ): Promise<LoadSurveyResultRepository.Result>;
+}
+
+export namespace LoadSurveyResultRepository {
+  export type Result = SurveyResultModel | null;
 }

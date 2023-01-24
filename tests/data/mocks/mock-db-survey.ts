@@ -51,11 +51,11 @@ export class CheckSurveyByIdRepositorySpy implements CheckSurveyByIdRepository {
 }
 
 export class LoadSurveysRepositorySpy implements LoadSurveysRepository {
-  surveyModels = mockSurveysModels();
+  result = mockSurveysModels();
   accountId: string;
 
   async loadAll(accountId: string): Promise<SurveyModel[]> {
     this.accountId = accountId;
-    return Promise.resolve(this.surveyModels);
+    return Promise.resolve(this.result);
   }
 }

@@ -16,17 +16,18 @@ export class AddAccountSpy implements AddAccount {
 }
 
 export class AuthenticationSpy implements Authentication {
-  authenticationParams: Authentication.Params;
-  authenticationModel = {
+  result = {
     accessToken: faker.datatype.uuid(),
     name: faker.name.fullName(),
   };
+
+  authenticationParams: Authentication.Params;
 
   async auth(
     authenticationParams: Authentication.Params
   ): Promise<Authentication.Result> {
     this.authenticationParams = authenticationParams;
-    return Promise.resolve(this.authenticationModel);
+    return Promise.resolve(this.result);
   }
 }
 

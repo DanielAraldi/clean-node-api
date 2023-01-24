@@ -1,5 +1,5 @@
 import { LoadSurveyResult } from '@/domain/usecases';
-import { SurveyModel, SurveyResultModel } from '@/domain/models';
+import { SurveyModel } from '@/domain/models';
 import {
   LoadSurveyResultRepository,
   LoadSurveyByIdRepository,
@@ -14,7 +14,7 @@ export class DbLoadSurveyResult implements LoadSurveyResult {
   async load(
     surveyId: string,
     accountId: string
-  ): Promise<SurveyResultModel | null> {
+  ): Promise<LoadSurveyResult.Result> {
     let surveyResult = await this.loadSurveyResultRepository.loadBySurveyId(
       surveyId,
       accountId
@@ -28,7 +28,7 @@ export class DbLoadSurveyResult implements LoadSurveyResult {
     return surveyResult;
   }
 
-  private makeEmptyResult(survey: SurveyModel): SurveyResultModel {
+  private makeEmptyResult(survey: SurveyModel): LoadSurveyResult.Result {
     return {
       surveyId: survey.id,
       question: survey.question,
