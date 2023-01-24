@@ -1,13 +1,14 @@
-import { HttpRequest, Middleware } from "@/presentation/protocols";
-import { NextFunction, Request, Response } from "express";
+import { Middleware } from '@/presentation/protocols';
+import { NextFunction, Request, Response } from 'express';
 
 // Design Pattern - Proxy (works as a filter)
 export const adaptMiddleware = (middleware: Middleware) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const httpRequest: HttpRequest = {
-      headers: req.headers,
+    const request = {
+      accessToken: req.headers?.['x-access-token'],
+      ...(req.headers || {}),
     };
-    const httpResponse = await middleware.handle(httpRequest);
+    const httpResponse = await middleware.handle(request);
     if (httpResponse.statusCode === 200) {
       Object.assign(req, httpResponse.body);
       next();

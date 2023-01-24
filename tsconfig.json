@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
-    "outDir": "dist", // Where the .js files to be interpreted by the node
-    "module": "CommonJS", // Type imports, no require
-    "target": "ES2019", 
-    "esModuleInterop": true, // Converts modules that do not use commonjs
+    "outDir": "dist",
+    "module": "CommonJS",
+    "target": "ES2020",
+    "esModuleInterop": true,
     "skipLibCheck": true,
     /*
       shows which ts file it generated the js, 
       this helps to find the location of the file to debug
     */
     "sourceMap": true,
-    "rootDir": "src",
+    "rootDirs": ["src", "tests"],
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"],
+      "@/*": ["*"]
     }
   },
-  "include": ["src"],
-  "exclude": [],
+  "include": ["src", "tests"],
+  "exclude": []
 }

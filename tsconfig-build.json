@@ -1,8 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": [
-    "**/*.spec.ts", 
-    "**/*.test.ts", 
-    "**/tests/**" // Does not build tests in locations that have the tests folder
-  ],
+  "exclude": ["tests"]
 }
