@@ -81,7 +81,7 @@ describe('SurveyMongoRepository', () => {
   });
 
   describe('loadById()', () => {
-    test('Should return null if survey is not exists', async () => {
+    test('Should return null if survey does not exists', async () => {
       const sut = makeSut();
       const surveyId = MongoHelper.objectId();
       const survey = await sut.loadById(surveyId.toString());
@@ -97,6 +97,31 @@ describe('SurveyMongoRepository', () => {
       const survey = await sut.loadById(surveyId);
       expect(survey).toBeTruthy();
       expect(survey.id).toBeTruthy();
+    });
+  });
+
+  describe('loadAnswers()', () => {
+    test('Should return empty array if survey does not exists', async () => {
+      const sut = makeSut();
+      const surveyId = MongoHelper.objectId();
+      const answers = await sut.loadAnswers(surveyId.toString());
+      expect(answers).toEqual([]);
+    });
+
+    test('Should load answers on success', async () => {
+      const collection = await surveyCollection.insertOne(
+        mockAddSurveyParams()
+      );
+      const sut = makeSut();
+      const surveyId = collection.insertedId.toString();
+      const surveyInserted = await surveyCollection.findOne({
+        _id: MongoHelper.objectId(surveyId),
+      });
+      const answers = await sut.loadAnswers(surveyId);
+      expect(answers).toEqual([
+        surveyInserted.answers[0].answerId,
+        surveyInserted.answers[1].answerId,
+      ]);
     });
   });
 

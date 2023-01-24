@@ -5,7 +5,7 @@ import {
   CheckSurveyById,
 } from '@/domain/usecases';
 import { SurveyModel } from '@/domain/models';
-import { mockSurveyModel, mockSurveysModels } from '@/../tests/domain/mocks';
+import { mockSurveysModels } from '@/../tests/domain/mocks';
 import { faker } from '@faker-js/faker';
 
 export class AddSurveySpy implements AddSurvey {
