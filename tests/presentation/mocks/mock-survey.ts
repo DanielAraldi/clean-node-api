@@ -4,7 +4,6 @@ import {
   LoadAnswersBySurvey,
   CheckSurveyById,
 } from '@/domain/usecases';
-import { SurveyModel } from '@/domain/models';
 import { mockSurveysModels } from '@/../tests/domain/mocks';
 import { faker } from '@faker-js/faker';
 
@@ -18,12 +17,12 @@ export class AddSurveySpy implements AddSurvey {
 }
 
 export class LoadSurveysSpy implements LoadSurveys {
-  surveyModels = mockSurveysModels();
+  results = mockSurveysModels();
   accountId: string;
 
-  async load(accountId: string): Promise<SurveyModel[]> {
+  async load(accountId: string): Promise<LoadSurveys.Result> {
     this.accountId = accountId;
-    return Promise.resolve(this.surveyModels);
+    return Promise.resolve(this.results);
   }
 }
 
