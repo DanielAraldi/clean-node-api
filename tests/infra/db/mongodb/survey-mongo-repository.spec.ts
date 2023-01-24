@@ -81,6 +81,13 @@ describe('SurveyMongoRepository', () => {
   });
 
   describe('loadById()', () => {
+    test('Should return null if survey is not exists', async () => {
+      const sut = makeSut();
+      const surveyId = MongoHelper.objectId();
+      const survey = await sut.loadById(surveyId.toString());
+      expect(survey).toBeNull();
+    });
+
     test('Should load survey by id on success', async () => {
       const collection = await surveyCollection.insertOne(
         mockAddSurveyParams()
@@ -90,6 +97,25 @@ describe('SurveyMongoRepository', () => {
       const survey = await sut.loadById(surveyId);
       expect(survey).toBeTruthy();
       expect(survey.id).toBeTruthy();
+    });
+  });
+
+  describe('checkById()', () => {
+    test('Should return false if survey is not exists', async () => {
+      const sut = makeSut();
+      const surveyId = MongoHelper.objectId();
+      const exists = await sut.checkById(surveyId.toString());
+      expect(exists).toBe(false);
+    });
+
+    test('Should return true if survey exists', async () => {
+      const collection = await surveyCollection.insertOne(
+        mockAddSurveyParams()
+      );
+      const sut = makeSut();
+      const surveyId = collection.insertedId.toString();
+      const exists = await sut.checkById(surveyId);
+      expect(exists).toBe(true);
     });
   });
 });

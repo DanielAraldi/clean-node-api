@@ -4,11 +4,13 @@ import {
   AddSurveyRepository,
   LoadSurveysRepository,
   LoadSurveyByIdRepository,
+  CheckSurveyByIdRepository,
 } from '@/data/protocols/db';
 
 export class SurveyMongoRepository
   implements
     AddSurveyRepository,
+    CheckSurveyByIdRepository,
     LoadSurveysRepository,
     LoadSurveyByIdRepository
 {
@@ -69,5 +71,17 @@ export class SurveyMongoRepository
       _id: surveyId,
     });
     return survey && MongoHelper.assign<SurveyModel>(survey);
+  }
+
+  async checkById(id: string): Promise<CheckSurveyByIdRepository.Result> {
+    const surveyCollection = await MongoHelper.getCollection('surveys');
+    const surveyId = MongoHelper.objectId(id);
+    const survey = await surveyCollection.findOne(
+      {
+        _id: surveyId,
+      },
+      { projection: { _id: 1 } }
+    );
+    return !!survey;
   }
 }
