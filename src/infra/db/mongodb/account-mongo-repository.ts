@@ -4,6 +4,7 @@ import {
   LoadAccountByEmailRepository,
   UpdateAccessTokenRepository,
   LoadAccountByTokenRepository,
+  CheckAccountByEmailRepository,
 } from '@/data/protocols/db';
 
 export class AccountMongoRepository
@@ -11,7 +12,8 @@ export class AccountMongoRepository
     AddAccountRepository,
     LoadAccountByEmailRepository,
     UpdateAccessTokenRepository,
-    LoadAccountByTokenRepository
+    LoadAccountByTokenRepository,
+    CheckAccountByEmailRepository
 {
   async add(
     data: AddAccountRepository.Params
@@ -36,6 +38,17 @@ export class AccountMongoRepository
       return MongoHelper.assign<LoadAccountByEmailRepository.Result>(account);
     }
     return null;
+  }
+
+  async checkByEmail(
+    email: string
+  ): Promise<CheckAccountByEmailRepository.Result> {
+    const accountCollection = await MongoHelper.getCollection('accounts');
+    const account = await accountCollection.findOne(
+      { email },
+      { projection: { _id: 1 } }
+    );
+    return !!account;
   }
 
   async updateAccessToken(id: string, token: string): Promise<void> {
