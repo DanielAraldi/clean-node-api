@@ -3,9 +3,10 @@ import { GraphQLError } from 'graphql';
 
 export const adaptResolver = async (
   controller: Controller,
-  args: any
+  args?: any
 ): Promise<any> => {
-  const httpResponse = await controller.handle(args);
+  const request = { ...(args || {}) };
+  const httpResponse = await controller.handle(request);
   switch (httpResponse.statusCode) {
     case 200:
     case 204:
