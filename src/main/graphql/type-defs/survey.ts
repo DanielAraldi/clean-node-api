@@ -1,6 +1,4 @@
 export default `#graphql
-  scalar DateTime
-
   extend type Query {
     surveys: [Survey!]!
   }
