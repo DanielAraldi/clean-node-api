@@ -12,6 +12,7 @@ module.exports = {
   },
   moduleNameMapper: {
     // allows jest to recognize tests that start with import with alias of "@/"
+    '@/tests/(.*)': '<rootDir>/tests/$1',
     '@/(.*)': '<rootDir>/src/$1',
   },
 
