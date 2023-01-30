@@ -138,5 +138,5 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - ✅ LoadSurveyResult API
 - ✅ Refactor
 - ✅ Melhorando a Arquitetura
-- ⛔️ GraphQL
+- ✅ GraphQL
 - ⛔️ Atualizando Libs
