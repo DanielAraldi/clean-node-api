@@ -114,7 +114,6 @@ describe('Survey GraphQL', () => {
     });
 
     test('Should return AccessDeniedError if no access token is provided', async () => {
-      const now = new Date();
       const firstAnswerId = MongoHelper.objectId().toString();
       const secondAnswerId = MongoHelper.objectId().toString();
       await surveyCollection.insertOne({
@@ -130,7 +129,7 @@ describe('Survey GraphQL', () => {
             answer: 'Answer 2',
           },
         ],
-        date: now,
+        date: new Date(),
       });
       const response: any = await apolloServer.executeOperation({
         query: surveysQuery,
