@@ -80,5 +80,27 @@ describe('Login GraphQL', () => {
       expect(response.body.singleResult.data?.signUp.accessToken).toBeTruthy();
       expect(response.body.singleResult.data?.signUp.name).toBe('Daniel');
     });
+
+    test('Should return EmailInUseError on email in use', async () => {
+      const password = await hash('123', 12);
+      await accountCollection.insertOne({
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        password,
+      });
+      const response: any = await apolloServer.executeOperation({
+        query: signUpMutation,
+        variables: {
+          name: 'Daniel',
+          email: 'daniel@gmail.com',
+          password: '123',
+          passwordConfirmation: '123',
+        },
+      });
+      expect(response.body.singleResult.data).toBeFalsy();
+      expect(response.body.singleResult.errors[0].message).toBe(
+        'The received email is already in use'
+      );
+    });
   });
 });
