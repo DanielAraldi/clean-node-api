@@ -10,7 +10,7 @@ export const adaptResolverMiddleware = async (
   };
   const httpResponse = await middleware.handle(request);
   if (httpResponse.statusCode === 200) {
-    Object.assign(context?.req, httpResponse.body);
+    return Object.assign(context?.req, httpResponse.body);
   } else {
     throw new GraphQLError(httpResponse.body.message, {
       extensions: {

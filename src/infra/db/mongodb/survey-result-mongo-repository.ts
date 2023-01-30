@@ -232,6 +232,7 @@ export class SurveyResultMongoRepository
     const surveyResult = await surveyResultCollection
       .aggregate(query)
       .toArray();
+
     return (surveyResult[0] || null) as LoadSurveyResultRepository.Result;
   }
 }

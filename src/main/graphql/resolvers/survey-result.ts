@@ -8,15 +8,29 @@ import {
 export default {
   Query: {
     surveyResult: async (parent: any, args: any, context: any) => {
-      await adaptResolverMiddleware(makeAuthMiddleware(), context);
-      return await adaptResolver(makeLoadSurveyResultController(), args);
+      const contextMiddleware = await adaptResolverMiddleware(
+        makeAuthMiddleware(),
+        context
+      );
+      return await adaptResolver(
+        makeLoadSurveyResultController(),
+        args,
+        contextMiddleware
+      );
     },
   },
 
   Mutation: {
     saveSurveyResult: async (parent: any, args: any, context: any) => {
-      await adaptResolverMiddleware(makeAuthMiddleware(), context);
-      return await adaptResolver(makeSaveSurveyResultController(), args);
+      const contextMiddleware = await adaptResolverMiddleware(
+        makeAuthMiddleware(),
+        context
+      );
+      return await adaptResolver(
+        makeSaveSurveyResultController(),
+        args,
+        contextMiddleware
+      );
     },
   },
 };

@@ -1,5 +1,4 @@
 import { SaveSurveyResult } from '@/domain/usecases';
-import { SurveyResultModel } from '@/domain/models';
 import {
   SaveSurveyResultRepository,
   LoadSurveyResultRepository,
