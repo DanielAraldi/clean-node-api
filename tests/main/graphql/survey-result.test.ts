@@ -239,5 +239,37 @@ describe('SurveyResult GraphQL', () => {
         ]
       );
     });
+
+    test('Should return AccessDeniedError if no access token is provided', async () => {
+      const firstAnswerId = MongoHelper.objectId().toString();
+      const secondAnswerId = MongoHelper.objectId().toString();
+      const survey = await surveyCollection.insertOne({
+        question: 'Question',
+        answers: [
+          {
+            answerId: firstAnswerId.toString(),
+            answer: 'Answer 1',
+            image: 'http://image-name.com',
+          },
+          {
+            answerId: secondAnswerId.toString(),
+            answer: 'Answer 2',
+          },
+        ],
+        date: new Date(),
+      });
+      const surveyId = survey.insertedId.toString();
+      const response: any = await apolloServer.executeOperation({
+        query: saveSurveyResultMutation,
+        variables: {
+          surveyId,
+          answerId: firstAnswerId.toString(),
+        },
+      });
+      expect(response.body.singleResult.data).toBeFalsy();
+      expect(response.body.singleResult.errors[0].message).toBe(
+        'Access denied'
+      );
+    });
   });
 });
