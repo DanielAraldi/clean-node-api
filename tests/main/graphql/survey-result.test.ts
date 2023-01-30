@@ -153,4 +153,91 @@ describe('SurveyResult GraphQL', () => {
       );
     });
   });
+
+  describe('SaveSurveyResult Query', () => {
+    const saveSurveyResultMutation = `#graphql
+      mutation saveSurveyResult ($surveyId: String!, $answerId: String!) {
+        saveSurveyResult (surveyId: $surveyId, answerId: $answerId) {
+          surveyId
+          question
+          answers {
+            answerId
+            answer
+            count
+            percent
+            isCurrentAccountAnswer
+          }
+          date
+        }
+      }
+    `;
+
+    test('Should return SaveSurveyResult', async () => {
+      const accessToken = await makeAccessToken();
+      const now = new Date();
+      const firstAnswerId = MongoHelper.objectId();
+      const secondAnswerId = MongoHelper.objectId();
+      const survey = await surveyCollection.insertOne({
+        question: 'Question',
+        answers: [
+          {
+            answerId: firstAnswerId,
+            answer: 'Answer 1',
+            image: 'http://image-name.com',
+          },
+          {
+            answerId: secondAnswerId,
+            answer: 'Answer 2',
+          },
+        ],
+        date: now,
+      });
+      const surveyId = survey.insertedId.toString();
+      const response: any = await apolloServer.executeOperation(
+        {
+          query: saveSurveyResultMutation,
+          variables: {
+            surveyId,
+            answerId: firstAnswerId.toString(),
+          },
+        },
+        {
+          contextValue: {
+            req: {
+              headers: {
+                'x-access-token': accessToken,
+              },
+            },
+          },
+        }
+      );
+      expect(
+        response.body.singleResult.data?.saveSurveyResult.surveyId
+      ).toBeTruthy();
+      expect(response.body.singleResult.data?.saveSurveyResult.question).toBe(
+        'Question'
+      );
+      expect(response.body.singleResult.data?.saveSurveyResult.date).toBe(
+        now.toISOString()
+      );
+      expect(response.body.singleResult.data?.saveSurveyResult.answers).toEqual(
+        [
+          {
+            answerId: firstAnswerId.toString(),
+            answer: 'Answer 1',
+            count: 1,
+            percent: 100,
+            isCurrentAccountAnswer: true,
+          },
+          {
+            answerId: secondAnswerId.toString(),
+            answer: 'Answer 2',
+            count: 0,
+            percent: 0,
+            isCurrentAccountAnswer: false,
+          },
+        ]
+      );
+    });
+  });
 });
