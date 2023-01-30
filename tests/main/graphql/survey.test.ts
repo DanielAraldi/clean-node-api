@@ -112,5 +112,33 @@ describe('Survey GraphQL', () => {
         },
       ]);
     });
+
+    test('Should return AccessDeniedError if no access token is provided', async () => {
+      const now = new Date();
+      const firstAnswerId = MongoHelper.objectId().toString();
+      const secondAnswerId = MongoHelper.objectId().toString();
+      await surveyCollection.insertOne({
+        question: 'Question',
+        answers: [
+          {
+            answerId: firstAnswerId,
+            answer: 'Answer 1',
+            image: 'http://image-name.com',
+          },
+          {
+            answerId: secondAnswerId,
+            answer: 'Answer 2',
+          },
+        ],
+        date: now,
+      });
+      const response: any = await apolloServer.executeOperation({
+        query: surveysQuery,
+      });
+      expect(response.body.singleResult.data).toBeFalsy();
+      expect(response.body.singleResult.errors[0].message).toBe(
+        'Access denied'
+      );
+    });
   });
 });
