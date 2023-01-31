@@ -1,6 +1,6 @@
 export default `#graphql
   extend type Query {
-    surveys: [Survey!]!
+    surveys: [Survey!]! @auth
   }
 
   type Survey {

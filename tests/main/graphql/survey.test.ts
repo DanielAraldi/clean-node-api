@@ -1,13 +1,12 @@
 import { MongoHelper } from '@/infra/db';
 import { Collection } from 'mongodb';
-import { ApolloServer } from '@apollo/server';
-import { makeApolloServer } from './helpers';
 import { sign } from 'jsonwebtoken';
+import request from 'supertest';
+import app from '@/main/config/app';
 import env from '@/main/config/env';
 
 let accountCollection: Collection;
 let surveyCollection: Collection;
-let apolloServer: ApolloServer;
 
 const makeAccessToken = async (): Promise<string> => {
   const account = await accountCollection.insertOne({
@@ -24,7 +23,6 @@ const makeAccessToken = async (): Promise<string> => {
 
 describe('Survey GraphQL', () => {
   beforeAll(async () => {
-    apolloServer = makeApolloServer();
     await MongoHelper.connect(process.env.MONGO_URL || '');
   });
 
@@ -40,21 +38,19 @@ describe('Survey GraphQL', () => {
   });
 
   describe('Surveys Query', () => {
-    const surveysQuery = `#graphql
-      query surveys {
-        surveys {
-          id
-          question
-          answers {
-            answerId
-            answer
-            image
-          }
-          date
-          didAnswer
+    const query = `query {
+      surveys {
+        id
+        question
+        answers {
+          image
+          answer
+          answerId
         }
+        date
+        didAnswer
       }
-    `;
+    }`;
 
     test('Should return Surveys', async () => {
       const accessToken = await makeAccessToken();
@@ -76,30 +72,17 @@ describe('Survey GraphQL', () => {
         ],
         date: now,
       });
-      const response: any = await apolloServer.executeOperation(
-        {
-          query: surveysQuery,
-        },
-        {
-          contextValue: {
-            req: {
-              headers: {
-                'x-access-token': accessToken,
-              },
-            },
-          },
-        }
-      );
-      expect(response.body.singleResult.data?.surveys.length).toBe(1);
-      expect(response.body.singleResult.data?.surveys[0].id).toBeTruthy();
-      expect(response.body.singleResult.data?.surveys[0].question).toBe(
-        'Question'
-      );
-      expect(response.body.singleResult.data?.surveys[0].date).toBe(
-        now.toISOString()
-      );
-      expect(response.body.singleResult.data?.surveys[0].didAnswer).toBe(false);
-      expect(response.body.singleResult.data?.surveys[0].answers).toEqual([
+      const response = await request(app)
+        .post('/graphql')
+        .set('x-access-token', accessToken)
+        .send({ query });
+      expect(response.status).toBe(200);
+      expect(response.body.data.surveys.length).toBe(1);
+      expect(response.body.data.surveys[0].id).toBeTruthy();
+      expect(response.body.data.surveys[0].question).toBe('Question');
+      expect(response.body.data.surveys[0].date).toBe(now.toISOString());
+      expect(response.body.data.surveys[0].didAnswer).toBe(false);
+      expect(response.body.data.surveys[0].answers).toEqual([
         {
           answerId: firstAnswerId,
           answer: 'Answer 1',
@@ -131,13 +114,12 @@ describe('Survey GraphQL', () => {
         ],
         date: new Date(),
       });
-      const response: any = await apolloServer.executeOperation({
-        query: surveysQuery,
+      const response = await request(app).post('/graphql').send({
+        query,
       });
-      expect(response.body.singleResult.data).toBeFalsy();
-      expect(response.body.singleResult.errors[0].message).toBe(
-        'Access denied'
-      );
+      expect(response.status).toBe(403);
+      expect(response.body.data).toBeFalsy();
+      expect(response.body.errors[0].message).toBe('Access denied');
     });
   });
 });

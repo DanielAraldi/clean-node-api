@@ -8,7 +8,7 @@ export const adaptResolver = async (
 ): Promise<any> => {
   const request = {
     ...(args || {}),
-    accountId: context?.accountId?.toString(),
+    accountId: context?.req?.accountId?.toString(),
   };
   const httpResponse = await controller.handle(request);
   switch (httpResponse.statusCode) {

@@ -1,10 +1,10 @@
 export default `#graphql
   extend type Query {
-    surveyResult (surveyId: String!): SurveyResult!
+    surveyResult (surveyId: String!): SurveyResult! @auth
   }
 
   extend type Mutation {
-    saveSurveyResult (surveyId: String!, answerId: String!): SurveyResult!
+    saveSurveyResult (surveyId: String!, answerId: String!): SurveyResult! @auth
   }
 
   type SurveyResult {
