@@ -20,10 +20,7 @@ export class AccountMongoRepository
   ): Promise<AddAccountRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts');
     const result = await accountCollection.insertOne(data);
-    const account = await accountCollection.findOne({
-      _id: result.insertedId,
-    });
-    return !!account;
+    return !!result.insertedId;
   }
 
   async loadByEmail(
