@@ -73,7 +73,7 @@ describe('SurveyResult GraphQL', () => {
         }
       }`;
       const response = await request(app)
-        .post('/graphql')
+        .post('/api/graphql')
         .set('x-access-token', accessToken)
         .send({ query });
       expect(response.status).toBe(200);
@@ -129,7 +129,7 @@ describe('SurveyResult GraphQL', () => {
           date
         }
       }`;
-      const response = await request(app).post('/graphql').send({ query });
+      const response = await request(app).post('/api/graphql').send({ query });
       expect(response.status).toBe(403);
       expect(response.body.data).toBeFalsy();
       expect(response.body.errors[0].message).toBe('Access denied');
@@ -172,7 +172,7 @@ describe('SurveyResult GraphQL', () => {
         }
       }`;
       const response = await request(app)
-        .post('/graphql')
+        .post('/api/graphql')
         .set('x-access-token', accessToken)
         .send({ query });
       expect(response.status).toBe(200);
@@ -228,7 +228,7 @@ describe('SurveyResult GraphQL', () => {
           date
         }
       }`;
-      const response = await request(app).post('/graphql').send({ query });
+      const response = await request(app).post('/api/graphql').send({ query });
       expect(response.status).toBe(403);
       expect(response.body.data).toBeFalsy();
       expect(response.body.errors[0].message).toBe('Access denied');

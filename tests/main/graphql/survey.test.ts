@@ -73,7 +73,7 @@ describe('Survey GraphQL', () => {
         date: now,
       });
       const response = await request(app)
-        .post('/graphql')
+        .post('/api/graphql')
         .set('x-access-token', accessToken)
         .send({ query });
       expect(response.status).toBe(200);
@@ -114,7 +114,7 @@ describe('Survey GraphQL', () => {
         ],
         date: new Date(),
       });
-      const response = await request(app).post('/graphql').send({
+      const response = await request(app).post('/api/graphql').send({
         query,
       });
       expect(response.status).toBe(403);
