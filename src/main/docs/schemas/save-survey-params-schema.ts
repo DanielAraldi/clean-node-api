@@ -4,4 +4,7 @@ export const saveSurveyParamsSchema = {
     answerId: { type: 'string' },
   },
   required: ['answerId'],
+  example: {
+    answerId: 'any_answer_id',
+  },
 };

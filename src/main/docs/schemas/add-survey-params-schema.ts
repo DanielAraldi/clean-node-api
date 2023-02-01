@@ -8,4 +8,16 @@ export const addSurveyParamsSchema = {
     },
   },
   required: ['question', 'answers'],
+  example: {
+    question: 'any_question',
+    answers: [
+      {
+        answer: 'any_answer',
+        image: 'https://any_image.com',
+      },
+      {
+        answer: 'other_answer',
+      },
+    ],
+  },
 };

@@ -5,4 +5,8 @@ export const addSurveyAnswerSchema = {
     image: { type: 'string' },
   },
   required: ['answer'],
+  example: {
+    answer: 'any_answer',
+    image: 'https://any_image.com',
+  },
 };

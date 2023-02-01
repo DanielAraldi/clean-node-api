@@ -15,4 +15,12 @@ export const surveyResultAnswerSchema = {
     'percent',
     'isCurrentAccountAnswer',
   ],
+  example: {
+    answerId: 'any_answer_id',
+    answer: 'any_answer',
+    count: 1,
+    percent: 100,
+    image: 'https://any_image.com',
+    isCurrentAccountAnswer: true,
+  },
 };

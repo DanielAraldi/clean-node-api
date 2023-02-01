@@ -8,15 +8,17 @@ export default {
     title: 'Clean Node API',
     description:
       'API of surveys in NodeJs using Typescript, TDD, Clean Architecture, Design Patterns and SOLID principles.',
-    version: '1.2.1',
-  },
-  contact: {
-    name: 'Daniel Sansão Araldi',
-    url: 'https://github.com/DanielAraldi/clean-node-api/issues',
-  },
-  license: {
-    name: 'MIT',
-    url: 'https://github.com/DanielAraldi/clean-node-api/blob/main/LICENSE',
+    version: '1.3.0',
+    termsOfService:
+      'https://github.com/DanielAraldi/clean-node-api/blob/main/LICENSE',
+    contact: {
+      name: 'GitHub Issues',
+      url: 'https://github.com/DanielAraldi/clean-node-api/issues',
+    },
+    license: {
+      name: 'MIT License',
+      url: 'https://github.com/DanielAraldi/clean-node-api/blob/main/LICENSE',
+    },
   },
   servers: [{ url: '/api' }],
   tags: [{ name: 'Login' }, { name: 'Survey' }],

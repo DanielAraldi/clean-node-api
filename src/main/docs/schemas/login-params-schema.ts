@@ -5,4 +5,8 @@ export const loginParamsSchema = {
     password: { type: 'string' },
   },
   required: ['email', 'password'],
+  example: {
+    email: 'any_email@gmail.com',
+    password: 'any_password',
+  },
 };
