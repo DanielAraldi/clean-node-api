@@ -45,6 +45,6 @@ export const setupApolloServer = (app: Express): void => {
   });
   server
     .start()
-    .then(() => app.use('/graphql', apolloExpress(server)))
+    .then(() => app.use('/api/graphql', apolloExpress(server)))
     .catch(console.error);
 };
