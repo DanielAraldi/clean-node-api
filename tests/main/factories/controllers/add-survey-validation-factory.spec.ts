@@ -3,6 +3,7 @@ import {
   MultipleValuesValidation,
   RequiredFieldValidation,
   ValidationComposite,
+  LengthFieldValidation,
 } from '@/validation/validators';
 import { makeAddSurveyValidation } from '@/main/factories';
 
@@ -18,6 +19,7 @@ describe('AddSurveyValidation Factory', () => {
         new RequiredFieldValidation(['answer']),
       ])
     );
+    validations.push(new LengthFieldValidation('answers', 2));
     expect(ValidationComposite).toHaveBeenCalledWith(validations);
   });
 });
