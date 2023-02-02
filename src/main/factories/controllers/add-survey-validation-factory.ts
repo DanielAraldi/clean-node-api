@@ -3,6 +3,7 @@ import {
   ValidationComposite,
   RequiredFieldValidation,
   MultipleValuesValidation,
+  LengthFieldValidation,
 } from '@/validation/validators';
 
 export const makeAddSurveyValidation = (): ValidationComposite => {
@@ -13,5 +14,6 @@ export const makeAddSurveyValidation = (): ValidationComposite => {
       new RequiredFieldValidation(['answer']),
     ])
   );
+  validations.push(new LengthFieldValidation('answers', 2));
   return new ValidationComposite(validations);
 };
