@@ -13,4 +13,12 @@ describe('Length Field Validation', () => {
     const error = sut.validate({ [field]: [] });
     expect(error).toEqual(new InvalidLengthError(field));
   });
+
+  test('Should not return if validation succeds with minimum length', () => {
+    const sut = makeSut();
+    const error = sut.validate({
+      [field]: [faker.random.word(), faker.random.word()],
+    });
+    expect(error).toBeNull();
+  });
 });
