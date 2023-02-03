@@ -1,4 +1,4 @@
-import { AddAccount, Authentication } from '@/domain/usecases';
+import { AddAccount, Authentication, RefreshToken } from '@/domain/usecases';
 import { faker } from '@faker-js/faker';
 
 export const mockAddAccountParams = (): AddAccount.Params => ({
@@ -10,4 +10,8 @@ export const mockAddAccountParams = (): AddAccount.Params => ({
 export const mockAuthenticationParams = (): Authentication.Params => ({
   email: faker.internet.email(),
   password: faker.internet.password(),
+});
+
+export const mockRefreshTokenParams = (): RefreshToken.Params => ({
+  accessToken: faker.datatype.uuid(),
 });
