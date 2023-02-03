@@ -2,7 +2,12 @@ import { RefreshTokenController } from '@/presentation/controllers';
 import { mockRefreshTokenParams, throwError } from '@/tests/domain/mocks';
 import { RefreshTokenSpy, ValidationSpy } from '@/tests/presentation/mocks';
 import { MissingParamError } from '@/presentation/errors';
-import { badRequest, serverError, unauthorized } from '@/presentation/helpers';
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from '@/presentation/helpers';
 import { faker } from '@faker-js/faker';
 
 type SutTypes = {
@@ -50,10 +55,16 @@ describe('Refresh Token Controller', () => {
     expect(httpResponse).toEqual(unauthorized());
   });
 
-  test('Should returns 500 if RefreshToken throws', async () => {
+  test('Should return 500 if RefreshToken throws', async () => {
     const { sut, refreshTokenSpy } = makeSut();
     jest.spyOn(refreshTokenSpy, 'refresh').mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
+  });
+
+  test('Should return 200 if valid credentials are provided', async () => {
+    const { sut, refreshTokenSpy } = makeSut();
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(ok(refreshTokenSpy.result));
   });
 });
