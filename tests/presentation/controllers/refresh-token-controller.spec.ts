@@ -2,7 +2,7 @@ import { RefreshTokenController } from '@/presentation/controllers';
 import { mockRefreshTokenParams } from '@/tests/domain/mocks';
 import { RefreshTokenSpy, ValidationSpy } from '@/tests/presentation/mocks';
 import { MissingParamError } from '@/presentation/errors';
-import { badRequest } from '@/presentation/helpers';
+import { badRequest, unauthorized } from '@/presentation/helpers';
 import { faker } from '@faker-js/faker';
 
 type SutTypes = {
@@ -41,5 +41,12 @@ describe('Refresh Token Controller', () => {
     const request = mockRequest();
     await sut.handle(request);
     expect(refreshTokenSpy.accessToken).toBe(request.accessToken);
+  });
+
+  test('Should return 401 if invalid credentials are provided', async () => {
+    const { sut, refreshTokenSpy } = makeSut();
+    refreshTokenSpy.result = null;
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(unauthorized());
   });
 });
