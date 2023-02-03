@@ -1,5 +1,10 @@
 import { Controller, HttpResponse, Validation } from '@/presentation/protocols';
-import { badRequest, serverError, unauthorized } from '@/presentation/helpers';
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from '@/presentation/helpers';
 import { RefreshToken } from '@/domain/usecases';
 
 export class RefreshTokenController implements Controller {
@@ -19,7 +24,7 @@ export class RefreshTokenController implements Controller {
       if (!result) {
         return unauthorized();
       }
-      return Promise.resolve(null);
+      return ok(result);
     } catch (error) {
       return serverError(error);
     }
