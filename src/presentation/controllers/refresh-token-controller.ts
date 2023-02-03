@@ -1,5 +1,5 @@
 import { Controller, HttpResponse, Validation } from '@/presentation/protocols';
-import { badRequest, unauthorized } from '@/presentation/helpers';
+import { badRequest, serverError, unauthorized } from '@/presentation/helpers';
 import { RefreshToken } from '@/domain/usecases';
 
 export class RefreshTokenController implements Controller {
@@ -9,16 +9,20 @@ export class RefreshTokenController implements Controller {
   ) {}
 
   async handle(request: RefreshTokenController.Request): Promise<HttpResponse> {
-    const error = this.validation.validate(request);
-    if (error) {
-      return badRequest(error);
+    try {
+      const error = this.validation.validate(request);
+      if (error) {
+        return badRequest(error);
+      }
+      const { accessToken } = request;
+      const result = await this.refreshToken.refresh(accessToken);
+      if (!result) {
+        return unauthorized();
+      }
+      return Promise.resolve(null);
+    } catch (error) {
+      return serverError(error);
     }
-    const { accessToken } = request;
-    const result = await this.refreshToken.refresh(accessToken);
-    if (!result) {
-      return unauthorized();
-    }
-    return Promise.resolve(null);
   }
 }
 
