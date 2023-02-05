@@ -3,20 +3,32 @@ import { mockRefreshTokenParams, throwError } from '@/tests/domain/mocks';
 import {
   EncrypterSpy,
   LoadAccountByTokenRepositorySpy,
+  UpdateAccessTokenRepositorySpy,
 } from '@/tests/data/mocks';
 import { faker } from '@faker-js/faker';
 
 type SutTypes = {
+  updateAccessTokenRepositorySpy: UpdateAccessTokenRepositorySpy;
   encrypterSpy: EncrypterSpy;
   loadAccountByTokenRepositorySpy: LoadAccountByTokenRepositorySpy;
   sut: DbRefreshToken;
 };
 
 const makeSut = (): SutTypes => {
+  const updateAccessTokenRepositorySpy = new UpdateAccessTokenRepositorySpy();
   const encrypterSpy = new EncrypterSpy();
   const loadAccountByTokenRepositorySpy = new LoadAccountByTokenRepositorySpy();
-  const sut = new DbRefreshToken(loadAccountByTokenRepositorySpy, encrypterSpy);
-  return { sut, loadAccountByTokenRepositorySpy, encrypterSpy };
+  const sut = new DbRefreshToken(
+    loadAccountByTokenRepositorySpy,
+    encrypterSpy,
+    updateAccessTokenRepositorySpy
+  );
+  return {
+    sut,
+    loadAccountByTokenRepositorySpy,
+    encrypterSpy,
+    updateAccessTokenRepositorySpy,
+  };
 };
 
 let accessToken: string;
@@ -28,35 +40,29 @@ describe('DbRefreshToken UseCase', () => {
 
   test('Should call LoadAccountByTokenRepository with correct access token', async () => {
     const { sut, loadAccountByTokenRepositorySpy } = makeSut();
-    const refreshTokenParams = mockRefreshTokenParams();
-    await sut.refresh(refreshTokenParams.accessToken);
-    expect(loadAccountByTokenRepositorySpy.token).toBe(
-      refreshTokenParams.accessToken
-    );
+    await sut.refresh(accessToken);
+    expect(loadAccountByTokenRepositorySpy.token).toBe(accessToken);
   });
 
   test('Should throw if LoadAccountByTokenRepository throws', async () => {
     const { sut, loadAccountByTokenRepositorySpy } = makeSut();
-    const refreshTokenParams = mockRefreshTokenParams();
     jest
       .spyOn(loadAccountByTokenRepositorySpy, 'loadByToken')
       .mockImplementationOnce(throwError);
-    const promise = sut.refresh(refreshTokenParams.accessToken);
+    const promise = sut.refresh(accessToken);
     await expect(promise).rejects.toThrow();
   });
 
   test('Should return null if LoadAccountByTokenRepository returns null', async () => {
     const { sut, loadAccountByTokenRepositorySpy } = makeSut();
     loadAccountByTokenRepositorySpy.result = null;
-    const refreshTokenParams = mockRefreshTokenParams();
-    const account = await sut.refresh(refreshTokenParams.accessToken);
+    const account = await sut.refresh(accessToken);
     expect(account).toBeNull();
   });
 
   test('Should call Encrypter with correct plaintext', async () => {
     const { sut, encrypterSpy, loadAccountByTokenRepositorySpy } = makeSut();
-    const refreshTokenParams = mockRefreshTokenParams();
-    await sut.refresh(refreshTokenParams.accessToken);
+    await sut.refresh(accessToken);
     expect(encrypterSpy.plaintext).toBe(
       loadAccountByTokenRepositorySpy.result.id
     );
@@ -64,9 +70,22 @@ describe('DbRefreshToken UseCase', () => {
 
   test('Should throw if Encrypter throws', async () => {
     const { sut, encrypterSpy } = makeSut();
-    const refreshTokenParams = mockRefreshTokenParams();
     jest.spyOn(encrypterSpy, 'encrypt').mockImplementationOnce(throwError);
-    const promise = sut.refresh(refreshTokenParams.accessToken);
+    const promise = sut.refresh(accessToken);
     await expect(promise).rejects.toThrow();
+  });
+
+  test('Should call UpdateAccessTokenRepository with correct values', async () => {
+    const {
+      sut,
+      updateAccessTokenRepositorySpy,
+      loadAccountByTokenRepositorySpy,
+      encrypterSpy,
+    } = makeSut();
+    await sut.refresh(accessToken);
+    expect(updateAccessTokenRepositorySpy.id).toBe(
+      loadAccountByTokenRepositorySpy.result.id
+    );
+    expect(updateAccessTokenRepositorySpy.token).toBe(encrypterSpy.ciphertext);
   });
 });
