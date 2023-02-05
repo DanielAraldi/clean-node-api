@@ -97,4 +97,10 @@ describe('DbRefreshToken UseCase', () => {
     const promise = sut.refresh(accessToken);
     await expect(promise).rejects.toThrow();
   });
+
+  test('Should return an access token on success', async () => {
+    const { sut, encrypterSpy } = makeSut();
+    const newAccessToken = await sut.refresh(accessToken);
+    expect(newAccessToken.accessToken).toBe(encrypterSpy.ciphertext);
+  });
 });
