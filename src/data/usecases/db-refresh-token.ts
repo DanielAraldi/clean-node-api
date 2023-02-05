@@ -22,7 +22,8 @@ export class DbRefreshToken implements RefreshToken {
         account.id,
         token
       );
+      return { accessToken: token };
     }
-    return Promise.resolve(null);
+    return null;
   }
 }
