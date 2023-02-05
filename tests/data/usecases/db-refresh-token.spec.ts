@@ -1,5 +1,5 @@
 import { DbRefreshToken } from '@/data/usecases';
-import { mockRefreshTokenParams } from '@/tests/domain/mocks';
+import { mockRefreshTokenParams, throwError } from '@/tests/domain/mocks';
 import { LoadAccountByTokenRepositorySpy } from '@/tests/data/mocks';
 import { faker } from '@faker-js/faker';
 
@@ -28,5 +28,15 @@ describe('DbRefreshToken UseCase', () => {
     expect(loadAccountByTokenRepositorySpy.token).toBe(
       refreshTokenParams.accessToken
     );
+  });
+
+  test('Should throw if LoadAccountByTokenRepository throws', async () => {
+    const { sut, loadAccountByTokenRepositorySpy } = makeSut();
+    const refreshTokenParams = mockRefreshTokenParams();
+    jest
+      .spyOn(loadAccountByTokenRepositorySpy, 'loadByToken')
+      .mockImplementationOnce(throwError);
+    const promise = sut.refresh(refreshTokenParams.accessToken);
+    await expect(promise).rejects.toThrow();
   });
 });
