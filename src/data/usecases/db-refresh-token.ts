@@ -1,10 +1,15 @@
 import { RefreshToken } from '@/domain/usecases';
-import { Encrypter, LoadAccountByTokenRepository } from '@/data/protocols';
+import {
+  Encrypter,
+  LoadAccountByTokenRepository,
+  UpdateAccessTokenRepository,
+} from '@/data/protocols';
 
 export class DbRefreshToken implements RefreshToken {
   constructor(
     private readonly loadAccountByTokenRepository: LoadAccountByTokenRepository,
-    private readonly encrypter: Encrypter
+    private readonly encrypter: Encrypter,
+    private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
   ) {}
 
   async refresh(accessToken: string): Promise<RefreshToken.Result> {
@@ -12,7 +17,11 @@ export class DbRefreshToken implements RefreshToken {
       accessToken
     );
     if (account) {
-      this.encrypter.encrypt(account.id);
+      const token = this.encrypter.encrypt(account.id);
+      await this.updateAccessTokenRepository.updateAccessToken(
+        account.id,
+        token
+      );
     }
     return Promise.resolve(null);
   }
