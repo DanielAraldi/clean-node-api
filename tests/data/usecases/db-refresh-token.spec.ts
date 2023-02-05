@@ -39,4 +39,12 @@ describe('DbRefreshToken UseCase', () => {
     const promise = sut.refresh(refreshTokenParams.accessToken);
     await expect(promise).rejects.toThrow();
   });
+
+  test('Should return null if LoadAccountByTokenRepository returns null', async () => {
+    const { sut, loadAccountByTokenRepositorySpy } = makeSut();
+    loadAccountByTokenRepositorySpy.result = null;
+    const refreshTokenParams = mockRefreshTokenParams();
+    const account = await sut.refresh(refreshTokenParams.accessToken);
+    expect(account).toBeNull();
+  });
 });
