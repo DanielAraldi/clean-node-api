@@ -61,4 +61,12 @@ describe('DbRefreshToken UseCase', () => {
       loadAccountByTokenRepositorySpy.result.id
     );
   });
+
+  test('Should throw if Encrypter throws', async () => {
+    const { sut, encrypterSpy } = makeSut();
+    const refreshTokenParams = mockRefreshTokenParams();
+    jest.spyOn(encrypterSpy, 'encrypt').mockImplementationOnce(throwError);
+    const promise = sut.refresh(refreshTokenParams.accessToken);
+    await expect(promise).rejects.toThrow();
+  });
 });
