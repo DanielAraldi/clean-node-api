@@ -1,17 +1,22 @@
 import { DbRefreshToken } from '@/data/usecases';
 import { mockRefreshTokenParams, throwError } from '@/tests/domain/mocks';
-import { LoadAccountByTokenRepositorySpy } from '@/tests/data/mocks';
+import {
+  EncrypterSpy,
+  LoadAccountByTokenRepositorySpy,
+} from '@/tests/data/mocks';
 import { faker } from '@faker-js/faker';
 
 type SutTypes = {
+  encrypterSpy: EncrypterSpy;
   loadAccountByTokenRepositorySpy: LoadAccountByTokenRepositorySpy;
   sut: DbRefreshToken;
 };
 
 const makeSut = (): SutTypes => {
+  const encrypterSpy = new EncrypterSpy();
   const loadAccountByTokenRepositorySpy = new LoadAccountByTokenRepositorySpy();
-  const sut = new DbRefreshToken(loadAccountByTokenRepositorySpy);
-  return { sut, loadAccountByTokenRepositorySpy };
+  const sut = new DbRefreshToken(loadAccountByTokenRepositorySpy, encrypterSpy);
+  return { sut, loadAccountByTokenRepositorySpy, encrypterSpy };
 };
 
 let accessToken: string;
@@ -46,5 +51,14 @@ describe('DbRefreshToken UseCase', () => {
     const refreshTokenParams = mockRefreshTokenParams();
     const account = await sut.refresh(refreshTokenParams.accessToken);
     expect(account).toBeNull();
+  });
+
+  test('Should call Encrypter with correct plaintext', async () => {
+    const { sut, encrypterSpy, loadAccountByTokenRepositorySpy } = makeSut();
+    const refreshTokenParams = mockRefreshTokenParams();
+    await sut.refresh(refreshTokenParams.accessToken);
+    expect(encrypterSpy.plaintext).toBe(
+      loadAccountByTokenRepositorySpy.result.id
+    );
   });
 });
