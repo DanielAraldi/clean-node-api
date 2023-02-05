@@ -5,6 +5,5 @@ export interface RefreshToken {
 export namespace RefreshToken {
   export type Result = {
     accessToken: string;
-    name: string;
   } | null;
 }

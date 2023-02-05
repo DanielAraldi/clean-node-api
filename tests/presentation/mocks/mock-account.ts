@@ -48,7 +48,7 @@ export class LoadAccountByTokenSpy implements LoadAccountByToken {
 }
 
 export class RefreshTokenSpy implements RefreshToken {
-  result = { accessToken: faker.datatype.uuid(), name: faker.name.fullName() };
+  result = { accessToken: faker.datatype.uuid() };
   accessToken: string;
 
   async refresh(accessToken: string): Promise<RefreshToken.Result> {
