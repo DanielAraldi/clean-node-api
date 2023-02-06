@@ -103,5 +103,27 @@ describe('Login Routes', () => {
         })
         .expect(200);
     });
+
+    test('Should return 401 on refresh', async () => {
+      const password = await hash('123', 12);
+      await accountCollection.insertOne({
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        password,
+      });
+      await request(app)
+        .post('/api/login')
+        .send({
+          email: 'daniel@gmail.com',
+          password: '123',
+        })
+        .expect(200);
+      await request(app)
+        .post('/api/refresh')
+        .send({
+          accessToken: 'invalid_token',
+        })
+        .expect(401);
+    });
   });
 });
