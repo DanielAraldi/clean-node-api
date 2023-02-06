@@ -18,6 +18,10 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 1. [Responder enquete](./requirements/save-survey-result.md)
 1. [Resultado da enquete](./requirements/load-survey-result.md)
 
+> ## APIs adicionais construídas:
+
+1. [Refresh Token](./requirements/refresh-token.md)
+
 > ## Princípios aplicados:
 
 - Single Responsibility Principle (SRP)
