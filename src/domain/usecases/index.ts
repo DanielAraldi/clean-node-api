@@ -6,4 +6,5 @@ export * from './load-account-by-token';
 export * from './load-answers-by-survey';
 export * from './load-survey-result';
 export * from './load-surveys';
+export * from './refresh-token';
 export * from './save-survey-result';

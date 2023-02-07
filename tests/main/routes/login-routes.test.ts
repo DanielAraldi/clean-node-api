@@ -31,6 +31,24 @@ describe('Login Routes', () => {
           passwordConfirmation: '123',
         })
         .expect(200));
+
+    test('Should return 403 on signup', async () => {
+      const password = await hash('123', 12);
+      await accountCollection.insertOne({
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        password,
+      });
+      await request(app)
+        .post('/api/signup')
+        .send({
+          name: 'Daniel',
+          email: 'daniel@gmail.com',
+          password: '123',
+          passwordConfirmation: '123',
+        })
+        .expect(403);
+    });
   });
 
   describe('POST /login', () => {
@@ -58,5 +76,54 @@ describe('Login Routes', () => {
           password: '123',
         })
         .expect(401));
+  });
+
+  describe('POST /refresh', () => {
+    test('Should return 200 on refresh', async () => {
+      const password = await hash('123', 12);
+      await accountCollection.insertOne({
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        password,
+      });
+      await request(app)
+        .post('/api/login')
+        .send({
+          email: 'daniel@gmail.com',
+          password: '123',
+        })
+        .expect(200);
+      const account = await accountCollection.findOne({
+        email: 'daniel@gmail.com',
+      });
+      await request(app)
+        .post('/api/refresh')
+        .send({
+          accessToken: account?.accessToken,
+        })
+        .expect(200);
+    });
+
+    test('Should return 401 on refresh', async () => {
+      const password = await hash('123', 12);
+      await accountCollection.insertOne({
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        password,
+      });
+      await request(app)
+        .post('/api/login')
+        .send({
+          email: 'daniel@gmail.com',
+          password: '123',
+        })
+        .expect(200);
+      await request(app)
+        .post('/api/refresh')
+        .send({
+          accessToken: 'invalid_token',
+        })
+        .expect(401);
+    });
   });
 });

@@ -1,5 +1,4 @@
 import { LoginController } from '@/presentation/controllers';
-import { HttpResponse } from '@/presentation/protocols';
 import {
   badRequest,
   serverError,
@@ -43,14 +42,14 @@ describe('Login Controller', () => {
   test('Should return 401 if invalid credentials are provided', async () => {
     const { sut, authenticationSpy } = makeSut();
     authenticationSpy.result = null;
-    const httpResponse: HttpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(unauthorized());
   });
 
   test('Should returns 500 if Authentication throws', async () => {
     const { sut, authenticationSpy } = makeSut();
     jest.spyOn(authenticationSpy, 'auth').mockImplementationOnce(throwError);
-    const httpResponse: HttpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });
 

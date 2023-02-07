@@ -2,6 +2,7 @@ import {
   Authentication,
   LoadAccountByToken,
   AddAccount,
+  RefreshToken,
 } from '@/domain/usecases';
 import { faker } from '@faker-js/faker';
 
@@ -42,6 +43,16 @@ export class LoadAccountByTokenSpy implements LoadAccountByToken {
   ): Promise<LoadAccountByToken.Result> {
     this.accessToken = accessToken;
     this.role = role;
+    return Promise.resolve(this.result);
+  }
+}
+
+export class RefreshTokenSpy implements RefreshToken {
+  result = { accessToken: faker.datatype.uuid() };
+  accessToken: string;
+
+  async refresh(accessToken: string): Promise<RefreshToken.Result> {
+    this.accessToken = accessToken;
     return Promise.resolve(this.result);
   }
 }
