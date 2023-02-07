@@ -5,9 +5,6 @@ import request from 'supertest';
 import app from '@/main/config/app';
 import env from '@/main/config/env';
 
-let accountCollection: Collection;
-let surveyCollection: Collection;
-
 const makeAccessToken = async (): Promise<string> => {
   const account = await accountCollection.insertOne({
     name: 'Daniel',
@@ -20,6 +17,9 @@ const makeAccessToken = async (): Promise<string> => {
   await accountCollection.updateOne({ _id: id }, { $set: { accessToken } });
   return accessToken;
 };
+
+let accountCollection: Collection;
+let surveyCollection: Collection;
 
 describe('Survey GraphQL', () => {
   beforeAll(async () => {

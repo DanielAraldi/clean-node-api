@@ -1,8 +1,23 @@
 import { MongoHelper } from '@/infra/db';
 import { Collection } from 'mongodb';
 import { hash } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
 import request from 'supertest';
 import app from '@/main/config/app';
+import env from '@/main/config/env';
+
+const makeAccessToken = async (): Promise<string> => {
+  const account = await accountCollection.insertOne({
+    name: 'Daniel',
+    email: 'daniel@gmail.com',
+    password: '123',
+    role: 'admin',
+  });
+  const id = account.insertedId;
+  const accessToken = sign({ id }, env.jwtSecret);
+  await accountCollection.updateOne({ _id: id }, { $set: { accessToken } });
+  return accessToken;
+};
 
 let accountCollection: Collection;
 
@@ -58,10 +73,10 @@ describe('Login GraphQL', () => {
     }`;
 
     test('Should return an Account on valid data', async () => {
-      const res = await request(app).post('/api/graphql').send({ query });
-      expect(res.status).toBe(200);
-      expect(res.body.data.signUp.accessToken).toBeTruthy();
-      expect(res.body.data.signUp.name).toBe('Daniel');
+      const response = await request(app).post('/api/graphql').send({ query });
+      expect(response.status).toBe(200);
+      expect(response.body.data.signUp.accessToken).toBeTruthy();
+      expect(response.body.data.signUp.name).toBe('Daniel');
     });
 
     test('Should return EmailInUseError on email in use', async () => {
@@ -71,12 +86,29 @@ describe('Login GraphQL', () => {
         email: 'daniel@gmail.com',
         password,
       });
-      const res = await request(app).post('/api/graphql').send({ query });
-      expect(res.status).toBe(403);
-      expect(res.body.data).toBeFalsy();
-      expect(res.body.errors[0].message).toBe(
+      const response = await request(app).post('/api/graphql').send({ query });
+      expect(response.status).toBe(403);
+      expect(response.body.data).toBeFalsy();
+      expect(response.body.errors[0].message).toBe(
         'The received email is already in use'
       );
+    });
+  });
+
+  describe('RefreshToken Mutation', () => {
+    test('Should return a RefreshToken on valid data', async () => {
+      const accessToken = await makeAccessToken();
+      const response = await request(app)
+        .post('/api/graphql')
+        .send({
+          query: `mutation {
+            refresh (accessToken: "${accessToken}") {
+              accessToken
+            }
+          }`,
+        });
+      expect(response.status).toBe(200);
+      expect(response.body.data.refresh.accessToken).toBeTruthy();
     });
   });
 });
