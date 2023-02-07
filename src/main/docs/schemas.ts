@@ -11,12 +11,16 @@ import {
   saveSurveyParamsSchema,
   surveyResultSchema,
   surveyResultAnswerSchema,
+  refreshTokenParamsSchema,
+  refreshTokenSchema,
 } from './schemas/';
 
 export default {
   account: accountSchema,
   loginParams: loginParamsSchema,
   signUpParams: signUpParamsSchema,
+  refreshToken: refreshTokenSchema,
+  refreshTokenParams: refreshTokenParamsSchema,
   error: errorSchema,
   survey: surveySchema,
   surveys: surveysSchema,
