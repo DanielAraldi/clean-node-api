@@ -2,7 +2,7 @@
 
 > ## Caso de sucesso:
 
-1. ⛔ Recebe uma requisição do tipo **POST** na rota **/api/refresh**.
+1. ✅ Recebe uma requisição do tipo **POST** na rota **/api/refresh**.
 1. ✅ Valida dado obrigatório **accessToken**.
 1. ✅ Busca o usuário com o token de acesso fornecido.
 1. ✅ Gera um novo token de acesso a partir do ID do usuário.
