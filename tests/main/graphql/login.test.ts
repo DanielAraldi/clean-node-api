@@ -110,5 +110,20 @@ describe('Login GraphQL', () => {
       expect(response.status).toBe(200);
       expect(response.body.data.refresh.accessToken).toBeTruthy();
     });
+
+    test('Should return UnauthorizedError if invalid access token is provided', async () => {
+      const response = await request(app)
+        .post('/api/graphql')
+        .send({
+          query: `mutation {
+            refresh (accessToken: "invalid_token") {
+              accessToken
+            }
+          }`,
+        });
+      expect(response.status).toBe(401);
+      expect(response.body.data).toBeFalsy();
+      expect(response.body.errors[0].message).toBe('Unauthorized');
+    });
   });
 });
