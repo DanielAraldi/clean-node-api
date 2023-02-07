@@ -1,5 +1,9 @@
 import { adaptResolver } from '@/main/adapters';
-import { makeLoginController, makeSignUpController } from '@/main/factories';
+import {
+  makeLoginController,
+  makeRefreshTokenController,
+  makeSignUpController,
+} from '@/main/factories';
 
 export default {
   Query: {
@@ -10,5 +14,7 @@ export default {
   Mutation: {
     signUp: async (parent: any, args: any) =>
       await adaptResolver(makeSignUpController(), args),
+    refresh: async (parent: any, args: any) =>
+      await adaptResolver(makeRefreshTokenController(), args),
   },
 };
