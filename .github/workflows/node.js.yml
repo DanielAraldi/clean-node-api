@@ -24,6 +24,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Fixing non-standard Scripts
-        run: npx eslint './src/**/*.ts' --fix
+        run: npx eslint . --fix
       - name: Run Tests
         run: npm run test
