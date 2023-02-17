@@ -1,4 +1,4 @@
-name: clean-node-api
+name: CI - Merge and Release
 
 on:
   push:
