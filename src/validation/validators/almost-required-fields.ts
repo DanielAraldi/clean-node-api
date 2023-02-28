@@ -13,7 +13,9 @@ export class AlmostRequiredFieldValidation implements Validation {
     }
 
     if (this.fieldNames.length === fieldNames.length) {
-      return new MissingParamError(fieldNames.join(' or '));
+      const message =
+        fieldNames.length === 1 ? fieldNames[0] : fieldNames.join(' or ');
+      return new MissingParamError(message);
     }
 
     return null;
