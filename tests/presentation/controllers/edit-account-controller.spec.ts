@@ -1,6 +1,6 @@
 import { EditAccountController } from '@/presentation/controllers';
 import { throwError } from '@/tests/domain/mocks';
-import { EditAccountSpy } from '@/tests/presentation/mocks';
+import { EditAccountSpy, ValidationSpy } from '@/tests/presentation/mocks';
 import { EmailInUseError, ServerError } from '@/presentation/errors';
 import { forbidden, serverError } from '@/presentation/helpers';
 import { faker } from '@faker-js/faker';
@@ -14,14 +14,17 @@ const mockRequest = (): EditAccountController.Request => ({
 type SutTypes = {
   sut: EditAccountController;
   editAccountSpy: EditAccountSpy;
+  validationSpy: ValidationSpy;
 };
 
 const makeSut = (): SutTypes => {
+  const validationSpy = new ValidationSpy();
   const editAccountSpy = new EditAccountSpy();
-  const sut = new EditAccountController(editAccountSpy);
+  const sut = new EditAccountController(validationSpy, editAccountSpy);
   return {
     sut,
     editAccountSpy,
+    validationSpy,
   };
 };
 
@@ -49,5 +52,12 @@ describe('EditAccount Controller', () => {
     editAccountSpy.result = false;
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(forbidden(new EmailInUseError()));
+  });
+
+  test('Should call Validation with correct values', async () => {
+    const { sut, validationSpy } = makeSut();
+    const request = mockRequest();
+    await sut.handle(request);
+    expect(validationSpy.input).toEqual(request);
   });
 });
