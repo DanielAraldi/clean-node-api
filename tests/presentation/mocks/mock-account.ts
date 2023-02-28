@@ -60,14 +60,10 @@ export class RefreshTokenSpy implements RefreshToken {
 
 export class EditAccountSpy implements EditAccount {
   result = true;
-  accountId: string;
-  email?: string;
-  name?: string;
+  editAccountParams: EditAccount.Params;
 
   async edit(account: EditAccount.Params): Promise<EditAccount.Result> {
-    this.accountId = account.accountId;
-    this.email = account.email;
-    this.name = account.name;
+    this.editAccountParams = account;
     return Promise.resolve(this.result);
   }
 }

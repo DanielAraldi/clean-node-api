@@ -32,4 +32,15 @@ describe('EditAccount Controller', () => {
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new ServerError(null)));
   });
+
+  test('Should call EditAccount with correct values', async () => {
+    const { sut, editAccountSpy } = makeSut();
+    const request = mockRequest();
+    await sut.handle(request);
+    expect(editAccountSpy.editAccountParams).toEqual({
+      name: request.name,
+      email: request.email,
+      accountId: request.accountId,
+    });
+  });
 });
