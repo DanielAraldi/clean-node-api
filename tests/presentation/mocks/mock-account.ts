@@ -3,6 +3,7 @@ import {
   LoadAccountByToken,
   AddAccount,
   RefreshToken,
+  EditAccount,
 } from '@/domain/usecases';
 import { faker } from '@faker-js/faker';
 
@@ -53,6 +54,20 @@ export class RefreshTokenSpy implements RefreshToken {
 
   async refresh(accessToken: string): Promise<RefreshToken.Result> {
     this.accessToken = accessToken;
+    return Promise.resolve(this.result);
+  }
+}
+
+export class EditAccountSpy implements EditAccount {
+  result = true;
+  accountId: string;
+  email?: string;
+  name?: string;
+
+  async edit(account: EditAccount.Params): Promise<EditAccount.Result> {
+    this.accountId = account.accountId;
+    this.email = account.email;
+    this.name = account.name;
     return Promise.resolve(this.result);
   }
 }
