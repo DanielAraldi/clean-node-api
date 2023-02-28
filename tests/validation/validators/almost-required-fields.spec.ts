@@ -22,4 +22,13 @@ describe('Required Field Validation', () => {
     const error = sut.validate({ [firstField]: faker.random.word() });
     expect(error).toBeNull();
   });
+
+  test('Should returns null if all fields is provided', () => {
+    const sut = makeSut();
+    const error = sut.validate({
+      [firstField]: faker.random.word(),
+      [secondField]: faker.random.word(),
+    });
+    expect(error).toBeNull();
+  });
 });
