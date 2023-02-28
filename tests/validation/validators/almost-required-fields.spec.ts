@@ -5,8 +5,10 @@ import { faker } from '@faker-js/faker';
 const firstField = faker.random.word();
 const secondField = faker.random.word();
 
-const makeSut = (): AlmostRequiredFieldValidation =>
-  new AlmostRequiredFieldValidation([firstField, secondField]);
+const makeSut = (extraFieldNames?: string[]): AlmostRequiredFieldValidation =>
+  new AlmostRequiredFieldValidation(
+    extraFieldNames || [firstField, secondField]
+  );
 
 describe('Required Field Validation', () => {
   test('Should return a MissingParamError if no field is provided', () => {
@@ -15,6 +17,12 @@ describe('Required Field Validation', () => {
     expect(error).toEqual(
       new MissingParamError([firstField, secondField].join(' or '))
     );
+  });
+
+  test("Should return a MissingParamError no 'or' in message error if field isn't provided", () => {
+    const sut = makeSut([firstField]);
+    const error = sut.validate({ invalidField: faker.random.word() });
+    expect(error).toEqual(new MissingParamError(firstField));
   });
 
   test('Should returns null if a field is provided', () => {
