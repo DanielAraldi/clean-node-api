@@ -1,6 +1,11 @@
 import { EditAccount } from '@/domain/usecases';
 import { Controller, HttpResponse, Validation } from '@/presentation/protocols';
-import { badRequest, forbidden, serverError } from '@/presentation/helpers';
+import {
+  badRequest,
+  forbidden,
+  noContent,
+  serverError,
+} from '@/presentation/helpers';
 import { EmailInUseError } from '@/presentation/errors';
 
 export class EditAccountController implements Controller {
@@ -19,6 +24,7 @@ export class EditAccountController implements Controller {
       if (!result) {
         return forbidden(new EmailInUseError());
       }
+      return noContent();
     } catch (error) {
       return serverError(error);
     }
