@@ -1,8 +1,8 @@
 import { EditAccountController } from '@/presentation/controllers';
 import { throwError } from '@/tests/domain/mocks';
 import { EditAccountSpy } from '@/tests/presentation/mocks';
-import { ServerError } from '@/presentation/errors';
-import { serverError } from '@/presentation/helpers';
+import { EmailInUseError, ServerError } from '@/presentation/errors';
+import { forbidden, serverError } from '@/presentation/helpers';
 import { faker } from '@faker-js/faker';
 
 const mockRequest = (): EditAccountController.Request => ({
@@ -42,5 +42,12 @@ describe('EditAccount Controller', () => {
       email: request.email,
       accountId: request.accountId,
     });
+  });
+
+  test('Should return 403 if EditAccount returns false', async () => {
+    const { sut, editAccountSpy } = makeSut();
+    editAccountSpy.result = false;
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(forbidden(new EmailInUseError()));
   });
 });
