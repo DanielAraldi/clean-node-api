@@ -1,8 +1,12 @@
 import { EditAccountController } from '@/presentation/controllers';
 import { throwError } from '@/tests/domain/mocks';
 import { EditAccountSpy, ValidationSpy } from '@/tests/presentation/mocks';
-import { EmailInUseError, ServerError } from '@/presentation/errors';
-import { forbidden, serverError } from '@/presentation/helpers';
+import {
+  EmailInUseError,
+  MissingParamError,
+  ServerError,
+} from '@/presentation/errors';
+import { badRequest, forbidden, serverError } from '@/presentation/helpers';
 import { faker } from '@faker-js/faker';
 
 const mockRequest = (): EditAccountController.Request => ({
@@ -59,5 +63,12 @@ describe('EditAccount Controller', () => {
     const request = mockRequest();
     await sut.handle(request);
     expect(validationSpy.input).toEqual(request);
+  });
+
+  test('Should return 400 if Validation returns an error', async () => {
+    const { sut, validationSpy } = makeSut();
+    validationSpy.error = new MissingParamError(faker.random.word());
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(badRequest(validationSpy.error));
   });
 });
