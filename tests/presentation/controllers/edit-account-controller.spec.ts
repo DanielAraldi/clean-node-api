@@ -6,7 +6,12 @@ import {
   MissingParamError,
   ServerError,
 } from '@/presentation/errors';
-import { badRequest, forbidden, serverError } from '@/presentation/helpers';
+import {
+  badRequest,
+  forbidden,
+  noContent,
+  serverError,
+} from '@/presentation/helpers';
 import { faker } from '@faker-js/faker';
 
 const mockRequest = (): EditAccountController.Request => ({
@@ -70,5 +75,11 @@ describe('EditAccount Controller', () => {
     validationSpy.error = new MissingParamError(faker.random.word());
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(badRequest(validationSpy.error));
+  });
+
+  test('Should return 204 no success', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(noContent());
   });
 });
