@@ -1,13 +1,17 @@
 import { EditAccount } from '@/domain/usecases';
-import { Controller, HttpResponse } from '@/presentation/protocols';
+import { Controller, HttpResponse, Validation } from '@/presentation/protocols';
 import { forbidden, serverError } from '@/presentation/helpers';
 import { EmailInUseError } from '@/presentation/errors';
 
 export class EditAccountController implements Controller {
-  constructor(private readonly editAccount: EditAccount) {}
+  constructor(
+    private readonly validation: Validation,
+    private readonly editAccount: EditAccount
+  ) {}
 
   async handle(request: EditAccountController.Request): Promise<HttpResponse> {
     try {
+      this.validation.validate(request);
       const result = await this.editAccount.edit(request);
       if (!result) {
         return forbidden(new EmailInUseError());
