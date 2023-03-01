@@ -18,6 +18,15 @@ const makeSut = (): SutTypes => {
 };
 
 describe('DbEditAccount Usecase', () => {
+  test('Should call CheckAccountByEmailRepository with correct email', async () => {
+    const { sut, checkAccountByEmailRepositorySpy } = makeSut();
+    const editAccountParams = mockEditAccountParams();
+    await sut.edit(editAccountParams);
+    expect(checkAccountByEmailRepositorySpy.email).toBe(
+      editAccountParams.email
+    );
+  });
+
   test('Should return false if CheckAccountByEmailRepository returns true', async () => {
     const { sut, checkAccountByEmailRepositorySpy } = makeSut();
     checkAccountByEmailRepositorySpy.result = true;
