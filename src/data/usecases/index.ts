@@ -2,6 +2,7 @@ export * from './db-add-account';
 export * from './db-add-survey';
 export * from './db-authentication';
 export * from './db-check-survey-by-id';
+export * from './db-edit-account';
 export * from './db-load-account-by-token';
 export * from './db-load-answers-by-survey';
 export * from './db-load-survey-result';
