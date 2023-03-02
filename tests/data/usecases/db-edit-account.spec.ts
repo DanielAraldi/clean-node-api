@@ -1,19 +1,28 @@
 import { DbEditAccount } from '@/data/usecases';
 import { mockEditAccountParams } from '@/tests/domain/mocks';
-import { CheckAccountByEmailRepositorySpy } from '@/tests/data/mocks';
+import {
+  CheckAccountByEmailRepositorySpy,
+  EditAccountRepositorySpy,
+} from '@/tests/data/mocks';
 
 type SutTypes = {
   sut: DbEditAccount;
   checkAccountByEmailRepositorySpy: CheckAccountByEmailRepositorySpy;
+  editAccountRepositorySpy: EditAccountRepositorySpy;
 };
 
 const makeSut = (): SutTypes => {
   const checkAccountByEmailRepositorySpy =
     new CheckAccountByEmailRepositorySpy();
-  const sut = new DbEditAccount(checkAccountByEmailRepositorySpy);
+  const editAccountRepositorySpy = new EditAccountRepositorySpy();
+  const sut = new DbEditAccount(
+    editAccountRepositorySpy,
+    checkAccountByEmailRepositorySpy
+  );
   return {
     sut,
     checkAccountByEmailRepositorySpy,
+    editAccountRepositorySpy,
   };
 };
 
@@ -32,5 +41,14 @@ describe('DbEditAccount Usecase', () => {
     checkAccountByEmailRepositorySpy.result = true;
     const isValid = await sut.edit(mockEditAccountParams());
     expect(isValid).toBe(false);
+  });
+
+  test('Should call EditAccountRepository with correct values', async () => {
+    const { sut, editAccountRepositorySpy } = makeSut();
+    const editAccountParams = mockEditAccountParams();
+    await sut.edit(editAccountParams);
+    expect(editAccountRepositorySpy.editAccountParams).toEqual(
+      editAccountParams
+    );
   });
 });
