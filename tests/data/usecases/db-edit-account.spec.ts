@@ -1,5 +1,5 @@
 import { DbEditAccount } from '@/data/usecases';
-import { mockEditAccountParams } from '@/tests/domain/mocks';
+import { mockEditAccountParams, throwError } from '@/tests/domain/mocks';
 import {
   CheckAccountByEmailRepositorySpy,
   EditAccountRepositorySpy,
@@ -41,6 +41,16 @@ describe('DbEditAccount Usecase', () => {
     checkAccountByEmailRepositorySpy.result = true;
     const isValid = await sut.edit(mockEditAccountParams());
     expect(isValid).toBe(false);
+  });
+
+  test('Should throw if CheckAccountByEmailRepository throws', async () => {
+    const { sut, checkAccountByEmailRepositorySpy } = makeSut();
+    jest
+      .spyOn(checkAccountByEmailRepositorySpy, 'checkByEmail')
+      .mockImplementationOnce(throwError);
+    const editAccountParams = mockEditAccountParams();
+    const promise = sut.edit(editAccountParams);
+    await expect(promise).rejects.toThrow();
   });
 
   test('Should call EditAccountRepository with correct values', async () => {
