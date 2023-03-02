@@ -1,5 +1,8 @@
 import { AccountMongoRepository, MongoHelper } from '@/infra/db';
-import { mockAddAccountParams } from '@/../tests/domain/mocks';
+import {
+  mockAddAccountParams,
+  mockEditAccountParams,
+} from '@/tests/domain/mocks';
 import { Collection } from 'mongodb';
 import { faker } from '@faker-js/faker';
 
@@ -27,6 +30,24 @@ describe('AccountMongoRepository', () => {
       const addAccountParams = mockAddAccountParams();
       const isValid = await sut.add(addAccountParams);
       expect(isValid).toBe(true);
+    });
+  });
+
+  describe('edit()', () => {
+    test('Should update the email and name on success', async () => {
+      const sut = makeSut();
+      const collection = await accountCollection.insertOne(
+        mockAddAccountParams()
+      );
+      const editAccountParams = mockEditAccountParams();
+      const accountId = collection.insertedId;
+      await sut.edit({ ...editAccountParams, accountId: accountId.toString() });
+      const account = await accountCollection.findOne({
+        _id: accountId,
+      });
+      expect(account).toBeTruthy();
+      expect(account.name).toBe(editAccountParams.name);
+      expect(account.email).toBe(editAccountParams.email);
     });
   });
 
