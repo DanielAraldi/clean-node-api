@@ -61,4 +61,14 @@ describe('DbEditAccount Usecase', () => {
       editAccountParams
     );
   });
+
+  test('Should throw if EditAccountRepository throws', async () => {
+    const { sut, editAccountRepositorySpy } = makeSut();
+    jest
+      .spyOn(editAccountRepositorySpy, 'edit')
+      .mockImplementationOnce(throwError);
+    const editAccountParams = mockEditAccountParams();
+    const promise = sut.edit(editAccountParams);
+    await expect(promise).rejects.toThrow();
+  });
 });
