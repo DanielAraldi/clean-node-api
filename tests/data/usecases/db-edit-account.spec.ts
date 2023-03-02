@@ -71,4 +71,11 @@ describe('DbEditAccount Usecase', () => {
     const promise = sut.edit(editAccountParams);
     await expect(promise).rejects.toThrow();
   });
+
+  test('Should return true on success', async () => {
+    const { sut } = makeSut();
+    const editAccountParams = mockEditAccountParams();
+    const result = await sut.edit(editAccountParams);
+    expect(result).toBe(true);
+  });
 });
