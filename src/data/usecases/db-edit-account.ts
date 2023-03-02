@@ -1,8 +1,12 @@
 import { EditAccount } from '@/domain/usecases';
-import { CheckAccountByEmailRepository } from '@/data/protocols';
+import {
+  CheckAccountByEmailRepository,
+  EditAccountRepository,
+} from '@/data/protocols';
 
 export class DbEditAccount implements EditAccount {
   constructor(
+    private readonly editAccountRepository: EditAccountRepository,
     private readonly checkAccountByEmailRepository: CheckAccountByEmailRepository
   ) {}
 
@@ -11,6 +15,7 @@ export class DbEditAccount implements EditAccount {
       account.email
     );
     if (exists) return false;
+    await this.editAccountRepository.edit(account);
     return true;
   }
 }
