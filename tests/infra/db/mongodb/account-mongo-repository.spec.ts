@@ -64,6 +64,21 @@ describe('AccountMongoRepository', () => {
       expect(account.name).toBe(addAccountParams.name);
       expect(account.email).toBe(email);
     });
+
+    test('Should update the name if only is provided', async () => {
+      const sut = makeSut();
+      const addAccountParams = mockAddAccountParams();
+      const collection = await accountCollection.insertOne(addAccountParams);
+      const name = faker.name.fullName();
+      const accountId = collection.insertedId;
+      await sut.edit({ name, accountId: accountId.toString() });
+      const account = await accountCollection.findOne({
+        _id: accountId,
+      });
+      expect(account).toBeTruthy();
+      expect(account.email).toBe(addAccountParams.email);
+      expect(account.name).toBe(name);
+    });
   });
 
   describe('loadByEmail()', () => {
