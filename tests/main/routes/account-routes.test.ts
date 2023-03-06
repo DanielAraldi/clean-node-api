@@ -68,5 +68,18 @@ describe('Account Routes', () => {
       expect(accountUpdated.name).toBe(newName);
       expect(accountUpdated.email).toBe(newEmail);
     });
+
+    test('Should return 403 on edit account without accessToken', async () => {
+      const account = await makeAccount();
+      const newName = faker.name.fullName();
+      const newEmail = faker.internet.email();
+      await request(app)
+        .put('/api/account/edit')
+        .send({
+          name: newName,
+          email: newEmail,
+        })
+        .expect(403);
+    });
   });
 });
