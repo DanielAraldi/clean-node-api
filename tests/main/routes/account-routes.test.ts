@@ -70,7 +70,6 @@ describe('Account Routes', () => {
     });
 
     test('Should return 403 on edit account without accessToken', async () => {
-      const account = await makeAccount();
       const newName = faker.name.fullName();
       const newEmail = faker.internet.email();
       await request(app)
@@ -79,6 +78,18 @@ describe('Account Routes', () => {
           name: newName,
           email: newEmail,
         })
+        .expect(403);
+    });
+
+    test('Should return 403 if an account with email already exists', async () => {
+      const firstAccount = await makeAccount();
+      const secondAccount = await makeAccount();
+      await request(app)
+        .put('/api/account/edit')
+        .send({
+          email: secondAccount.email,
+        })
+        .set('x-access-token', firstAccount.accessToken)
         .expect(403);
     });
   });
