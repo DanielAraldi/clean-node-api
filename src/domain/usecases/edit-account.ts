@@ -7,6 +7,7 @@ export namespace EditAccount {
     name?: string;
     email?: string;
     accountId: string;
+    updatedAt: Date;
   };
   export type Result = boolean;
 }

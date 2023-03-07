@@ -32,7 +32,7 @@ export class AccountMongoRepository
     const name = data?.name ? { name: data.name } : {};
     await accountCollection.updateOne(
       { _id: accountId },
-      { $set: { ...email, ...name } }
+      { $set: { ...email, ...name, updatedAt: data.updatedAt } }
     );
   }
 
