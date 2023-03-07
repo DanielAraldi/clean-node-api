@@ -29,7 +29,11 @@ describe('AccountMongoRepository', () => {
       const sut = makeSut();
       const addAccountParams = mockAddAccountParams();
       const isValid = await sut.add(addAccountParams);
+      const account = await accountCollection.findOne({
+        email: addAccountParams.email,
+      });
       expect(isValid).toBe(true);
+      expect(account.createdAt).toBeTruthy();
     });
   });
 
