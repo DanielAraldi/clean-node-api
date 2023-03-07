@@ -59,7 +59,6 @@ describe('AccountMongoRepository', () => {
       const accountId = collection.insertedId;
       await sut.edit({
         email,
-        updatedAt: new Date(),
         accountId: accountId.toString(),
       });
       const account = await accountCollection.findOne({
@@ -79,7 +78,6 @@ describe('AccountMongoRepository', () => {
       const accountId = collection.insertedId;
       await sut.edit({
         name,
-        updatedAt: new Date(),
         accountId: accountId.toString(),
       });
       const account = await accountCollection.findOne({

@@ -8,7 +8,6 @@ import {
   noContent,
   serverError,
 } from '@/presentation/helpers';
-import MockDate from 'mockdate';
 import { faker } from '@faker-js/faker';
 
 const mockRequest = (): EditAccountController.Request => ({
@@ -35,14 +34,6 @@ const makeSut = (): SutTypes => {
 };
 
 describe('EditAccount Controller', () => {
-  beforeAll(() => {
-    MockDate.set(new Date());
-  });
-
-  afterAll(() => {
-    MockDate.reset();
-  });
-
   test('Should return 500 if EditAccount throws', async () => {
     const { sut, editAccountSpy } = makeSut();
     jest.spyOn(editAccountSpy, 'edit').mockImplementationOnce(throwError);
@@ -58,7 +49,6 @@ describe('EditAccount Controller', () => {
       name: request.name,
       email: request.email,
       accountId: request.accountId,
-      updatedAt: editAccountSpy.editAccountParams.updatedAt,
     });
   });
 
