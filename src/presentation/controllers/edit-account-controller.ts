@@ -20,10 +20,7 @@ export class EditAccountController implements Controller {
       if (error) {
         return badRequest(error);
       }
-      const result = await this.editAccount.edit({
-        ...request,
-        updatedAt: new Date(),
-      });
+      const result = await this.editAccount.edit(request);
       if (!result) {
         return forbidden(new EmailInUseError());
       }
