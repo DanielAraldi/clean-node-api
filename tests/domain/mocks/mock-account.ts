@@ -21,4 +21,5 @@ export const mockEditAccountParams = (): EditAccount.Params => ({
   name: faker.name.fullName(),
   email: faker.internet.email(),
   accountId: faker.datatype.uuid(),
+  updatedAt: faker.date.recent(),
 });

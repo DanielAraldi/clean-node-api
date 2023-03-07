@@ -1,17 +1,14 @@
 import { EditAccountController } from '@/presentation/controllers';
 import { throwError } from '@/tests/domain/mocks';
 import { EditAccountSpy, ValidationSpy } from '@/tests/presentation/mocks';
-import {
-  EmailInUseError,
-  MissingParamError,
-  ServerError,
-} from '@/presentation/errors';
+import { EmailInUseError, MissingParamError } from '@/presentation/errors';
 import {
   badRequest,
   forbidden,
   noContent,
   serverError,
 } from '@/presentation/helpers';
+import MockDate from 'mockdate';
 import { faker } from '@faker-js/faker';
 
 const mockRequest = (): EditAccountController.Request => ({
@@ -38,11 +35,19 @@ const makeSut = (): SutTypes => {
 };
 
 describe('EditAccount Controller', () => {
+  beforeAll(() => {
+    MockDate.set(new Date());
+  });
+
+  afterAll(() => {
+    MockDate.reset();
+  });
+
   test('Should return 500 if EditAccount throws', async () => {
     const { sut, editAccountSpy } = makeSut();
     jest.spyOn(editAccountSpy, 'edit').mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(mockRequest());
-    expect(httpResponse).toEqual(serverError(new ServerError(null)));
+    expect(httpResponse).toEqual(serverError(new Error()));
   });
 
   test('Should call EditAccount with correct values', async () => {
@@ -53,6 +58,7 @@ describe('EditAccount Controller', () => {
       name: request.name,
       email: request.email,
       accountId: request.accountId,
+      updatedAt: editAccountSpy.editAccountParams.updatedAt,
     });
   });
 

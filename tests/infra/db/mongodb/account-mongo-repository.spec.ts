@@ -48,6 +48,7 @@ describe('AccountMongoRepository', () => {
       expect(account).toBeTruthy();
       expect(account.name).toBe(editAccountParams.name);
       expect(account.email).toBe(editAccountParams.email);
+      expect(account.updatedAt).toBeTruthy();
     });
 
     test('Should update the email if only is provided', async () => {
@@ -56,13 +57,18 @@ describe('AccountMongoRepository', () => {
       const collection = await accountCollection.insertOne(addAccountParams);
       const email = faker.internet.email();
       const accountId = collection.insertedId;
-      await sut.edit({ email, accountId: accountId.toString() });
+      await sut.edit({
+        email,
+        updatedAt: new Date(),
+        accountId: accountId.toString(),
+      });
       const account = await accountCollection.findOne({
         _id: accountId,
       });
       expect(account).toBeTruthy();
       expect(account.name).toBe(addAccountParams.name);
       expect(account.email).toBe(email);
+      expect(account.updatedAt).toBeTruthy();
     });
 
     test('Should update the name if only is provided', async () => {
@@ -71,13 +77,18 @@ describe('AccountMongoRepository', () => {
       const collection = await accountCollection.insertOne(addAccountParams);
       const name = faker.name.fullName();
       const accountId = collection.insertedId;
-      await sut.edit({ name, accountId: accountId.toString() });
+      await sut.edit({
+        name,
+        updatedAt: new Date(),
+        accountId: accountId.toString(),
+      });
       const account = await accountCollection.findOne({
         _id: accountId,
       });
       expect(account).toBeTruthy();
       expect(account.email).toBe(addAccountParams.email);
       expect(account.name).toBe(name);
+      expect(account.updatedAt).toBeTruthy();
     });
   });
 
