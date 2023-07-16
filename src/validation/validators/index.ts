@@ -1,3 +1,4 @@
+export * from './almost-required-fields';
 export * from './compare-fields-validation';
 export * from './email-validation';
 export * from './length-field-validation';

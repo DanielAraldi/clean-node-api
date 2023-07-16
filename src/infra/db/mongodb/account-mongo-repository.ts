@@ -5,11 +5,13 @@ import {
   UpdateAccessTokenRepository,
   LoadAccountByTokenRepository,
   CheckAccountByEmailRepository,
+  EditAccountRepository,
 } from '@/data/protocols/db';
 
 export class AccountMongoRepository
   implements
     AddAccountRepository,
+    EditAccountRepository,
     LoadAccountByEmailRepository,
     UpdateAccessTokenRepository,
     LoadAccountByTokenRepository,
@@ -19,8 +21,22 @@ export class AccountMongoRepository
     data: AddAccountRepository.Params
   ): Promise<AddAccountRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts');
-    const result = await accountCollection.insertOne(data);
+    const result = await accountCollection.insertOne({
+      ...data,
+      createdAt: new Date(),
+    });
     return !!result.insertedId;
+  }
+
+  async edit(data: EditAccountRepository.Params): Promise<void> {
+    const accountCollection = await MongoHelper.getCollection('accounts');
+    const accountId = MongoHelper.objectId(data.accountId);
+    const email = data?.email ? { email: data.email } : {};
+    const name = data?.name ? { name: data.name } : {};
+    await accountCollection.updateOne(
+      { _id: accountId },
+      { $set: { ...email, ...name, updatedAt: new Date() } }
+    );
   }
 
   async loadByEmail(

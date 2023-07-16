@@ -1,5 +1,6 @@
 import {
   accountSchema,
+  accountEditParamsSchema,
   loginParamsSchema,
   signUpParamsSchema,
   errorSchema,
@@ -17,6 +18,7 @@ import {
 
 export default {
   account: accountSchema,
+  accountEditParams: accountEditParamsSchema,
   loginParams: loginParamsSchema,
   signUpParams: signUpParamsSchema,
   refreshToken: refreshTokenSchema,

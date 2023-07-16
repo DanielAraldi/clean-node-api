@@ -9,6 +9,15 @@ const DateTimeScalar = new GraphQLScalarType({
   },
 });
 
+const VoidScaller = new GraphQLScalarType({
+  name: 'Void',
+  description: 'Use null to represents void',
+  serialize: () => null,
+  parseLiteral: () => null,
+  parseValue: () => null,
+});
+
 export default {
   DateTime: DateTimeScalar,
+  Void: VoidScaller,
 };

@@ -1,6 +1,7 @@
 import {
   AddAccountRepository,
   CheckAccountByEmailRepository,
+  EditAccountRepository,
   LoadAccountByEmailRepository,
   LoadAccountByTokenRepository,
   UpdateAccessTokenRepository,
@@ -78,6 +79,15 @@ export class UpdateAccessTokenRepositorySpy
   async updateAccessToken(id: string, token: string): Promise<void> {
     this.id = id;
     this.token = token;
+    return Promise.resolve();
+  }
+}
+
+export class EditAccountRepositorySpy implements EditAccountRepository {
+  editAccountParams: EditAccountRepository.Params;
+
+  async edit(data: EditAccountRepository.Params): Promise<void> {
+    this.editAccountParams = data;
     return Promise.resolve();
   }
 }

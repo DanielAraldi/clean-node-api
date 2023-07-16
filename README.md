@@ -20,7 +20,8 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 
 > ## APIs adicionais construídas:
 
-1. [Refresh Token](./requirements/refresh-token.md)
+1. [Refresh token](./requirements/refresh-token.md)
+1. [Edição de dados do usuário](./requirements/edit-user-data.md)
 
 > ## Princípios aplicados:
 

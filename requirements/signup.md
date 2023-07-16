@@ -6,7 +6,7 @@
 1. ✅ Valida dados obrigatórios **name**, **email**, **password** e **passwordConfirmation**.
 1. ✅ Valida que **password** e **passwordConfirmation** são iguais.
 1. ✅ Valida que o campo **email** é um e-mail válido.
-1. ✅ Valida se já existe um usuário com o email fornecido.
+1. ✅ Valida se já existe um usuário com o e-mail fornecido.
 1. ✅ Gera uma senha criptografada (essa senha não pode ser descriptografada).
 1. ✅ Cria uma conta para o usuário com os dados informados, substituindo a senha pela senha criptorafada.
 1. ✅ Gera um token de acesso a partir do ID do usuário.
@@ -19,7 +19,7 @@
 1. ✅ Retorna erro **400** se **name**, **email**, **password** ou **passwordConfirmation** não forem fornecidos pelo cliente.
 1. ✅ Retorna erro **400** se **password** e **passwordConfirmation** não forem iguais.
 1. ✅ Retorna erro **400** se o campo **email** for um e-mail inválido.
-1. ✅ Retorna erro **403** se o email fornecido já estiver em uso.
+1. ✅ Retorna erro **403** se o e-mail fornecido já estiver em uso.
 1. ✅ Retorna erro **500** se der erro ao tentar gerar uma senha criptografada.
 1. ✅ Retorna erro **500** se der erro ao tentar criar a conta do usuário.
 1. ✅ Retorna erro **500** se der erro ao tentar gerar o token de acesso.

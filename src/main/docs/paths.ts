@@ -1,4 +1,5 @@
 import {
+  accountPath,
   loginPath,
   signUpPath,
   refreshTokenPath,
@@ -6,8 +7,8 @@ import {
   surveyResultPath,
 } from './paths/';
 
-// API routes
 export default {
+  '/account/edit': accountPath,
   '/login': loginPath,
   '/signup': signUpPath,
   '/refresh': refreshTokenPath,
