@@ -8,7 +8,7 @@ export default {
     title: 'Clean Node API',
     description:
       'API of surveys in NodeJs using Typescript, TDD, Clean Architecture, Design Patterns and SOLID principles.',
-    version: '1.4.0',
+    version: '1.5.0',
     termsOfService:
       'https://github.com/DanielAraldi/clean-node-api/blob/main/LICENSE',
     contact: {
@@ -21,7 +21,7 @@ export default {
     },
   },
   servers: [{ url: '/api' }],
-  tags: [{ name: 'Login' }, { name: 'Survey' }],
+  tags: [{ name: 'Login' }, { name: 'Survey' }, { name: 'Account' }],
   paths,
   schemas,
   components,
