@@ -4,7 +4,9 @@ import {
   AddAccount,
   RefreshToken,
   EditAccount,
+  LoadAccount,
 } from '@/domain/usecases';
+import { mockLoadAccountModel } from '@/tests/domain/mocks';
 import { faker } from '@faker-js/faker';
 
 export class AddAccountSpy implements AddAccount {
@@ -64,6 +66,16 @@ export class EditAccountSpy implements EditAccount {
 
   async edit(account: EditAccount.Params): Promise<EditAccount.Result> {
     this.editAccountParams = account;
+    return Promise.resolve(this.result);
+  }
+}
+
+export class LoadAccountSpy implements LoadAccount {
+  result = mockLoadAccountModel();
+  accountId: string;
+
+  async load(accountId: string): Promise<LoadAccount.Result> {
+    this.accountId = accountId;
     return Promise.resolve(this.result);
   }
 }

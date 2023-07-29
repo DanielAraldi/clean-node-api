@@ -1,5 +1,5 @@
 export interface LoadAccount {
-  load(accessToken: string): Promise<LoadAccount.Result>;
+  load(accountId: string): Promise<LoadAccount.Result>;
 }
 
 export namespace LoadAccount {
