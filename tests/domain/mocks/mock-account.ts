@@ -27,5 +27,7 @@ export const mockLoadAccountModel = (): LoadAccount.Result => ({
   id: faker.datatype.uuid(),
   name: faker.name.fullName(),
   email: faker.internet.email(),
+  createdAt: faker.date.past(),
+  updatedAt: faker.date.recent(),
   role: faker.random.word(),
 });
