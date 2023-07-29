@@ -3,5 +3,10 @@ export interface LoadAccount {
 }
 
 export namespace LoadAccount {
-  export type Result = { name: string; email: string; role?: string } | null;
+  export type Result = {
+    id: string;
+    name: string;
+    email: string;
+    role?: string;
+  } | null;
 }

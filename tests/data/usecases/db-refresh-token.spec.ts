@@ -1,5 +1,5 @@
 import { DbRefreshToken } from '@/data/usecases';
-import { mockRefreshTokenParams, throwError } from '@/tests/domain/mocks';
+import { throwError } from '@/tests/domain/mocks';
 import {
   EncrypterSpy,
   LoadAccountByTokenRepositorySpy,

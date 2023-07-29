@@ -1,5 +1,5 @@
 import { RefreshTokenController } from '@/presentation/controllers';
-import { mockRefreshTokenParams, throwError } from '@/tests/domain/mocks';
+import { throwError } from '@/tests/domain/mocks';
 import { RefreshTokenSpy, ValidationSpy } from '@/tests/presentation/mocks';
 import { MissingParamError } from '@/presentation/errors';
 import {
@@ -16,8 +16,9 @@ type SutTypes = {
   sut: RefreshTokenController;
 };
 
-const mockRequest = (): RefreshTokenController.Request =>
-  mockRefreshTokenParams();
+const mockRequest = (): RefreshTokenController.Request => ({
+  accessToken: faker.datatype.uuid(),
+});
 
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy();

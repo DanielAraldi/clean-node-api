@@ -1,5 +1,9 @@
-import { AddAccount, Authentication, EditAccount } from '@/domain/usecases';
-import { RefreshTokenController } from '@/presentation/controllers';
+import {
+  AddAccount,
+  Authentication,
+  EditAccount,
+  LoadAccount,
+} from '@/domain/usecases';
 import { faker } from '@faker-js/faker';
 
 export const mockAddAccountParams = (): AddAccount.Params => ({
@@ -13,12 +17,15 @@ export const mockAuthenticationParams = (): Authentication.Params => ({
   password: faker.internet.password(),
 });
 
-export const mockRefreshTokenParams = (): RefreshTokenController.Request => ({
-  accessToken: faker.datatype.uuid(),
-});
-
 export const mockEditAccountParams = (): EditAccount.Params => ({
   name: faker.name.fullName(),
   email: faker.internet.email(),
   accountId: faker.datatype.uuid(),
+});
+
+export const mockLoadAccountModel = (): LoadAccount.Result => ({
+  id: faker.datatype.uuid(),
+  name: faker.name.fullName(),
+  email: faker.internet.email(),
+  role: faker.random.word(),
 });
