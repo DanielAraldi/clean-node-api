@@ -3,27 +3,27 @@
 
 # **Clean Node API**
 
-[![alt text](./public/img/logo-course.png 'Link para o treinamento')](https://www.udemy.com/course/tdd-com-mango/?referralCode=B53CE5CA2B9AFA5A6FA1)
+[![alt text](./public/img/logo-course.png 'Training link')](https://www.udemy.com/course/tdd-com-mango/?referralCode=B53CE5CA2B9AFA5A6FA1)
 
-Essa API faz parte do treinamento do professor [Rodrigo Manguinho (Mango)](https://github.com/rmanguinho) na Udemy.
+This API makes part of training of the teacher [Rodrigo Manguinho (Mango)](https://github.com/rmanguinho) on Udemy.
 
-O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem definida e desacoplada, utilizando TDD (programação orientada a testes) como metodologia de trabalho, Clean Architecture para fazer a distribuição de responsabilidades em camadas, sempre seguindo os princípios do SOLID e, sempre que possível, aplicando Design Patterns para resolver alguns problemas comuns.
+The objective of the training is show to create an API with a defined architecture well and uncoupled, using TDD (Test Drive Development) such as work methodology. Clean Architecture to do responsibility distribution in layer, always following the SOLID principles and, whenever possible, applying Design Patterns to solve some common problems.
 
-> ## APIs construídas no treinamento:
+> ## APIs:
 
-1. [Cadastro](./requirements/signup.md)
+1. [Sign Up](./requirements/signup.md)
 1. [Login](./requirements/login.md)
-1. [Criar enquete](./requirements/add-survey.md)
-1. [Listar enquetes](./requirements/load-surveys.md)
-1. [Responder enquete](./requirements/save-survey-result.md)
-1. [Resultado da enquete](./requirements/load-survey-result.md)
+1. [Add survey](./requirements/add-survey.md)
+1. [List surveys](./requirements/load-surveys.md)
+1. [Answer survey](./requirements/save-survey-result.md)
+1. [Load survey result](./requirements/load-survey-result.md)
 
-> ## APIs adicionais construídas:
+> ## Additional APIs:
 
 1. [Refresh token](./requirements/refresh-token.md)
-1. [Edição de dados do usuário](./requirements/edit-user-data.md)
+1. [Edit user data](./requirements/edit-user-data.md)
 
-> ## Princípios aplicados:
+> ## Principles applied:
 
 - Single Responsibility Principle (SRP)
 - Open Closed Principle (OCP)
@@ -34,7 +34,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - Composition Over Inheritance
 - Small Commits
 
-> ## Design Patterns aplicados:
+> ## Design Patterns applied:
 
 - Factory
 - Adapter
@@ -44,7 +44,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - Abstract Server
 - Composition Root
 
-> ## Metodologias/designs utilizados:
+> ## Dethodology/designs used:
 
 - TDD
 - Clean Architecture
@@ -55,14 +55,14 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - Dependency Diagrams
 - Use Cases
 
-> ## Bibliotecas e ferramentas utilizadas:
+> ## Libraries e tools used:
 
 - [NPM](https://www.npmjs.com/)
-- [Typescript](https://www.typescriptlang.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com/)
 - [Jest](https://jestjs.io/)
-- [MongoDb](https://www.mongodb.com/)
+- [MongoDB](https://www.mongodb.com/)
 - Bcrypt
 - [JsonWebToken](https://jwt.io/)
 - [Faker](https://fakerjs.dev/)
@@ -74,34 +74,33 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - Lint Staged
 - [Eslint](https://eslint.org/)
 - [Standard Javascript Style](https://standardjs.com/)
-- [Sucrase](https://sucrase.io/)
 - [Nodemon](https://nodemon.io/)
 - Rimraf
 - In-Memory MongoDb Server
 - MockDate
 - Module-Alias
 
-> ## Features abordadas:
+> ## Features taught:
 
-- Atalhos no Git
-- Log de Erro
-- Segurança (Hashing, Encryption e Encoding)
+- Git alias
+- Log error
+- Security (Hashing, Encryption e Encoding)
 - CORS
 - Middlewares
-- Testes de Integração
-- Testes Unitários
-- Cobertura de Testes
+- Integration tests
+- Unit tests
+- Coverage of tests
 - Test Doubles
 - Mocks
 - Stubs
 - Spies
-- Deploy com Typescript
-- Deploy no Heroku
-- Uso de breakpoints no Typescript
-- Uso correto de tags no Git
+- Deploy with Typescript
+- Deploy on Render
+- Use breakpoints on Typescript
+- Use correct tags on Git
 - Fakes
 
-> ## Features do MongoDb
+> ## MongoDB's Features
 
 - Connect e Reconnect
 - Collections
@@ -114,34 +113,3 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 - Upsert e ReturnOriginal
 - Push, Divide, Multiply, ArrayElemAt, Cond, Sum
 - Filter, Map, Reduce, MergeObjects, ConcatArrays
-
-> ## Aulas Feitas
-
-- ✅ Introdução
-- ✅ SignUp API - Presentation Layer
-- ✅ Jest
-- ✅ Utils Layer
-- ✅ SignUp API - Data Layer
-- ✅ SignUp API - Infra Layer
-- ✅ SignUp API - Main Layer
-- ✅ Log de Erro
-- ✅ Login API - Presentation Layer
-- ✅ Login API - Data Layer
-- ✅ Segurança - Hash/Encrypt/Encode
-- ✅ Login API - Infra Layer
-- ✅ Login API - Main Layer
-- ✅ Docker
-- ✅ SignUp API - Ajustes
-- ✅ AddSurvey API
-- ✅ Criando Middleware de Autenticação
-- ✅ CI/CD
-- ✅ LoadSurveys API
-- ✅ Paths no Typescript
-- ✅ SaveSurveyResult API
-- ✅ Refactor
-- ✅ Swagger
-- ✅ LoadSurveyResult API
-- ✅ Refactor
-- ✅ Melhorando a Arquitetura
-- ✅ GraphQL
-- ✅ Atualizando Libs
