@@ -1,6 +1,6 @@
 # Create Survey
 
-> ## Success case:
+> ## Success Case:
 
 1. Receives a request type **POST** on the **/api/surveys** route.
 2. Validate if the request was made by an **admin**.

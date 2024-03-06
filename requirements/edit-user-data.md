@@ -1,6 +1,6 @@
 # Edit User Data
 
-> ## Success case:
+> ## Success Case:
 
 1. Receives a request type **PUT** on the **/api/account/edit** route.
 2. Validate if the data **name** and **email** weren't provided like blank `string`.
