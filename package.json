@@ -81,7 +81,7 @@
     "graphql": "^16.6.0",
     "jsonwebtoken": "^9.0.0",
     "module-alias": "^2.2.2",
-    "mongodb": "^4.13.0",
+    "mongodb": "^4.17.0",
     "nodemon": "^2.0.20",
     "swagger-ui-express": "^4.6.2",
     "validator": "^13.9.0"
