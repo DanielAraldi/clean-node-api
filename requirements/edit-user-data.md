@@ -1,19 +1,19 @@
-# Edição de Dados do Usuário
+# Edit User Data
 
-> ## Caso de sucesso:
+> ## Success case:
 
-1. ✅ Recebe uma requisição do tipo **PUT** na rota **/api/account/edit**.
-1. ✅ Valida se os dados **name** e **email** não foram passados como `string` vazia.
-1. ✅ Valida que o campo **email** é um e-mail válido.
-1. ✅ Valida se já existe um usuário com o e-mail fornecido.
-1. ✅ Edita a conta do usuário com os dados informados.
-1. ✅ Retorna **204**.
+1. Receives a request type **PUT** on the **/api/account/edit** route.
+2. Validate if the data **name** and **email** weren't provided like blank `string`.
+3. Validate if the **email** field is a valid email.
+4. Validate if already have a user with email provided.
+5. Edit the user account with data provided.
+6. Return **204**.
 
-> ## Exceções:
+> ## Exceptions:
 
-1. ✅ Retorna erro **404** se a API não existir.
-1. ✅ Retorna erro **400** se **name** e **email** forem uma `string` vazia.
-1. ✅ Retorna erro **400** se o campo **email** for um e-mail inválido.
-1. ✅ Retorna erro **403** se o e-mail fornecido já estiver em uso.
-1. ✅ Retorna erro **403** se não for um **usuário**.
-1. ✅ Retorna erro **500** se der erro ao tentar editar a conta do usuário.
+1. Return **404** error if API doesn't exists.
+2. Return **400** error if **name** and **email** were a blank `string`.
+3. Return **400** error if the **email** field to be an invalid email.
+4. Return **403** error if the email provided is already in use.
+5. Return **403** error if wasn't a **user**.
+6. Return **500** error if an error occurred during editing.
